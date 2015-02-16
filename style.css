@@ -1,35 +1,3 @@
-#menu
-{
-	list-style: none;
-}
-
-#menu li 
-{
-	float: left;
-	background: linear-gradient(220deg, transparent 10px, black 11px);
-	color: white;
-	padding: 11px 30px;
-	font-weight: bold;
-	text-shadow: 3px 3px 3px green;
-	cursor:pointer;
-}
-
-#menu li:hover 
-{
-	background: linear-gradient(220deg, transparent 10px, #c90424 11px);
-}
-
-#menu .actif
-{
-	background: linear-gradient(220deg, transparent 10px, black 11px);
-	color: green;
-	text-shadow: none;
-}
-
-#menu .actif:hover
-{
-	background: linear-gradient(220deg, transparent 10px, black 11px);
-}
 
 #contenu
 {
@@ -54,7 +22,11 @@
 	display:none;
 }
 
-#contenu div.actif
+#contenu div.active
 {
 	display:block;
+}
+body{
+	background-image:url(walid.jpg);
+	background-repeat:repeat;
 }

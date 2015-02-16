@@ -2,12 +2,12 @@
 {
 	$('#menu li').mousedown(function()
 		{
-			$('.actif').removeClass('actif');
-			$(this).addClass('actif');
+			$('.active').removeClass('active');
+			$(this).addClass('active');
 			var i = $("#menu>li").index($(this));
 			console.log(this);
 			console.log(i);
-			$("#contenu>div").eq(i).addClass('actif');
+			$("#contenu>div").eq(i).addClass('active');
 		});	
 	
 	$("#fichier").change(function()
