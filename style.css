@@ -1,0 +1,60 @@
+#menu
+{
+	list-style: none;
+}
+
+#menu li 
+{
+	float: left;
+	background: linear-gradient(220deg, transparent 10px, black 11px);
+	color: white;
+	padding: 11px 30px;
+	font-weight: bold;
+	text-shadow: 3px 3px 3px green;
+	cursor:pointer;
+}
+
+#menu li:hover 
+{
+	background: linear-gradient(220deg, transparent 10px, #c90424 11px);
+}
+
+#menu .actif
+{
+	background: linear-gradient(220deg, transparent 10px, black 11px);
+	color: green;
+	text-shadow: none;
+}
+
+#menu .actif:hover
+{
+	background: linear-gradient(220deg, transparent 10px, black 11px);
+}
+
+#contenu
+{
+	background:white;
+	border: 2px black;
+	position:absolute;
+	margin-top:100px;
+	margin-left:10%;
+	z-index:200;
+	border-style: solid;
+    border-width: 5px;
+	padding:100px 100px 100px 100px;
+}
+
+#contenu #texte
+{
+	display:block;
+}
+
+#contenu div
+{
+	display:none;
+}
+
+#contenu div.actif
+{
+	display:block;
+}
