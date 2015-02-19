@@ -5,23 +5,23 @@
 			$('.active').removeClass('active');
 			$(this).addClass('active');
 			var i = $("#menu>li").index($(this));
-			console.log(this);
-			console.log(i);
 			$("#contenu>div").eq(i).addClass('active');
+			$('#error').hide();
 		});	
 	
-	$("#fichier").change(function()
+	$("input[type=file]").change(function(event)
 	{
-		var file = document.getElementById('fichier').files[0];
+		var file = this.files[0];
 		if (file) 
 		{
 			var reader = new FileReader();
 			reader.readAsText(file);
+			var txt = $(this).siblings('textarea');
 			reader.onload = function(e) 
 			{
-				$("#texte").text("");
-				$("#texte").append(e.target.result);
-			}
+				$(txt).text("");
+				$(txt).append(e.target.result);
+			};
 		}
 	});
 });

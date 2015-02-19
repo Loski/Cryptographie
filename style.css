@@ -22,11 +22,7 @@
 	display:none;
 }
 
-#contenu div.active
+#contenu div.active, #error
 {
 	display:block;
-}
-body{
-	background-image:url(walid.jpg);
-	background-repeat:repeat;
 }
