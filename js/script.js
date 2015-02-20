@@ -6,6 +6,7 @@
 			$(this).addClass('active');
 			var i = $("#menu>li").index($(this));
 			$("#contenu>div").eq(i).addClass('active');
+			document.title=($("#menu>li").eq(i).text());
 		});	
 	
 	$("input[type=file]").change(function(event)
