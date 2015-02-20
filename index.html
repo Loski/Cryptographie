@@ -38,9 +38,11 @@
 							<textarea id="textecode" class="form-control" rows="3" placeholder="Entrer une phrase ou charger un fichier"></textarea>
 							<input type="file" name="fichier" id="fichier_code"/><br/>
 						</fieldset>
-						<div id="error" class="alert alert-danger" role="alert"></div>
+						<span id="error" class="alert alert-danger" role="alert"></span>
 						<div class="active form-group has-success">
 							Cl&eacute; : <input   class="form-control"type="text" name="Cle"/><br/>
+							<button class="btn btn-primary" onclick="hill(1)">Crypter</button>
+							<button class="btn btn-primary" onclick="hill(0)">D&eacute;crypter</button>
 						</div>
 						<div>Vigenere</div>
 						<div>
@@ -60,6 +62,7 @@
 							<button class="btn btn-primary" onclick="hill(1)">Crypter</button>
 							<button class="btn btn-primary" onclick="hill(0)">D&eacute;crypter</button>
 						</div>
+						<div>Affine</div>
 						<div>RSA</div>
 						<div>Cryptanalyse</div>
 					</div>

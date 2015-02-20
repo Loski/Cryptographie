@@ -6,7 +6,6 @@
 			$(this).addClass('active');
 			var i = $("#menu>li").index($(this));
 			$("#contenu>div").eq(i).addClass('active');
-			$('#error').hide();
 		});	
 	
 	$("input[type=file]").change(function(event)
