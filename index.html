@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 	<head>
 		<meta charset="utf-8" />  
@@ -13,19 +13,25 @@
 		<title>Crypto</title>
 	</head>
 	<body>
-		<div class="container">
-
-			<div class="row">
-				<ul class="nav nav-pills" id="menu">
-					<li role="presentation" class="active"><a href="#">Code C&eacutesar</a></li>
+    <div class="container">
+      <div class="row">
+        <div class="navbar navbar-inverse">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="#">Mon beau site</a>
+            </div>
+				<ul class="nav navbar-nav" id="menu">
+					<li role="presentation" class="active"><a href="#">Code    C&eacutesar</a></li>
 					<li role="presentation"><a href="#">Vigenere</a></li>
 					<li role="presentation"><a href="#">Lin&eacute;aire</a></li>
 					<li role="presentation"><a href="#">Affine</a></li>
 					<li role="presentation"><a href="#">RSA</a></li>
 					<li role="presentation"><a href="#">Cryptanalyse</a></li>
 				</ul>
-				<div class="row">
-					<div id="contenu"> 
+        </div>
+        </div>
+            <div class="row">
+             <div class="col-lg-12">
+	           <div class="col-lg-6">
 						<fieldset>
 							<legend>Message clair</legend>
 							<form method="POST">
@@ -33,11 +39,19 @@
 								<input type="file" name="fichier" id="fichier_clair"/><br/>
 							</form>
 						</fieldset>
-						<fieldset>
+                </div>
+                <div class="col-lg-6">						
+                    <fieldset>
 							<legend>Message codé</legend>
 							<textarea id="textecode" class="form-control" rows="3" placeholder="Entrer une phrase ou charger un fichier"></textarea>
 							<input type="file" name="fichier" id="fichier_code"/><br/>
 						</fieldset>
+                </div>
+            </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="col-lg-offset-2 col-lg-8" id="contenu">
 						<span id="error" class="alert alert-danger" role="alert"></span>
 						<div class="active form-group has-success">
 							Cl&eacute; : <input   class="form-control"type="text" name="Cle"/><br/>
@@ -65,9 +79,9 @@
 						<div>Affine</div>
 						<div>RSA</div>
 						<div>Cryptanalyse</div>
-					</div>
 				</div>
-			</div>
-		</div>
+            </div>
+         </div>
+      </div>
 	</body>
 </html> 
