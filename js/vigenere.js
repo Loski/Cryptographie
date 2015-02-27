@@ -1,4 +1,4 @@
-﻿function vigenere_crypt(texte,cle,alphabet,choice){
+﻿function vigenere_crypt(texte,cle,choice){
 	var crypt="";
 	for(var i=0,j=0;i<texte.length;i++)
 	{
@@ -10,17 +10,18 @@
 		
 		if(indice>="a".charCodeAt(0) && indice<="z".charCodeAt(0)) //Minuscule
 		{
-			//???????????????
-			crypt+="?";
+			cara=cara.toUpperCase();
+			indice=cara.charCodeAt(0);
+			var somme=(indice+cle.charAt(j).charCodeAt(0))%26;
+			var val = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".charAt(somme);
+			crypt+=val.toLowerCase();
 			j++;
 		}
 		
 		else if((indice>="A".charCodeAt(0) && indice<="Z".charCodeAt(0)) || choice) //Maj
 		{
 			var somme=(indice+cle.charAt(j).charCodeAt(0))%26; //position dans l'alphabet
-			var val=cara;
-			if(somme!=0)
-				val = alphabet.charAt(somme);
+			var val = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".charAt(somme);
 			crypt+=val;
 			j++;
 		}
@@ -41,9 +42,8 @@ $(document).ready(function()
 			console.log("VIGENERE INIT");
 			var texte=document.getElementById('texteclair').value;
 			var cle = document.getElementById('keyVig').value;
-			var alphabet = document.getElementById('alphabet').value;
 			var cryptageCara = document.getElementById('cryptOtherCaract').checked;
-			vigenere_crypt(texte,cle,alphabet,cryptageCara);
+			vigenere_crypt(texte,cle,cryptageCara);
 		});
 
 
