@@ -33,6 +33,7 @@
 	}
 	
 	document.getElementById('textecode').value=crypt;
+	$('.decrypter-button').attr("disabled", false);
 }
 
 function vigenere_decrypt(texte,cle){
@@ -71,6 +72,7 @@ function vigenere_decrypt(texte,cle){
 	}
 	
 	document.getElementById('texteclair').value=decrypt;
+	$('.crypter-button').attr("disabled", false);
 }
 
 $(document).ready(function()
