@@ -100,6 +100,7 @@ $(document).ready(function()
 			reader.onload = function(e) 
 			{
 				$(txt).text(e.target.result);
+				disableBouton();
 			};
 		}
 	});
