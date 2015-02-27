@@ -23,7 +23,7 @@
                 <a class="navbar-brand" href="#">Mon beau site</a>
             </div>
 				<ul class="nav navbar-nav" id="menu">
-					<li role="presentation" class="active"><a href="#">Code    C&eacutesar</a></li>
+					<li role="presentation" class="active"><a href="#">Code C&eacute;sar</a></li>
 					<li role="presentation"><a href="#">Vigenere</a></li>
 					<li role="presentation"><a href="#">Hill</a></li>
 					<li role="presentation"><a href="#">Affine</a></li>
@@ -45,6 +45,7 @@
 							<form method="POST">
 								<textarea id="texteclair" class="form-control" rows="3" placeholder="Entrer une phrase ou charger un fichier"></textarea>
 								<input type="file" name="fichier" id="fichier_clair"/><br/>
+								<button onclick="saveTextAsFile(0)">Sauvegarder en .txt</button>
 							</form>
 						</fieldset>
                 </div>
@@ -53,6 +54,7 @@
 							<legend>Decryptage</legend>
 							<textarea id="textecode" class="form-control" rows="3" placeholder="Entrer une phrase ou charger un fichier"></textarea>
 							<input type="file" name="fichier" id="fichier_code"/><br/>
+							<button onclick="saveTextAsFile(1)">Sauvegarder en .txt</button>
 						</fieldset>
                 </div>
             </div>
