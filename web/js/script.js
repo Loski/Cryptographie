@@ -50,12 +50,6 @@ function destroyClickedElement(event)
 $(document).ready(function()
 { 
 	disableBouton();
-	
-	$('#texteclair').change(function()
-	     {
-	           console.log("walid");
-	         disableBouton();
-	     });
 	//A Virer Plus tard
 	$("#LOL").mousedown(function()
 	{
