@@ -9,6 +9,7 @@
 		<script src="js/bootstrap.min.js"></script>
 		<script type="text/javascript" src="js/script.js"></script>
 		<script type="text/javascript" src="js/cryptage.js"></script>
+		<script type="text/javascript" src="js/vigenere.js"></script>
 		<link rel="stylesheet" href="style.css" />
 		<title>Crypto</title>
 	</head>
@@ -29,6 +30,11 @@
 				</ul>
         </div>
         </div>
+		
+		<!-- A VIRER-->
+		<button id="LOL" style="font-weight: bold;font-size: 100px;">Clique !!!</button>
+		<!-- A VIRER-->
+		
             <div class="row">
              <div class="col-lg-12">
 	           <div class="col-lg-6">
@@ -53,12 +59,18 @@
                 <div class="col-lg-12">
                     <div class="col-lg-offset-2 col-lg-8" id="contenu">
 						<span id="error" class="alert alert-danger" role="alert"></span>
-						<div class="active form-group has-success">
-							Cl&eacute; : <input   class="form-control"type="text" name="Cle"/><br/>
-							<button class="btn btn-primary" id="crypter-button">Crypter</button>
-							<button class="btn btn-primary" id="decrypter-button">D&eacute;crypter</button>
+						<div id="CesarDiv" class="active form-group has-success">
+							Cl&eacute; : <input  class="form-control" type="text" name="Cle"/><br/>
+							<button class="btn btn-primary crypter-button">Crypter</button>
+							<button class="btn btn-primary decrypter-button">D&eacute;crypter</button>
 						</div>
-						<div>Vigenere</div>
+						<div id="VigenereDiv" class="form-group has-success">
+							Cl&eacute; : <input  class="form-control" id="keyVig" type="text" name="Cle"/><br/>
+							Alphabet : <input  class="form-control" id="alphabet" type="text" name="Cle" value="ABCDEFGHIJKLMNOPQRSTUVWXYZ"/><br/>
+							<input type="checkbox" name="choice" id="cryptOtherCaract"> Crypter tous les autres caractères<br />
+							<button id="cryptVig" class="btn btn-primary crypter-button">Crypter</button>
+							<button class="btn btn-primary decrypter-button">D&eacute;crypter</button>
+						</div>
 						<div>
 							Linéaire
 							<form id= "matrice" class ="form-group">   
