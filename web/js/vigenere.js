@@ -52,6 +52,8 @@ function vigenere_decrypt(texte,cle){
 			cara=cara.toUpperCase();
 			indice=cara.charCodeAt(0);
 			var somme=(indice-cle.charAt(j).charCodeAt(0))%26;
+			if(somme<0)
+				somme+=26;
 			var val = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".charAt(somme);
 			decrypt+=val.toLowerCase();
 			j++;
@@ -60,6 +62,8 @@ function vigenere_decrypt(texte,cle){
 		else if((indice>="A".charCodeAt(0) && indice<="Z".charCodeAt(0))) //Maj
 		{
 			var somme=(indice-cle.charAt(j).charCodeAt(0))%26; //position dans l'alphabet
+			if(somme<0)
+				somme+=26;
 			var val = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".charAt(somme);
 			decrypt+=val;
 			j++;
