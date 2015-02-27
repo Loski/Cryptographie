@@ -15,7 +15,11 @@ $(document).ready(function()
 { 
 	disableBouton();
 	
-	
+	$('#texteclair').change(function()
+	     {
+	           console.log("walid");
+	         disableBouton();
+	     });
 	//A Virer Plus tard
 	$("#LOL").mousedown(function()
 	{
@@ -34,12 +38,6 @@ $(document).ready(function()
 			document.title=($("#menu>li").eq(i).text());
 			disableBouton();
 		});
-	
-	$('#texteclair').keyup(function() //Changer Keyup
-	{
-		console.log(document.getElementById('texteclair').value);
-		disableBouton()
-	});
 	
 	$('#textecode').keyup(function() //Changer Keyup 
 	{
@@ -64,6 +62,7 @@ $(document).ready(function()
 			reader.onload = function(e) 
 			{
 				$(txt).text(e.target.result);
+				disableBouton();
 			};
 		}
 	});
