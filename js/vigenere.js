@@ -32,7 +32,7 @@
 		
 	}
 	
-	$("#textecode").text(crypt);
+	document.getElementById('textecode').value=crypt;
 }
 
 function vigenere_decrypt(texte,cle){
@@ -70,23 +70,24 @@ function vigenere_decrypt(texte,cle){
 		
 	}
 	
-	$("#texteclair").text(decrypt);
+	document.getElementById('texteclair').value=decrypt;
 }
 
 $(document).ready(function()
 { 
 	$('#cryptVig').mousedown(function()
 		{
-			console.log("VIGENERE INIT");
+			console.log("VIGENERE CRYPTAGE");
 			var texte=document.getElementById('texteclair').value;
 			var cle = document.getElementById('keyVig').value;
 			var cryptageCara = document.getElementById('cryptOtherCaract').checked;
 			vigenere_crypt(texte,cle,cryptageCara);
+			console.log("RESULTAT :",texte,vigenere_crypt(texte,cle,cryptageCara));
 		});
 		
 	$('#decryptVig').mousedown(function()
 		{
-			console.log("VIGENERE INIT");
+			console.log("VIGENERE DECRYPTAGE");
 			var texte=document.getElementById('textecode').value;
 			var cle = document.getElementById('keyVig').value;
 			vigenere_decrypt(texte,cle);
