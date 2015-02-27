@@ -1,4 +1,4 @@
-﻿function vigenere_crypt(texte,cle,choice){
+﻿function vigenere_crypt(texte,cle){
 	var crypt="";
 	for(var i=0,j=0;i<texte.length;i++)
 	{
@@ -18,7 +18,7 @@
 			j++;
 		}
 		
-		else if((indice>="A".charCodeAt(0) && indice<="Z".charCodeAt(0)) || choice) //Maj
+		else if((indice>="A".charCodeAt(0) && indice<="Z".charCodeAt(0))) //Maj
 		{
 			var somme=(indice+cle.charAt(j).charCodeAt(0))%26; //position dans l'alphabet
 			var val = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".charAt(somme);
@@ -82,9 +82,7 @@ $(document).ready(function()
 			console.log("VIGENERE CRYPTAGE");
 			var texte=document.getElementById('texteclair').value;
 			var cle = document.getElementById('keyVig').value;
-			var cryptageCara = document.getElementById('cryptOtherCaract').checked;
-			vigenere_crypt(texte,cle,cryptageCara);
-			console.log("RESULTAT :",texte,vigenere_crypt(texte,cle,cryptageCara));
+			vigenere_crypt(texte,cle);
 		});
 		
 	$('#decryptVig').mousedown(function()
