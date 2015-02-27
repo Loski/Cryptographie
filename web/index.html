@@ -10,7 +10,9 @@
 		<script type="text/javascript" src="js/script.js"></script>
 		<script type="text/javascript" src="js/cryptage.js"></script>
 		<script type="text/javascript" src="js/vigenere.js"></script>
-		<link rel="stylesheet" href="style.css" />
+    <script type="application/dart" src="dart/cesar.dart"></script>
+    <script src="packages/browser/dart.js"></script>
+		<link rel="stylesheet" href="css/style.css" />
 		<title>Crypto</title>
 	</head>
 	<body>
@@ -39,7 +41,7 @@
              <div class="col-lg-12">
 	           <div class="col-lg-6">
 						<fieldset>
-							<legend>Message clair</legend>
+							<legend>Cryptage</legend>
 							<form method="POST">
 								<textarea id="texteclair" class="form-control" rows="3" placeholder="Entrer une phrase ou charger un fichier"></textarea>
 								<input type="file" name="fichier" id="fichier_clair"/><br/>
@@ -48,7 +50,7 @@
                 </div>
                 <div class="col-lg-6">						
                     <fieldset>
-							<legend>Message codé</legend>
+							<legend>Decryptage</legend>
 							<textarea id="textecode" class="form-control" rows="3" placeholder="Entrer une phrase ou charger un fichier"></textarea>
 							<input type="file" name="fichier" id="fichier_code"/><br/>
 						</fieldset>
