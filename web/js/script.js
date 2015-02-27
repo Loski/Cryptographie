@@ -1,10 +1,10 @@
 ﻿function disableBouton(){
-	if(document.getElementById('texteclair').value!='')
+	if(document.getElementById('texteclair').value!='' && $('.active .cle').val()!='')
 		$('.crypter-button').attr("disabled", false);
 	else
 		$('.crypter-button').attr("disabled", true);
 		
-	if(document.getElementById('textecode').value!='')
+	if(document.getElementById('textecode').value!='' && $('.active .cle').val()!='')
 		$(".decrypter-button").attr("disabled", false);
 	else
 		$(".decrypter-button").attr("disabled", true);
@@ -75,6 +75,18 @@ $(document).ready(function()
 		disableBouton()
 
 	});
+	 $('#texteclair').keyup(function() //Changer Keyup 
+  {
+    console.log(document.getElementById('textecode').value);
+    disableBouton()
+
+  });
+     $('.active .cle').keyup(function() //Changer Keyup 
+  {
+    console.log(document.getElementById('textecode').value);
+    disableBouton()
+
+  });
 	
 	$("#keyVig").keyup(function() //Permet de mettre la clé en MAJ
 	{
