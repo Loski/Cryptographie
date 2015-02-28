@@ -121,7 +121,7 @@ $(document).ready(function()
 		{
 			var reader = new FileReader();
 			reader.readAsText(file);
-			var txt = $(this).siblings('textarea');
+			var txt = $(this).parent().children('textarea').eq(0);
 			reader.onload = function(e) 
 			{
 				$(txt).text(e.target.result);
