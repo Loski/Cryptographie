@@ -69,13 +69,13 @@ $(document).ready(function()
 			disableBouton();
 		});
 	
-	$('#textecode').change(function() //Changer Keyup 
+	$('#textecode').keyup(function() //Changer Keyup 
 	{
 		console.log(document.getElementById('textecode').value);
 		disableBouton()
 
 	});
-	 $('#texteclair').change(function() //Changer Keyup 
+	 $('#texteclair').keyup(function() //Changer Keyup 
   {
     console.log(document.getElementById('textecode').value);
     disableBouton()
