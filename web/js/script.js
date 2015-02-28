@@ -87,6 +87,8 @@ $(document).ready(function()
 			$("#contenu>div").eq(i).addClass('active');
 			document.title=($("#menu>li").eq(i).text());
 			disableBouton();
+			$('#error').hide();
+
 		});
 	
 	$('#textecode').change(function() //Changer Keyup 
