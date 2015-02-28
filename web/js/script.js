@@ -72,25 +72,26 @@ $(document).ready(function()
 	$('#textecode').change(function() //Changer Keyup 
 	{
 		console.log(document.getElementById('textecode').value);
-		disableBouton()
+		disableBouton();
 
 	});
 	 $('#texteclair').change(function() //Changer Keyup 
   {
     console.log(document.getElementById('textecode').value);
-    disableBouton()
+    disableBouton();
 
   });
      $('.active .cle').keyup(function() //Changer Keyup 
   {
     console.log(document.getElementById('textecode').value);
-    disableBouton()
+    disableBouton();
 
   });
 	
 	$("#keyVig").keyup(function() //Permet de mettre la clé en MAJ
 	{
 		this.value=this.value.toUpperCase();
+		disableBouton();
 	});
 	
 	$("input[type=file]").change(function(event)
