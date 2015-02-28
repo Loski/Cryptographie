@@ -1,4 +1,6 @@
-﻿function disableBouton(){
+﻿
+
+function disableBouton(){
 	if(document.getElementById('texteclair').value!=='' && $('.active .cle').val()!=='')
 		$('.crypter-button').attr("disabled", false);
 	else
@@ -66,6 +68,7 @@ function destroyClickedElement(event)
 
 $(document).ready(function()
 { 
+
 	disableBouton();
 	//A Virer Plus tard
 	$("#LOL").mousedown(function()

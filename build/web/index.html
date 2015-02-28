@@ -10,8 +10,6 @@
 		<script type="text/javascript" src="js/script.js"></script>
 		<script type="text/javascript" src="js/cryptage.js"></script>
 		<script type="text/javascript" src="js/vigenere.js"></script>
-    <script type="application/dart" src="dart/cesar.dart"></script>
-    <script src="packages/browser/dart.js"></script>
 		<link rel="stylesheet" href="css/style.css" />
 		<title>Crypto</title>
 	</head>
@@ -46,8 +44,7 @@
 								<textarea id="texteclair" class="form-control" rows="3" placeholder="Entrer une phrase ou charger un fichier"></textarea>
 								<input type="file" name="fichier" id="fichier_clair"/><br/>
 								<button onclick="saveTextAsFile(0)">Sauvegarder en .txt</button>
-								<iframe width="640" height="390" src="https://www.youtube.com/embed/A6pXLz9Hzv0" frameborder="0" allowfullscreen></iframe>
-                <textarea class="form-control" rows="3"></textarea>
+                <textarea class="form-control" rows="3" id="resultCryptage"></textarea>
 							</form>
 						</fieldset>
                 </div>
@@ -57,7 +54,7 @@
 							<textarea id="textecode" class="form-control" rows="3" placeholder="Entrer une phrase ou charger un fichier"></textarea>
 							<input type="file" name="fichier" id="fichier_code"/><br/>
 							<button onclick="saveTextAsFile(1)">Sauvegarder en .txt</button>
-              <textarea class="form-control" rows="3" id="resultCryptage"></textarea>
+              <textarea class="form-control" rows="3" id="resultDeCryptage"></textarea>
 						</fieldset>
                 </div>
             </div>
@@ -69,14 +66,14 @@
 						<div id="CesarDiv" class="active form-group has-success">
 							Cl&eacute; : <input  class="form-control cle" type="text" name="Cle"/><br/>
 							<button class="btn btn-primary crypter-button" id="crypterCesar">Crypter</button>
-							<button class="btn btn-primary decrypter-button">D&eacute;crypter</button>
+							<button class="btn btn-primary decrypter-button" id="decrypterCesar">D&eacute;crypter</button>
 						</div>
 						<div id="VigenereDiv" class="form-group has-success">
 							Cl&eacute; : <input  class="form-control cle" id="keyVig" type="text" name="Cle"/><br/>
 							<button id="cryptVig" class="btn btn-primary crypter-button">Crypter</button>
 							<button id="decryptVig" class="btn btn-primary decrypter-button">D&eacute;crypter</button>
 						</div>
-						<div>
+						<div id="HillDiv">
 							<form id= "matrice" class ="form-group">   
 								<table  class="row">
 									<tr>
@@ -99,5 +96,7 @@
             </div>
          </div>
       </div>
+      <script type="application/dart" src="dart/cesar.dart"></script>
+    <script src="packages/browser/dart.js"></script>
 	</body>
 </html> 

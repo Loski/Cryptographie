@@ -1,7 +1,10 @@
 function creerAlphabet(){
 	return "abcdefghijklmnopqrstuvwxyz".split("");
 }
-
+function nettoyage(txt){
+	txt = traitementTxt(txt);
+	return txt.replace(new RegExp("[^(a-zA-Z)]", "g"), '');
+}
 function calculdeterminant(array){
 	return array[0] * array[3] - array[1] * array[2];
 }
@@ -76,6 +79,7 @@ function hill(choice){
 	var determinant = verifMatrice(matrice);
 	if(determinant===false)
 		return;
+	texte = nettoyage(texte);
 	if(choice == 1){
 		$('#textecode').val(crypte_hill(texte, matrice));
 	}
