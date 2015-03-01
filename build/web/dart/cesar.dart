@@ -1,15 +1,18 @@
 import 'dart:html';
 import 'dart:math';
+import 'affine.dart';
 
 void main(){
   querySelector('#crypterCesar').onClick.listen(cryptageCesar);
   querySelector('#decrypterCesar').onClick.listen(decryptageCesar);
+  querySelector('#crypterAffine').onClick.listen(cryptageAffine);
+  querySelector('#decrypterAffine').onClick.listen(decryptageAffine);
 }
 
 void cryptageCesar(Event e){
  TextAreaElement cc=querySelector('#texteclair');
  InputElement cleElement=querySelector('.active .cle');
- int cle=int.parse(cleElement.value);
+ int cle=int.parse(cleElement.value)%26;
  String texteACrypter=cc.value;
  String texteCrypter="";
  var list=texteACrypter.runes.toList();
@@ -19,7 +22,7 @@ void cryptageCesar(Event e){
      list[i]=(list[i]+cle)%91;
      if(list[i]<65)
      {
-       list[i]=list[i]%26+65;
+       list[i]=list[i]+65;
      }
    }
    else if(list[i]>96 && list[i]<123)
@@ -27,7 +30,7 @@ void cryptageCesar(Event e){
      list[i]=(list[i]+cle)%123;
      if(list[i]<97)
      {
-       list[i]=list[i]%26+97;
+       list[i]=list[i]+97;
      }
    }
    texteCrypter=texteCrypter+new String.fromCharCode(list[i]);
@@ -37,7 +40,7 @@ void cryptageCesar(Event e){
 void decryptageCesar(Event e){
  TextAreaElement cc=querySelector('#textecode');
  InputElement cleElement=querySelector('.active .cle');
- int cle=int.parse(cleElement.value);
+ int cle=int.parse(cleElement.value)%26;
  String texteADeCrypter=cc.value;
  String texteClaire="";
  var list=texteADeCrypter.runes.toList();

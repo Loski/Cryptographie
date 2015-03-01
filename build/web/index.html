@@ -63,12 +63,12 @@
                 <div class="col-lg-12">
                     <div class="col-lg-offset-2 col-lg-8" id="contenu">
 						<span id="error" class="alert alert-danger" role="alert"></span>
-						<div id="CesarDiv" class="active form-group has-success">
+						<div id="CesarDiv" class="active form-group">
 							Cl&eacute; : <input  class="form-control cle" type="text" name="Cle"/><br/>
 							<button class="btn btn-primary crypter-button" id="crypterCesar">Crypter</button>
 							<button class="btn btn-primary decrypter-button" id="decrypterCesar">D&eacute;crypter</button>
 						</div>
-						<div id="VigenereDiv" class="form-group has-success">
+						<div id="VigenereDiv" class="form-group">
 							Cl&eacute; : <input  class="form-control cle" id="keyVig" type="text" name="Cle"/><br/>
 							<button id="cryptVig" class="btn btn-primary crypter-button">Crypter</button>
 							<button id="decryptVig" class="btn btn-primary decrypter-button">D&eacute;crypter</button>
@@ -89,7 +89,19 @@
 							<button class="btn btn-primary" onclick="hill(1)">Crypter</button>
 							<button class="btn btn-primary" onclick="hill(0)">D&eacute;crypter</button>
 						</div>
-						<div>Affine</div>
+						<div id="affine">
+            <span class="row">
+               <span class="col-lg-offset-3 col-lg-2">Co&eacute;fficient A : <input  class="form-control cle cleAffine " id="CA" type="text" name="CA"/></span>
+                 <span class="col-lg-offset-2 col-lg-2">Co&eacute;fficient B : <input  class="form-control cleAffine " id="CB" type="text" name="CB"/></span>
+             </span>
+             <span class="row"> 
+             <span class="col-lg-offset-4 col-lg-2"><button class="btn btn-primary crypter-button"  id="crypterAffine"style="width:86px;">Crypter</button></span>
+              <span class="col-lg-2"><button class="btn btn-primary decrypter-button" id="decrypterAffine">D&eacute;crypter</button></span>
+             </span>
+             
+          
+                 
+            </div>
 						<div>RSA</div>
 						<div>Cryptanalyse</div>
 				</div>

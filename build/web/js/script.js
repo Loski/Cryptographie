@@ -1,17 +1,35 @@
 ﻿
 
 function disableBouton(){
-	if(document.getElementById('texteclair').value!=='' && $('.active .cle').val()!=='')
-		$('.crypter-button').attr("disabled", false);
-	else
-		$('.crypter-button').attr("disabled", true);
+  if($('.active#affine').length)
+      {
+        if(document.getElementById('texteclair').value!=='' && $('#CA').val()!=='' && $('#CB').val()!=='')
+          $('.crypter-button').attr("disabled", false);
+        else
+          $('.crypter-button').attr("disabled", true);
+    
+        if(document.getElementById('textecode').value!=='' && $('#CA').val()!=='' && $('#CB').val()!=='')
+          $(".decrypter-button").attr("disabled", false);
+        else
+          $(".decrypter-button").attr("disabled", true);
+       console.log("OK BUTTON DISA");
+      }
+  else
+      {
+        if(document.getElementById('texteclair').value!=='' && $('.active .cle').val()!=='')
+		      $('.crypter-button').attr("disabled", false);
+	      else
+		      $('.crypter-button').attr("disabled", true);
 		
-	if(document.getElementById('textecode').value!=='' && $('.active .cle').val()!=='')
-		$(".decrypter-button").attr("disabled", false);
-	else
-		$(".decrypter-button").attr("disabled", true);
-	console.log("OK BUTTON DISA");
+	      if(document.getElementById('textecode').value!=='' && $('.active .cle').val()!=='')
+		      $(".decrypter-button").attr("disabled", false);
+	      else
+		      $(".decrypter-button").attr("disabled", true);
+	     console.log("OK BUTTON DISA");
+	    }
+	
 }
+
 function traitementTxt(str){
 	str = str.trim();
     var accent = [
@@ -32,17 +50,18 @@ function traitementTxt(str){
 }
 function saveTextAsFile(id)
 {
+	var textToWrite;
 	if(id===0)
-		var textToWrite = document.getElementById("texteclair").value;
+		 textToWrite = document.getElementById("texteclair").value;
 	else
-		var textToWrite = document.getElementById("textecode").value;
+		 textToWrite = document.getElementById("textecode").value;
 	var textFileAsBlob = new Blob([textToWrite], {type:'text/plain'});
 	var fileNameToSaveAs = "FILE";
 
 	var downloadLink = document.createElement("a");
 	downloadLink.download = fileNameToSaveAs;
 	downloadLink.innerHTML = "Download File";
-	if (window.webkitURL !== null)
+	if (window.webkitURL != null)
 	{
 		// Chrome allows the link to be clicked
 		// without actually adding it to the DOM.
@@ -87,6 +106,8 @@ $(document).ready(function()
 			$("#contenu>div").eq(i).addClass('active');
 			document.title=($("#menu>li").eq(i).text());
 			disableBouton();
+			$('#error').hide();
+
 		});
 	
 	$('#textecode').change(function() //Changer Keyup 
@@ -107,6 +128,12 @@ $(document).ready(function()
     disableBouton();
 
   });
+      $('.cleAffine').keyup(function() //Changer Keyup 
+  {
+    console.log(document.getElementById('textecode').value);
+    disableBouton();
+
+  });
 	
 	$("#keyVig").keyup(function() //Permet de mettre la clé en MAJ
 	{
@@ -121,7 +148,7 @@ $(document).ready(function()
 		{
 			var reader = new FileReader();
 			reader.readAsText(file);
-			var txt = $(this).siblings('textarea');
+			var txt = $(this).parent().children('textarea').eq(0);
 			reader.onload = function(e) 
 			{
 				$(txt).text(e.target.result);

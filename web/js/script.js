@@ -1,17 +1,35 @@
 ﻿
 
 function disableBouton(){
-	if(document.getElementById('texteclair').value!=='' && $('.active .cle').val()!=='')
-		$('.crypter-button').attr("disabled", false);
-	else
-		$('.crypter-button').attr("disabled", true);
+  if($('.active#affine').length)
+      {
+        if(document.getElementById('texteclair').value!=='' && $('#CA').val()!=='' && $('#CB').val()!=='')
+          $('.crypter-button').attr("disabled", false);
+        else
+          $('.crypter-button').attr("disabled", true);
+    
+        if(document.getElementById('textecode').value!=='' && $('#CA').val()!=='' && $('#CB').val()!=='')
+          $(".decrypter-button").attr("disabled", false);
+        else
+          $(".decrypter-button").attr("disabled", true);
+       console.log("OK BUTTON DISA");
+      }
+  else
+      {
+        if(document.getElementById('texteclair').value!=='' && $('.active .cle').val()!=='')
+		      $('.crypter-button').attr("disabled", false);
+	      else
+		      $('.crypter-button').attr("disabled", true);
 		
-	if(document.getElementById('textecode').value!=='' && $('.active .cle').val()!=='')
-		$(".decrypter-button").attr("disabled", false);
-	else
-		$(".decrypter-button").attr("disabled", true);
-	console.log("OK BUTTON DISA");
+	      if(document.getElementById('textecode').value!=='' && $('.active .cle').val()!=='')
+		      $(".decrypter-button").attr("disabled", false);
+	      else
+		      $(".decrypter-button").attr("disabled", true);
+	     console.log("OK BUTTON DISA");
+	    }
+	
 }
+
 function traitementTxt(str){
 	str = str.trim();
     var accent = [
@@ -105,6 +123,12 @@ $(document).ready(function()
 
   });
      $('.active .cle').keyup(function() //Changer Keyup 
+  {
+    console.log(document.getElementById('textecode').value);
+    disableBouton();
+
+  });
+      $('.cleAffine').keyup(function() //Changer Keyup 
   {
     console.log(document.getElementById('textecode').value);
     disableBouton();

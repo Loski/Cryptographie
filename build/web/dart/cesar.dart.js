@@ -440,6 +440,15 @@ var $$ = Object.create(null);
       }
       throw H.wrapException(P.UnsupportedError$('' + receiver));
     },
+    round$0: function(receiver) {
+      return this.toInt$0(this.roundToDouble$0(receiver));
+    },
+    roundToDouble$0: function(receiver) {
+      if (receiver < 0)
+        return -Math.round(-receiver);
+      else
+        return Math.round(receiver);
+    },
     toString$0: function(receiver) {
       if (receiver === 0 && 1 / receiver < 0)
         return "-0.0";
@@ -458,6 +467,9 @@ var $$ = Object.create(null);
       if (typeof other !== "number")
         throw H.wrapException(P.ArgumentError$(other));
       return receiver - other;
+    },
+    $mul: function(receiver, other) {
+      return receiver * other;
     },
     $mod: function(receiver, other) {
       var result = receiver % other;
@@ -541,6 +553,13 @@ var $$ = Object.create(null);
     },
     substring$1: function($receiver, startIndex) {
       return this.substring$2($receiver, startIndex, null);
+    },
+    $mul: function(receiver, times) {
+      if (C.JSInt_methods.$ge(0, times))
+        return "";
+      if (receiver.length === 0)
+        return receiver;
+      throw H.wrapException(C.C_OutOfMemoryError);
     },
     get$runes: function(receiver) {
       return new P.Runes(receiver);
@@ -1027,10 +1046,10 @@ var $$ = Object.create(null);
           t1._current.send$1(null);
         this.doneHandlers = null;
       }
-    }, "call$0", "get$kill", 0, 0, 1]
+    }, "call$0", "get$kill", 0, 0, 2]
   },
   _IsolateContext_handlePing_respond: {
-    "^": "Closure:1;responsePort_0",
+    "^": "Closure:2;responsePort_0",
     call$0: function() {
       this.responsePort_0.send$1(null);
     }
@@ -1088,7 +1107,7 @@ var $$ = Object.create(null);
     }
   },
   _EventLoop__runHelper_next: {
-    "^": "Closure:1;this_0",
+    "^": "Closure:2;this_0",
     call$0: function() {
       if (!this.this_0.runIteration$0())
         return;
@@ -1116,7 +1135,7 @@ var $$ = Object.create(null);
     }
   },
   IsolateNatives__startIsolate_runStartFunction: {
-    "^": "Closure:1;topLevel_0,args_1,message_2,isSpawnUri_3,context_4",
+    "^": "Closure:2;topLevel_0,args_1,message_2,isSpawnUri_3,context_4",
     call$0: function() {
       var t1, t2, t3;
       this.context_4.initialized = true;
@@ -1613,14 +1632,14 @@ var $$ = Object.create(null);
       }}
   },
   TimerImpl_internalCallback: {
-    "^": "Closure:1;this_0,callback_1",
+    "^": "Closure:2;this_0,callback_1",
     call$0: function() {
       this.this_0._handle = null;
       this.callback_1.call$0();
     }
   },
   TimerImpl_internalCallback0: {
-    "^": "Closure:1;this_2,callback_3",
+    "^": "Closure:2;this_2,callback_3",
     call$0: function() {
       this.this_2._handle = null;
       H.leaveJsAsync();
@@ -2887,6 +2906,144 @@ var $$ = Object.create(null);
     }
   }
 }],
+["", "affine.dart", , N, {
+  "^": "",
+  cryptageAffine: [function(e) {
+    var cc, cAElement, cBElement, t1, t2, t3, list, texteCrypter, i;
+    cc = document.querySelector("#texteclair");
+    cAElement = document.querySelector("#CA");
+    cBElement = document.querySelector("#CB");
+    t1 = H.Primitives_parseInt(J.get$value$x(cAElement), null, null);
+    if (typeof t1 !== "number")
+      return t1.$mod();
+    t1 = C.JSNumber_methods.$mod(t1, 26);
+    t2 = H.Primitives_parseInt(J.get$value$x(cBElement), null, null);
+    if (typeof t2 !== "number")
+      return t2.$mod();
+    t2 = C.JSNumber_methods.$mod(t2, 26);
+    t3 = J.get$runes$s(J.get$value$x(cc));
+    list = P.List_List$from(t3, true, H.getRuntimeTypeArgument(t3, "IterableBase", 0));
+    for (texteCrypter = "", i = 0; i < list.length; ++i) {
+      if (J.$gt$n(list[i], 64)) {
+        if (i >= list.length)
+          return H.ioore(list, i);
+        t3 = J.$lt$n(list[i], 91);
+      } else
+        t3 = false;
+      if (t3) {
+        if (i >= list.length)
+          return H.ioore(list, i);
+        t3 = list[i];
+        if (typeof t3 !== "number")
+          return t3.$mod();
+        t3 = C.JSNumber_methods.$mod(t1 * C.JSNumber_methods.$mod(t3, 65) + t2, 26);
+        list[i] = t3;
+        if (i >= list.length)
+          return H.ioore(list, i);
+        list[i] = t3 + 65;
+      } else {
+        if (i >= list.length)
+          return H.ioore(list, i);
+        if (J.$gt$n(list[i], 96)) {
+          if (i >= list.length)
+            return H.ioore(list, i);
+          t3 = J.$lt$n(list[i], 123);
+        } else
+          t3 = false;
+        if (t3) {
+          if (i >= list.length)
+            return H.ioore(list, i);
+          t3 = list[i];
+          if (typeof t3 !== "number")
+            return t3.$mod();
+          t3 = C.JSNumber_methods.$mod(t1 * C.JSNumber_methods.$mod(t3, 97) + t2, 26);
+          list[i] = t3;
+          if (i >= list.length)
+            return H.ioore(list, i);
+          list[i] = t3 + 97;
+        }
+      }
+      if (i >= list.length)
+        return H.ioore(list, i);
+      texteCrypter += H.Primitives_stringFromCharCode(list[i]);
+    }
+    document.querySelector("#resultCryptage").textContent = texteCrypter;
+  }, "call$1", "cryptageAffine$closure", 2, 0, 1],
+  decryptageAffine: [function(e) {
+    var cc, cAElement, cBElement, t1, t2, $A, t3, list, texteClaire, i, t4;
+    cc = document.querySelector("#textecode");
+    cAElement = document.querySelector("#CA");
+    cBElement = document.querySelector("#CB");
+    t1 = H.Primitives_parseInt(J.get$value$x(cAElement), null, null);
+    if (typeof t1 !== "number")
+      return t1.$mod();
+    t1 = C.JSNumber_methods.$mod(t1, 26);
+    t2 = H.Primitives_parseInt(J.get$value$x(cBElement), null, null);
+    if (typeof t2 !== "number")
+      return t2.$mod();
+    t2 = C.JSNumber_methods.$mod(t2, 26);
+    $A = P.LinkedHashMap_LinkedHashMap$_literal(["1", 1, "3", 9, "5", 21, "7", 15, "9", 3, "11", 19, "15", 7, "17", 23, "19", 11, "21", 5, "23", 17, "25", 25], null, null);
+    t3 = J.get$runes$s(J.get$value$x(cc));
+    list = P.List_List$from(t3, true, H.getRuntimeTypeArgument(t3, "IterableBase", 0));
+    for (texteClaire = "", i = 0; i < list.length; ++i) {
+      if (J.$gt$n(list[i], 64)) {
+        if (i >= list.length)
+          return H.ioore(list, i);
+        t3 = J.$lt$n(list[i], 91);
+      } else
+        t3 = false;
+      if (t3) {
+        t3 = $A.$index(0, H.S(t1));
+        if (i >= list.length)
+          return H.ioore(list, i);
+        t4 = list[i];
+        if (typeof t4 !== "number")
+          return t4.$mod();
+        t4 = J.$mul$ns(t3, C.JSNumber_methods.$mod(t4, 65) - t2);
+        if (typeof t4 !== "number")
+          return t4.$mod();
+        t4 = J.$mod$n(t4, 26);
+        if (i >= list.length)
+          return H.ioore(list, i);
+        list[i] = t4;
+        if (i >= list.length)
+          return H.ioore(list, i);
+        list[i] = t4 + 65;
+      } else {
+        if (i >= list.length)
+          return H.ioore(list, i);
+        if (J.$gt$n(list[i], 96)) {
+          if (i >= list.length)
+            return H.ioore(list, i);
+          t3 = J.$lt$n(list[i], 123);
+        } else
+          t3 = false;
+        if (t3) {
+          t3 = $A.$index(0, H.S(t1));
+          if (i >= list.length)
+            return H.ioore(list, i);
+          t4 = list[i];
+          if (typeof t4 !== "number")
+            return t4.$mod();
+          t4 = J.$mul$ns(t3, C.JSNumber_methods.$mod(t4, 97) - t2);
+          if (typeof t4 !== "number")
+            return t4.$mod();
+          t4 = J.$mod$n(t4, 26);
+          if (i >= list.length)
+            return H.ioore(list, i);
+          list[i] = t4;
+          if (i >= list.length)
+            return H.ioore(list, i);
+          list[i] = t4 + 97;
+        }
+      }
+      if (i >= list.length)
+        return H.ioore(list, i);
+      texteClaire += H.Primitives_stringFromCharCode(list[i]);
+    }
+    document.querySelector("#resultDeCryptage").textContent = texteClaire;
+  }, "call$1", "decryptageAffine$closure", 2, 0, 1]
+}],
 ["", "cesar.dart", , B, {
   "^": "",
   main: [function() {
@@ -2894,37 +3051,44 @@ var $$ = Object.create(null);
     H.setRuntimeTypeInfo(new W._EventStreamSubscription(0, t1._target, t1._eventType, W._wrapZone(B.cryptageCesar$closure()), t1._useCapture), [H.getTypeArgumentByIndex(t1, 0)])._tryResume$0();
     t1 = J.get$onClick$x(document.querySelector("#decrypterCesar"));
     H.setRuntimeTypeInfo(new W._EventStreamSubscription(0, t1._target, t1._eventType, W._wrapZone(B.decryptageCesar$closure()), t1._useCapture), [H.getTypeArgumentByIndex(t1, 0)])._tryResume$0();
-  }, "call$0", "main$closure", 0, 0, 1],
+    t1 = J.get$onClick$x(document.querySelector("#crypterAffine"));
+    H.setRuntimeTypeInfo(new W._EventStreamSubscription(0, t1._target, t1._eventType, W._wrapZone(N.cryptageAffine$closure()), t1._useCapture), [H.getTypeArgumentByIndex(t1, 0)])._tryResume$0();
+    t1 = J.get$onClick$x(document.querySelector("#decrypterAffine"));
+    H.setRuntimeTypeInfo(new W._EventStreamSubscription(0, t1._target, t1._eventType, W._wrapZone(N.decryptageAffine$closure()), t1._useCapture), [H.getTypeArgumentByIndex(t1, 0)])._tryResume$0();
+  }, "call$0", "main$closure", 0, 0, 2],
   cryptageCesar: [function(e) {
-    var cc, cle, t1, list, texteCrypter, i;
+    var cc, t1, t2, list, texteCrypter, i;
     cc = document.querySelector("#texteclair");
-    cle = H.Primitives_parseInt(J.get$value$x(document.querySelector(".active .cle")), null, null);
-    t1 = J.get$runes$s(J.get$value$x(cc));
-    list = P.List_List$from(t1, true, H.getRuntimeTypeArgument(t1, "IterableBase", 0));
+    t1 = H.Primitives_parseInt(J.get$value$x(document.querySelector(".active .cle")), null, null);
+    if (typeof t1 !== "number")
+      return t1.$mod();
+    t1 = C.JSNumber_methods.$mod(t1, 26);
+    t2 = J.get$runes$s(J.get$value$x(cc));
+    list = P.List_List$from(t2, true, H.getRuntimeTypeArgument(t2, "IterableBase", 0));
     for (texteCrypter = "", i = 0; i < list.length; ++i) {
       if (J.$gt$n(list[i], 64)) {
         if (i >= list.length)
           return H.ioore(list, i);
-        t1 = J.$lt$n(list[i], 91);
+        t2 = J.$lt$n(list[i], 91);
       } else
-        t1 = false;
-      if (t1) {
+        t2 = false;
+      if (t2) {
         if (i >= list.length)
           return H.ioore(list, i);
-        t1 = J.$add$ns(list[i], cle);
-        if (typeof t1 !== "number")
-          return t1.$mod();
-        t1 = C.JSNumber_methods.$mod(t1, 91);
+        t2 = J.$add$ns(list[i], t1);
+        if (typeof t2 !== "number")
+          return t2.$mod();
+        t2 = C.JSNumber_methods.$mod(t2, 91);
         if (i >= list.length)
           return H.ioore(list, i);
-        list[i] = t1;
-        if (t1 < 65) {
+        list[i] = t2;
+        if (t2 < 65) {
           if (i >= list.length)
             return H.ioore(list, i);
-          t1 = list[i];
-          if (typeof t1 !== "number")
-            return t1.$mod();
-          list[i] = C.JSNumber_methods.$mod(t1, 26) + 65;
+          t2 = J.$add$ns(list[i], 65);
+          if (i >= list.length)
+            return H.ioore(list, i);
+          list[i] = t2;
         }
       } else {
         if (i >= list.length)
@@ -2932,26 +3096,26 @@ var $$ = Object.create(null);
         if (J.$gt$n(list[i], 96)) {
           if (i >= list.length)
             return H.ioore(list, i);
-          t1 = J.$lt$n(list[i], 123);
+          t2 = J.$lt$n(list[i], 123);
         } else
-          t1 = false;
-        if (t1) {
+          t2 = false;
+        if (t2) {
           if (i >= list.length)
             return H.ioore(list, i);
-          t1 = J.$add$ns(list[i], cle);
-          if (typeof t1 !== "number")
-            return t1.$mod();
-          t1 = C.JSNumber_methods.$mod(t1, 123);
+          t2 = J.$add$ns(list[i], t1);
+          if (typeof t2 !== "number")
+            return t2.$mod();
+          t2 = C.JSNumber_methods.$mod(t2, 123);
           if (i >= list.length)
             return H.ioore(list, i);
-          list[i] = t1;
-          if (t1 < 97) {
+          list[i] = t2;
+          if (t2 < 97) {
             if (i >= list.length)
               return H.ioore(list, i);
-            t1 = list[i];
-            if (typeof t1 !== "number")
-              return t1.$mod();
-            list[i] = C.JSNumber_methods.$mod(t1, 26) + 97;
+            t2 = J.$add$ns(list[i], 97);
+            if (i >= list.length)
+              return H.ioore(list, i);
+            list[i] = t2;
           }
         }
       }
@@ -2960,34 +3124,37 @@ var $$ = Object.create(null);
       texteCrypter += H.Primitives_stringFromCharCode(list[i]);
     }
     document.querySelector("#resultCryptage").textContent = texteCrypter;
-  }, "call$1", "cryptageCesar$closure", 2, 0, 2],
+  }, "call$1", "cryptageCesar$closure", 2, 0, 1],
   decryptageCesar: [function(e) {
-    var cc, cle, t1, list, texteClaire, i;
+    var cc, t1, t2, list, texteClaire, i;
     cc = document.querySelector("#textecode");
-    cle = H.Primitives_parseInt(J.get$value$x(document.querySelector(".active .cle")), null, null);
-    t1 = J.get$runes$s(J.get$value$x(cc));
-    list = P.List_List$from(t1, true, H.getRuntimeTypeArgument(t1, "IterableBase", 0));
+    t1 = H.Primitives_parseInt(J.get$value$x(document.querySelector(".active .cle")), null, null);
+    if (typeof t1 !== "number")
+      return t1.$mod();
+    t1 = C.JSNumber_methods.$mod(t1, 26);
+    t2 = J.get$runes$s(J.get$value$x(cc));
+    list = P.List_List$from(t2, true, H.getRuntimeTypeArgument(t2, "IterableBase", 0));
     for (texteClaire = "", i = 0; i < list.length; ++i) {
       if (J.$gt$n(list[i], 64)) {
         if (i >= list.length)
           return H.ioore(list, i);
-        t1 = J.$lt$n(list[i], 91);
+        t2 = J.$lt$n(list[i], 91);
       } else
-        t1 = false;
-      if (t1) {
+        t2 = false;
+      if (t2) {
         if (i >= list.length)
           return H.ioore(list, i);
-        t1 = J.$sub$n(list[i], cle);
+        t2 = J.$sub$n(list[i], t1);
         if (i >= list.length)
           return H.ioore(list, i);
-        list[i] = t1;
-        if (J.$lt$n(t1, 65)) {
+        list[i] = t2;
+        if (J.$lt$n(t2, 65)) {
           if (i >= list.length)
             return H.ioore(list, i);
-          t1 = J.$add$ns(J.$sub$n(list[i], 65), 91);
+          t2 = J.$add$ns(J.$sub$n(list[i], 65), 91);
           if (i >= list.length)
             return H.ioore(list, i);
-          list[i] = t1;
+          list[i] = t2;
         }
       } else {
         if (i >= list.length)
@@ -2995,23 +3162,23 @@ var $$ = Object.create(null);
         if (J.$gt$n(list[i], 96)) {
           if (i >= list.length)
             return H.ioore(list, i);
-          t1 = J.$lt$n(list[i], 123);
+          t2 = J.$lt$n(list[i], 123);
         } else
-          t1 = false;
-        if (t1) {
+          t2 = false;
+        if (t2) {
           if (i >= list.length)
             return H.ioore(list, i);
-          t1 = J.$sub$n(list[i], cle);
+          t2 = J.$sub$n(list[i], t1);
           if (i >= list.length)
             return H.ioore(list, i);
-          list[i] = t1;
-          if (J.$lt$n(t1, 97)) {
+          list[i] = t2;
+          if (J.$lt$n(t2, 97)) {
             if (i >= list.length)
               return H.ioore(list, i);
-            t1 = J.$add$ns(J.$sub$n(list[i], 97), 123);
+            t2 = J.$add$ns(J.$sub$n(list[i], 97), 123);
             if (i >= list.length)
               return H.ioore(list, i);
-            list[i] = t1;
+            list[i] = t2;
           }
         }
       }
@@ -3020,7 +3187,7 @@ var $$ = Object.create(null);
       texteClaire += H.Primitives_stringFromCharCode(list[i]);
     }
     document.querySelector("#resultDeCryptage").textContent = texteClaire;
-  }, "call$1", "decryptageCesar$closure", 2, 0, 2]
+  }, "call$1", "decryptageCesar$closure", 2, 0, 1]
 },
 1],
 ["dart._internal", "dart:_internal", , H, {
@@ -3203,7 +3370,7 @@ var $$ = Object.create(null);
       if ($._nextCallback != null)
         $.get$_AsyncRun_scheduleImmediateClosure().call$1(P._asyncRunCallback$closure());
     }
-  }, "call$0", "_asyncRunCallback$closure", 0, 0, 1],
+  }, "call$0", "_asyncRunCallback$closure", 0, 0, 2],
   _scheduleAsyncCallback: function(callback) {
     var t1, newEntry;
     if ($._nextCallback == null) {
@@ -3445,7 +3612,7 @@ var $$ = Object.create(null);
       this._addListener$1(new P._FutureListener(null, result, 8, action, null));
       return result;
     },
-    get$_value: function() {
+    get$_async$_value: function() {
       return this._resultOrListeners;
     },
     get$_error: function() {
@@ -3546,7 +3713,7 @@ var $$ = Object.create(null);
             P._Future__propagateToListeners(t1.source_4, listeners);
           }
           t3.listenerHasValue_1 = true;
-          sourceValue = hasError ? null : t1.source_4.get$_value();
+          sourceValue = hasError ? null : t1.source_4.get$_async$_value();
           t3.listenerValueOrError_2 = sourceValue;
           t3.isPropagationAborted_3 = false;
           t2 = !hasError;
@@ -3666,7 +3833,7 @@ var $$ = Object.create(null);
     }
   },
   _Future__propagateToListeners_handleError: {
-    "^": "Closure:1;box_2,box_1,listener_6,zone_7",
+    "^": "Closure:2;box_2,box_1,listener_6,zone_7",
     call$0: function() {
       var asyncError, matchesTest, test, e, s, errorCallback, e0, s0, t1, exception, t2, listenerValueOrError, t3, t4;
       asyncError = this.box_2.source_4.get$_error();
@@ -3724,7 +3891,7 @@ var $$ = Object.create(null);
     }
   },
   _Future__propagateToListeners_handleWhenCompleteCallback: {
-    "^": "Closure:1;box_2,box_1,hasError_8,listener_9,zone_10",
+    "^": "Closure:2;box_2,box_1,hasError_8,listener_9,zone_10",
     call$0: function() {
       var t1, e, s, completeResult, t2, exception, result;
       t1 = {};
@@ -4408,13 +4575,13 @@ var $$ = Object.create(null);
         if (strings == null)
           return;
         cell = strings[key];
-        return cell == null ? null : cell.get$_collection$_value();
+        return cell == null ? null : cell.get$_value();
       } else if (typeof key === "number" && (key & 0x3ffffff) === key) {
         nums = this._nums;
         if (nums == null)
           return;
         cell = nums[key];
-        return cell == null ? null : cell.get$_collection$_value();
+        return cell == null ? null : cell.get$_value();
       } else
         return this._get$1(key);
     },
@@ -4427,7 +4594,7 @@ var $$ = Object.create(null);
       index = this._findBucketIndex$2(bucket, key);
       if (index < 0)
         return;
-      return bucket[index].get$_collection$_value();
+      return bucket[index].get$_value();
     },
     $indexSet: function(_, key, value) {
       var strings, nums;
@@ -4462,7 +4629,7 @@ var $$ = Object.create(null);
       else {
         index = this._findBucketIndex$2(bucket, key);
         if (index >= 0)
-          bucket[index].set$_collection$_value(value);
+          bucket[index].set$_value(value);
         else
           bucket.push(this._newLinkedCell$2(key, value));
       }
@@ -4486,14 +4653,14 @@ var $$ = Object.create(null);
         return;
       cell = bucket.splice(index, 1)[0];
       this._unlinkCell$1(cell);
-      return cell.get$_collection$_value();
+      return cell.get$_value();
     },
     forEach$1: function(_, action) {
       var cell, modifications;
       cell = this._first;
       modifications = this._modifications;
       for (; cell != null;) {
-        action.call$2(cell.get$_key(), cell._collection$_value);
+        action.call$2(cell.get$_key(), cell._value);
         if (modifications !== this._modifications)
           throw H.wrapException(P.ConcurrentModificationError$(this));
         cell = cell._next;
@@ -4504,7 +4671,7 @@ var $$ = Object.create(null);
       if (cell == null)
         table[key] = this._newLinkedCell$2(key, value);
       else
-        cell.set$_collection$_value(value);
+        cell.set$_value(value);
     },
     _removeHashTableEntry$2: function(table, key) {
       var cell;
@@ -4515,7 +4682,7 @@ var $$ = Object.create(null);
         return;
       this._unlinkCell$1(cell);
       delete table[key];
-      return cell.get$_collection$_value();
+      return cell.get$_value();
     },
     _newLinkedCell$2: function(key, value) {
       var cell, last;
@@ -4579,7 +4746,7 @@ var $$ = Object.create(null);
     }
   },
   LinkedHashMapCell: {
-    "^": "Object;_key<,_collection$_value@,_next@,_previous@"
+    "^": "Object;_key<,_value@,_next@,_previous@"
   },
   LinkedHashMapKeyIterable: {
     "^": "IterableBase;_map",
@@ -5122,12 +5289,15 @@ var $$ = Object.create(null);
   },
   "+double": 0,
   Duration: {
-    "^": "Object;_duration<",
+    "^": "Object;_duration",
     $add: function(_, other) {
-      return P.Duration$(0, 0, this._duration + other.get$_duration(), 0, 0, 0);
+      return P.Duration$(0, 0, C.JSInt_methods.$add(this._duration, other.get$_duration()), 0, 0, 0);
     },
     $sub: function(_, other) {
-      return P.Duration$(0, 0, this._duration - other.get$_duration(), 0, 0, 0);
+      return P.Duration$(0, 0, C.JSInt_methods.$sub(this._duration, other.get$_duration()), 0, 0, 0);
+    },
+    $mul: function(_, factor) {
+      return P.Duration$(0, 0, C.JSNumber_methods.round$0(C.JSInt_methods.$mul(this._duration, factor)), 0, 0, 0);
     },
     $lt: function(_, other) {
       return C.JSInt_methods.$lt(this._duration, other.get$_duration());
@@ -5300,6 +5470,16 @@ var $$ = Object.create(null);
     static: {ConcurrentModificationError$: function(modifiedObject) {
         return new P.ConcurrentModificationError(modifiedObject);
       }}
+  },
+  OutOfMemoryError: {
+    "^": "Object;",
+    toString$0: function(_) {
+      return "Out of Memory";
+    },
+    get$stackTrace: function() {
+      return;
+    },
+    $isError: true
   },
   StackOverflowError: {
     "^": "Object;",
@@ -6198,6 +6378,14 @@ J.$lt$n = function(receiver, a0) {
     return receiver < a0;
   return J.getInterceptor$n(receiver).$lt(receiver, a0);
 };
+J.$mod$n = function(receiver, a0) {
+  return J.getInterceptor$n(receiver).$mod(receiver, a0);
+};
+J.$mul$ns = function(receiver, a0) {
+  if (typeof receiver == "number" && typeof a0 == "number")
+    return receiver * a0;
+  return J.getInterceptor$ns(receiver).$mul(receiver, a0);
+};
 J.$sub$n = function(receiver, a0) {
   if (typeof receiver == "number" && typeof a0 == "number")
     return receiver - a0;
@@ -6249,6 +6437,7 @@ C.JSString_methods = J.JSString.prototype;
 C.PlainJavaScriptObject_methods = J.PlainJavaScriptObject.prototype;
 C.UnknownJavaScriptObject_methods = J.UnknownJavaScriptObject.prototype;
 C.C_DynamicRuntimeType = new H.DynamicRuntimeType();
+C.C_OutOfMemoryError = new P.OutOfMemoryError();
 C.C__RootZone = new P._RootZone();
 C.Duration_0 = new P.Duration(0);
 C.JS_CONST_0 = function(hooks) {
@@ -6493,8 +6682,8 @@ Isolate.$lazy($, "_toStringVisiting", "IterableBase__toStringVisiting", "get$Ite
 // Native classes
 
 init.metadata = [{func: "dynamic__String", args: [P.String]},
-{func: "void_", void: true},
 {func: "void__Event", void: true, args: [W.Event]},
+{func: "void_", void: true},
 {func: "void__void_", void: true, args: [{func: "void_", void: true}]},
 {func: "bool__dynamic_dynamic", ret: P.bool, args: [null, null]},
 {func: "int__dynamic", ret: P.$int, args: [null]},
