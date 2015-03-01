@@ -42,16 +42,17 @@
 						<legend>Cryptage</legend>
 						<form method="POST">
 							<textarea id="texteclair" class="form-control" rows="3" placeholder="Entrer une phrase ou charger un fichier"></textarea>
-							<label class="btn btn-primary  glyphicon glyphicon-file" for="fichier_clair">
-								Charger un fichier
+							<br/>
+							<label class="btn btn-primary" for="fichier_clair">
+								<span class="glyphicon glyphicon-file"></span> Charger un fichier
 								<input style="display:none;" type="file" name="fichier" id="fichier_clair"/>
 							</label>
-							<br/>
 
 							<button type="button" class="btn btn-default" onclick="saveTextAsFile(0)" aria-label="Right Align">
 								<span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span>
 								Sauvegarder en .txt
-							</button>          
+							</button>
+
 							<textarea class="form-control" rows="3" id="resultCryptage"></textarea>
 						</form>
 					</fieldset>
@@ -60,15 +61,18 @@
 					<fieldset>
 						<legend>Décryptage</legend>
 						<textarea id="textecode" class="form-control" rows="3" placeholder="Entrer une phrase ou charger un fichier"></textarea>
-						<label class="btn btn-primary  glyphicon glyphicon-file" for="fichier_code">
+						<br/>
+						<label class="btn btn-primary" for="fichier_code">
+							<span class="glyphicon glyphicon-file"></span> 
 							Charger un fichier
 							<input style="display:none;" type="file" name="fichier" id="fichier_code"/>
 						</label>
-						<br/>
+						
 						<button type="button" class="btn btn-default" onclick="saveTextAsFile(1)" aria-label="Right Align">
 							<span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span>
 							Sauvegarder en .txt
 						</button>
+					
 						<textarea class="form-control" rows="3" id="resultDeCryptage"></textarea>
 					</fieldset>
 				</div>
