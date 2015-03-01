@@ -50,7 +50,7 @@
                 </div>
                 <div class="col-lg-6">						
                     <fieldset>
-							<legend>Decryptage</legend>
+							<legend>Décryptage</legend>
 							<textarea id="textecode" class="form-control" rows="3" placeholder="Entrer une phrase ou charger un fichier"></textarea>
 							<input type="file" name="fichier" id="fichier_code"/><br/>
 							<button onclick="saveTextAsFile(1)">Sauvegarder en .txt</button>
@@ -75,7 +75,7 @@
 						</div>
 						<div id="HillDiv">
 							<form id= "matrice" class ="form-group">   
-								<table  class="row">
+								<table  class="row"> 
 									<tr>
 										<th class="col-md-2"><input type="number" class="form-control" name = "top-left"></th>
 										<th class="col-xs-2"><input type="number" class="form-control"  name = "top-right"></th>
@@ -91,8 +91,8 @@
 						</div>
 						<div id="affine">
             <span class="row">
-               <span class="col-lg-offset-3 col-lg-2">Co&eacute;fficient A : <input  class="form-control cle cleAffine " id="CA" type="text" name="CA"/></span>
-                 <span class="col-lg-offset-2 col-lg-2">Co&eacute;fficient B : <input  class="form-control cleAffine " id="CB" type="text" name="CB"/></span>
+               <span class="col-lg-offset-3 col-lg-2">Coefficient A : <input  class="form-control cle cleAffine " id="CA" type="text" name="CA"/></span>
+                 <span class="col-lg-offset-2 col-lg-2">Coefficient B : <input  class="form-control cleAffine " id="CB" type="text" name="CB"/></span>
              </span>
              <span class="row"> 
              <span class="col-lg-offset-4 col-lg-2"><button class="btn btn-primary crypter-button"  id="crypterAffine"style="width:86px;">Crypter</button></span>
