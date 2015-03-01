@@ -141,14 +141,15 @@ $(document).ready(function()
 		disableBouton();
 	});
 	
-	$("input[type=file]").change(function(event)
+	$("label input[type=file]").change(function(event)
 	{
+		console.log("hi");
 		var file = this.files[0];
 		if (file) 
 		{
 			var reader = new FileReader();
 			reader.readAsText(file);
-			var txt = $(this).parent().children('textarea').eq(0);
+			var txt = $(this).parent().siblings('textarea').eq(0);
 			reader.onload = function(e) 
 			{
 				$(txt).text(e.target.result);
