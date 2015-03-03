@@ -4,7 +4,7 @@ function creerAlphabet(mod){
 	return creerAlphabetEtendu();
 }
 function creerAlphabetEtendu(){
-	return "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz &\"\'(-èéêâîûëïëöÄËÏ_çà1234567890°)~#{[|`^@]}$£€!:;,?./§%*ù<>".split("");
+	return "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz &(èéêâîû-_ïëöÄËÏçà1234567890°)~#{[|`^@]}$£€!:;,?./§%*ù<>".split("");
 }
 function nettoyage(txt){
 	txt = traitementTxt(txt);

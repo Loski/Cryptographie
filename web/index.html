@@ -55,6 +55,7 @@
 								Sauvegarder en .txt
 							</button>
 							<button type="button" class="btn btn-primary" onclick="modal(0)" data-toggle="modal" data-target="#modal">
+								<span class = "glyphicon glyphicon-plus-sign"></span>
  								 Agrandir
 							</button>
 							<div class="modal fade bs-example-modal-lg" id="modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
@@ -89,14 +90,15 @@
 							<span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span>
 							Sauvegarder en .txt
 						</button>
-						<button type="button" class="btn btn-primary" onclick="modal(1)" data-toggle="modal" data-target="#modal">
+						<button type="button" class="btn btn-default" onclick="modal(1)" data-toggle="modal" data-target="#modal">
+							<span class = "glyphicon glyphicon-eye-open"></span>
  								 Agrandir
 						</button>
 						<textarea class="form-control" rows="3" id="resultDeCryptage"></textarea>
 					</fieldset>
 				</div>
 				<div class="col-lg-6">
-					<h4 id = "clickme">Options  <span class="glyphicon glyphicon-plus"></span> </h4>
+					<h4 id = "clickme">Options  <span class="glyphicon glyphicon-wrench"></span> </h4>
 					<div style="display: none">
 						<label class="radio-inline"><input type="radio" name="optradio" value="0" checked>ASCII</label>
 						<label class="radio-inline"><input type="radio" name="optradio" value ="1" >Alphabet étendu</label>
@@ -157,3 +159,4 @@
 	<script src="packages/browser/dart.js"></script>
 </body>
 </html> 
+
