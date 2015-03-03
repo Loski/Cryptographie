@@ -29,7 +29,19 @@ function disableBouton(){
 	    }
 	
 }
-
+function modal(nb){
+	if(nb === 0){
+		$('.modal-body p').text($('#texteclair').val());
+		$('.modal-title').text("Texte décrypté");
+	}
+	else{
+		$('.modal-body p').text($('#textecode').val());
+		$('.modal-title').text("Texte crypté");
+	}
+}
+function recupererRadio(){
+	return parseInt($('input[type=radio][name=optradio]:checked').val());
+}
 function traitementTxt(str){
 	str = str.trim();
     var accent = [
@@ -97,7 +109,9 @@ $(document).ready(function()
 	});
 	////////
 	
-	
+	$( "#clickme" ).click(function() {
+		$("#clickme").siblings().toggle();
+	});
 	$('#menu li').mousedown(function()
 		{
 			$('.active').removeClass('active');
