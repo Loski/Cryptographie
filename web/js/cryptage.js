@@ -4,13 +4,13 @@ function creerAlphabet(mod){
 	return creerAlphabetEtendu();
 }
 function creerAlphabetEtendu(){
-	return "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz &(èéêâîû-_ïëöÄËÏçà1234567890°)~#{[|`^@]}$£€!:;,?./§%*ù<>".split("");
+	return "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz \\\n\t&(ÀàÂâÆæÇçÉéÈèÊêËëÎîÏïÔôŒœÙùÛûÜüŸÿ-_\"\'1234567890°)~#{[|`^@]}$£€!:;,?./§%*<>".split("");
 }
 function nettoyage(txt){
 	txt = traitementTxt(txt);
 	return txt.replace(new RegExp("[^(a-zA-Z)]", "g"), '');
 }
-function calculdeterminant(array){
+function calculdeterminant(array){ 
 	return array[0] * array[3] - array[1] * array[2];
 }
 function inverserMatrice(matrice, determinant){
@@ -25,7 +25,11 @@ function trouverDeterminantModulo(determinant, modulo, liste_premier){
 	return false;
 }
 
+function traitementCaracSpe(txt){
+	txt.replace('/\n'/g, '╚');
+	return txt;
 
+}
   function euclideEtendu(determinant, mod){
   	var r = determinant; var r2 = mod; var u = 1; var v = 0; var u2 = 0; var v2 = 1;
   	while(r2 > 0){

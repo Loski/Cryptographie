@@ -13,7 +13,7 @@
 	<link href='http://fonts.googleapis.com/css?family=Muli' rel='stylesheet' type='text/css'>
 	<link href='http://fonts.googleapis.com/css?family=Signika' rel='stylesheet' type='text/css'>
 	<link rel="stylesheet" href="css/style.css" />
-	<title>Crypto</title>
+	<title>Cryptographie</title>
 </head>
 <body>
 	<div class="container">
@@ -52,11 +52,11 @@
 
 							<button type="button" class="btn btn-default" onclick="saveTextAsFile(0)" aria-label="Right Align">
 								<span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span>
-								Sauvegarder en .txt
+								Sauvegarder
 							</button>
 							<button type="button" class="btn btn-primary" onclick="modal(0)" data-toggle="modal" data-target="#modal">
 								<span class = "glyphicon glyphicon-plus-sign"></span>
- 								 Agrandir
+								Agrandir
 							</button>
 							<div class="modal fade bs-example-modal-lg" id="modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
 								<div class="modal-dialog modal-lg">
@@ -67,6 +67,11 @@
 										</div>
 										<div class="modal-body">
 											<p></p>
+										</div>
+
+										<div class="modal-footer">
+											<button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
+											<button type="button" id="save" class="btn btn-primary">Sauvegarder</button>
 										</div>
 									</div>
 								</div>
@@ -88,7 +93,7 @@
 						
 						<button type="button" class="btn btn-default" onclick="saveTextAsFile(1)" aria-label="Right Align">
 							<span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span>
-							Sauvegarder en .txt
+							Sauvegarder
 						</button>
 						<button type="button" class="btn btn-default" onclick="modal(1)" data-toggle="modal" data-target="#modal">
 							<span class = "glyphicon glyphicon-eye-open"></span>

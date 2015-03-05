@@ -29,14 +29,20 @@ function disableBouton(){
 	    }
 	
 }
+
 function modal(nb){
 	if(nb === 0){
-		$('.modal-body p').text($('#texteclair').val());
+		$('.modal-body p').text("");
+		$('.modal-body p').append(nl2br($('#texteclair').val()));
 		$('.modal-title').text("Texte décrypté");
+		$("#save").attr("onclick","saveTextAsFile(0)");
 	}
 	else{
-		$('.modal-body p').text($('#textecode').val());
+		$('.modal-body p').text("");
+		$('.modal-body p').append(nl2br($('#textecode').val()));
 		$('.modal-title').text("Texte crypté");
+		$("#save").attr("onclick","saveTextAsFile(1)");
+
 	}
 }
 function recupererRadio(){
@@ -60,6 +66,13 @@ function traitementTxt(str){
      
     return str;
 }
+
+//Remplace les \n par des <br/>
+function nl2br (str, is_xhtml) {   
+    var breakTag = (is_xhtml || typeof is_xhtml === 'undefined') ? '<br />' : '<br>';    
+    return (str + '').replace(/([^>\r\n]?)(\r\n|\n\r|\r|\n)/g, '$1'+ breakTag +'$2');
+}
+
 function saveTextAsFile(id)
 {
 	var textToWrite;
