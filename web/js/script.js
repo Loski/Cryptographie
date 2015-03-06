@@ -1,6 +1,4 @@
-﻿
-
-function disableBouton(){
+﻿function disableBouton(){
   if($('.active#affine').length)
       {
         if(document.getElementById('texteclair').value!=='' && $('#CA').val()!=='' && $('#CB').val()!=='')
@@ -15,6 +13,7 @@ function disableBouton(){
        console.log("OK BUTTON DISA");
       }
   else
+  //Enlever les .cle.val()!='' et crée une clée aléatoire dans les fonctions de cryptage
       {
         if(document.getElementById('texteclair').value!=='' && $('.active .cle').val()!=='')
 		      $('.crypter-button').attr("disabled", false);
@@ -114,23 +113,17 @@ $(document).ready(function()
 { 
 
 	disableBouton();
-	//A Virer Plus tard
-	$("#LOL").mousedown(function()
-	{
-		$(this).replaceWith('<img src="http://www.asiteforthat.com/posts/nyan%20nyan%20Seo%20You%20Jin2.jpg" />');
-		alert("Miaou");
-	});
-	////////
 	
 	$( "#clickme" ).click(function() {
 		$("#clickme").siblings().toggle();
 	});
+	
 	$('#menu li').mousedown(function()
 		{
 			$('.active').removeClass('active');
 			$(this).addClass('active');
 			var i = $("#menu>li").index($(this));
-			$("#contenu>div").eq(i).addClass('active');
+			$(".onglet").eq(i).addClass('active');
 			document.title=($("#menu>li").eq(i).text());
 			disableBouton();
 			$('#error').hide();
