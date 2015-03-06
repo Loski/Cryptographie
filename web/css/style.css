@@ -5,7 +5,7 @@ body
     font-family: 'Signika', sans-serif;
     
 }
-#contenu div, #error
+.onglet, #error
 {
 	display:none;
 }

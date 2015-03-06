@@ -113,14 +113,18 @@
 				<div class="col-lg-offset-2 col-lg-8" id="contenu">
 					<div id="CesarDiv" class="active form-group onglet">
 						Cl&eacute; : <input  class="form-control cle" type="text" name="Cle"/><br/>
-						<button class="btn btn-primary crypter-button" id="crypterCesar">Crypter</button>
-						<button class="btn btn-primary decrypter-button" id="decrypterCesar">D&eacute;crypter</button>
+						<div class="text-center">
+							<button class="btn btn-primary crypter-button" id="crypterCesar">Crypter</button>
+							<button class="btn btn-primary decrypter-button" id="decrypterCesar">D&eacute;crypter</button>
+						</div>
 					</div>
 					<div id="VigenereDiv" class="form-group onglet">
 						Cl&eacute; : <button class="btn btn-primary" id="KeyGenVig" >Générer</button><br/>
-						<input  class="form-control cle" id="keyVig" type="text" name="Cle"/>
-						<button id="cryptVig" class="btn btn-primary crypter-button">Crypter</button>
-						<button id="decryptVig" class="btn btn-primary decrypter-button">D&eacute;crypter</button>
+						<input  class="form-control cle" id="keyVig" type="text" name="Cle"/><br/>
+						<div class="text-center">
+							<button id="cryptVig" class="btn btn-primary crypter-button">Crypter</button>
+							<button id="decryptVig" class="btn btn-primary decrypter-button">D&eacute;crypter</button>
+						</div>
 					</div>
 					<div class="onglet" id="HillDiv">
 						<form id= "matrice" class ="form-group">   
@@ -136,8 +140,10 @@
 							</table>
 						</form>
 						<div id="error" class="alert alert-danger text-center glyphicon glyphicon-remove" role="alert"></div>
-						<button class="btn btn-primary" onclick="hill(1)">Crypter</button>
-						<button class="btn btn-primary" onclick="hill(0)">D&eacute;crypter</button>
+						<div class="text-center">
+							<button class="btn btn-primary" onclick="hill(1)">Crypter</button>
+							<button class="btn btn-primary" onclick="hill(0)">D&eacute;crypter</button>
+						</div>
 					</div>
 					<div class="onglet" id="affine">
 						<span class="row">
@@ -145,7 +151,7 @@
 							<span class="col-lg-offset-2 col-lg-2">Coefficient B : <input  class="form-control cleAffine " id="CB" type="text" name="CB"/></span>
 						</span>
 						<span class="row">  
-							<span class="col-lg-offset-4 col-lg-2"><button class="btn btn-primary crypter-button"  id="crypterAffine"style="width:86px;">Crypter</button></span>
+							<span class="col-lg-offset-4 col-lg-2"><button class="btn btn-primary crypter-button"  id="crypterAffine" style="width:86px;">Crypter</button></span>
 							<span class="col-lg-2"><button class="btn btn-primary decrypter-button" id="decrypterAffine">D&eacute;crypter</button></span>
 						</span>
 					</div>
@@ -153,8 +159,10 @@
 						Cl&eacute; : <br/>
 						p<input  class="form-control cle" type="text" name="RSA_p" /><br/>
 						q<input  class="form-control cle" type="text" name="RSA_q" /><br/>
-						<button class="btn btn-primary crypter-button"  id="cryptRSA" >Crypter</button>
-						<button class="btn btn-primary decrypter-button" id="decryptRSA">D&eacute;crypter</button>	
+						<div class="text-center">
+							<button class="btn btn-primary crypter-button"  id="cryptRSA" >Crypter</button>
+							<button class="btn btn-primary decrypter-button" id="decryptRSA">D&eacute;crypter</button>
+						</div>	
 					</div>
 					<div class="onglet" id="CryptanalyseDiv">Cryptanalyse</div>
 				</div>
