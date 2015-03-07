@@ -6,18 +6,7 @@
     }
     return true;
 }
-function testDePrimalite(n, k){
-	var max = n -1;
-	var min = 2;
-	while(k--){
-		var a = Math.floor(Math.random() * (max - min) + min);
-		if(Math.pow(a, max) !== 1%n)
-			return;
-		else{
-			while(true);
-		}
-	}
-}
+
 function pgcd(a,b){
 	while (a!=b)
 	{
@@ -34,27 +23,38 @@ function RSA_crypt(texte,p,q){
 	
 	//Tester si p et q sont null
 		//->Clée aléa
-	
-	if(isPrime(p))
+	var premier = true;
+	if(!isPrime(p))
 	{
 		console.log("p non premier");
-		alert("Clé invalide, p n'est pas premier"); //A mettre dans la vérif de clé (genre le même truc que Hill)
-		return;
+		$('#RSA_p').popover(); //A mettre dans la vérif de clé (genre le même truc que Hill)
+		premier = false;
+		$('#RSA_p').parent().addClass('has-error');
+	}
+	else{
+		$('#RSA_p').parent().addClass('has-success');
+		$('#RSA_p').popover('destroy');
 	}
 	
-	if(isPrime(q))
+	if(!isPrime(q))
 	{
 		console.log("q non premier");
-		alert("Clé invalide, q n'est pas premier"); //A mettre dans la vérif de clé (genre le même truc que Hill)
-		return;
+		$('#RSA_q').popover(); //A mettre dans la vérif de clé (genre le même truc que Hill)
+		premier = false;
+		$('#RSA_q').parent().addClass('has-error');
 	}
-	
+	else{
+		$('#RSA_q').parent().addClass('has-success');
+		$('#RSA_q').popover('destroy');
+	}
+	if(!premier)
+		return;
 	var ind_euler = (p-1)*(q-1);
 	
 	
 	//Revoir le calcul aléa de e (là ça donne juste un nombre entre 2 et 10)
 	var e = Math.floor(Math.random()*(10-2)+2);
-	while(! pgcd(e,ind_euler)==1)
+	while(!pgcd(e,ind_euler)==1) 
 		e = Math.floor(Math.random()*(10-2)+2);
 		
 	
