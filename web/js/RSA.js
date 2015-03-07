@@ -1,4 +1,4 @@
-﻿function isPrime(n) {
+function isPrime(n) {
     if (n <= 3) { return n > 1; }
     if (n % 2 === 0 || n % 3 === 0) { return false; }
     for (var  i = 5; i * i <= n; i += 6) {
@@ -53,9 +53,9 @@ function RSA_crypt(texte,p,q){
 	
 	
 	//Revoir le calcul aléa de e (là ça donne juste un nombre entre 2 et 10)
-	var e = Math.floor(Math.random()*(10-2)+2);
-	while(!pgcd(e,ind_euler)==1) 
-		e = Math.floor(Math.random()*(10-2)+2);
+	var e = Math.floor(Math.random()*(ind_euler)+1);
+	while(pgcd(e,ind_euler)!=1) 
+		e = Math.floor(Math.random()*(ind_euler)+1);
 		
 	
 	document.getElementById('textecode').value=crypt;
