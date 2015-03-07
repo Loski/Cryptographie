@@ -49,13 +49,20 @@ function RSA_crypt(texte,p,q){
 	}
 	if(!premier)
 		return;
+
 	var ind_euler = (p-1)*(q-1);
 	
 	
 	//Revoir le calcul aléa de e (là ça donne juste un nombre entre 2 et 10)
+<<<<<<< HEAD
 	var e = Math.floor(Math.random()*(ind_euler)+1);
 	while(pgcd(e,ind_euler)!=1) 
 		e = Math.floor(Math.random()*(ind_euler)+1);
+=======
+	var e = Math.floor(Math.random()*(10-2)+2);
+	while(pgcd(e,ind_euler)!==1 && e < ind_euler) 
+		e = Math.floor(Math.random()*(10-2)+2);
+>>>>>>> fbbbe260a64df105ed18c0c9317711ce0ed8b689
 		
 	
 	document.getElementById('textecode').value=crypt;
