@@ -1,20 +1,23 @@
-﻿function nbpremier(nbParam)
- {
-	var nb = parseInt(nbParam);
-	var max = nb/ 2;
-	for(i = 2; i <= max ; i++)
-	{
-		if(nb% i == 0)
-		{
-			console.log("DIVISIBLE PAR :"+i);
-			return false;
+﻿function isPrime(n) {
+    if (n <= 3) { return n > 1; }
+    if (n % 2 === 0 || n % 3 === 0) { return false; }
+    for (var  i = 5; i * i <= n; i += 6) {
+        if (n % i === 0 || n % (i + 2) === 0) { return false; }
+    }
+    return true;
+}
+function testDePrimalite(n, k){
+	var max = n -1;
+	var min = 2;
+	while(k--){
+		var a = Math.floor(Math.random() * (max - min) + min);
+		if(Math.pow(a, max) !== 1%n)
+			return;
+		else{
+			while(true);
 		}
 	}
-
-	console.log("PAS DIVISIBLE");
-	return true;
- }
-
+}
 function pgcd(a,b){
 	while (a!=b)
 	{
@@ -32,14 +35,14 @@ function RSA_crypt(texte,p,q){
 	//Tester si p et q sont null
 		//->Clée aléa
 	
-	if(!nbpremier(p))
+	if(isPrime(p))
 	{
 		console.log("p non premier");
 		alert("Clé invalide, p n'est pas premier"); //A mettre dans la vérif de clé (genre le même truc que Hill)
 		return;
 	}
 	
-	if(!nbpremier(q))
+	if(isPrime(q))
 	{
 		console.log("q non premier");
 		alert("Clé invalide, q n'est pas premier"); //A mettre dans la vérif de clé (genre le même truc que Hill)
