@@ -23,6 +23,7 @@ function RSA_crypt(texte,p,q){
 	
 	//Tester si p et q sont null
 		//->Clée aléa
+	console.log("hi");
 	var premier = true;
 	if(!isPrime(p))
 	{
@@ -54,14 +55,16 @@ function RSA_crypt(texte,p,q){
 	
 	
 	//Revoir le calcul aléa de e (là ça donne juste un nombre entre 2 et 10)
-	var e = Math.floor(Math.random()*(10-2)+2);
+	var e = Math.floor(Math.random()*(ind_euler-2)+2);
 	while(pgcd(e,ind_euler)!==1 && e < ind_euler) 
-		e = Math.floor(Math.random()*(10-2)+2);
-		
-	
+		e = Math.floor(Math.random()*(ind_euler-2)+2);
+	console.log("e="+e);
+	var n = p*q;
+	var d = euclideEtendu(e,ind_euler)%ind_euler;
 	document.getElementById('textecode').value=crypt;
 	$('.decrypter-button').attr("disabled", false);
-	$('#RSADiv').append("La clé publique est : ("+p*q+","+e+")");
+	$('#RSADiv').append("La clé publique est : ("+n+","+e+")");
+	$('#RSADiv').append("La clé privé est : ("+n+","+d+")");
 }
 
 $(document).ready(function()
