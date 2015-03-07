@@ -1,6 +1,4 @@
-﻿
-
-function disableBouton(){
+﻿function disableBouton(){
   if($('.active#affine').length)
       {
         if(document.getElementById('texteclair').value!=='' && $('#CA').val()!=='' && $('#CB').val()!=='')
@@ -15,6 +13,7 @@ function disableBouton(){
        console.log("OK BUTTON DISA");
       }
   else
+  //Enlever les .cle.val()!='' et crée une clée aléatoire dans les fonctions de cryptage
       {
         if(document.getElementById('texteclair').value!=='' && $('.active .cle').val()!=='')
 		      $('.crypter-button').attr("disabled", false);
@@ -30,6 +29,24 @@ function disableBouton(){
 	
 }
 
+function modal(nb){
+	if(nb === 0){
+		$('.modal-body p').text("");
+		$('.modal-body p').append(nl2br($('#texteclair').val()));
+		$('.modal-title').text("Texte décrypté");
+		$("#save").attr("onclick","saveTextAsFile(0)");
+	}
+	else{
+		$('.modal-body p').text("");
+		$('.modal-body p').append(nl2br($('#textecode').val()));
+		$('.modal-title').text("Texte crypté");
+		$("#save").attr("onclick","saveTextAsFile(1)");
+
+	}
+}
+function recupererRadio(){
+	return parseInt($('input[type=radio][name=optradio]:checked').val());
+}
 function traitementTxt(str){
 	str = str.trim();
     var accent = [
@@ -48,6 +65,13 @@ function traitementTxt(str){
      
     return str;
 }
+
+//Remplace les \n par des <br/>
+function nl2br (str, is_xhtml) {   
+    var breakTag = (is_xhtml || typeof is_xhtml === 'undefined') ? '<br />' : '<br>';    
+    return (str + '').replace(/([^>\r\n]?)(\r\n|\n\r|\r|\n)/g, '$1'+ breakTag +'$2');
+}
+
 function saveTextAsFile(id)
 {
 	var textToWrite;
@@ -89,21 +113,17 @@ $(document).ready(function()
 { 
 
 	disableBouton();
-	//A Virer Plus tard
-	$("#LOL").mousedown(function()
-	{
-		$(this).replaceWith('<img src="http://www.asiteforthat.com/posts/nyan%20nyan%20Seo%20You%20Jin2.jpg" />');
-		alert("Miaou");
-	});
-	////////
 	
+	$( "#clickme" ).click(function() {
+		$("#clickme").siblings().toggle();
+	});
 	
 	$('#menu li').mousedown(function()
 		{
 			$('.active').removeClass('active');
 			$(this).addClass('active');
 			var i = $("#menu>li").index($(this));
-			$("#contenu>div").eq(i).addClass('active');
+			$(".onglet").eq(i).addClass('active');
 			document.title=($("#menu>li").eq(i).text());
 			disableBouton();
 			$('#error').hide();
@@ -141,14 +161,15 @@ $(document).ready(function()
 		disableBouton();
 	});
 	
-	$("input[type=file]").change(function(event)
+	$("label input[type=file]").change(function(event)
 	{
+		console.log("hi");
 		var file = this.files[0];
 		if (file) 
 		{
 			var reader = new FileReader();
 			reader.readAsText(file);
-			var txt = $(this).parent().children('textarea').eq(0);
+			var txt = $(this).parent().siblings('textarea').eq(0);
 			reader.onload = function(e) 
 			{
 				$(txt).text(e.target.result);

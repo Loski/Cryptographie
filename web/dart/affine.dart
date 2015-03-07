@@ -1,6 +1,7 @@
+library affine;
 import 'dart:html';
 import 'dart:math';
-
+import 'fonction.dart';
 
 void cryptageAffine(Event e){
  TextAreaElement cc=querySelector('#texteclair');
@@ -12,6 +13,7 @@ void cryptageAffine(Event e){
  String texteCrypter="";
  var list=texteACrypter.runes.toList();
  for(int i=0;i<list.length;i++){
+   list[i]=caractereSpeciaux(list[i]);
    if(list[i]>64 && list[i]<91)
    {
      list[i]=(cA*(list[i]%65)+cB)%26;
@@ -24,7 +26,7 @@ void cryptageAffine(Event e){
    }
    texteCrypter=texteCrypter+new String.fromCharCode(list[i]);
  }
- querySelector('#resultCryptage').text=texteCrypter;
+ querySelector('#textecode').text=texteCrypter;
 }
 void decryptageAffine(Event e){
  TextAreaElement cc=querySelector('#textecode');
@@ -49,5 +51,5 @@ void decryptageAffine(Event e){
    }
    texteClaire=texteClaire+new String.fromCharCode(list[i]);
  }
- querySelector('#resultDeCryptage').text=texteClaire;
+ querySelector('#texteclair').text=texteClaire;
 }

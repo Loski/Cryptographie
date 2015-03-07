@@ -1,114 +1,178 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<meta charset="utf-8" />  
-		<meta http-equiv="X-UA-Compatible" content="IE=edge">
-		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-		<link href="css/bootstrap.min.css" rel="stylesheet">
-		<script src="js/bootstrap.min.js"></script>
-		<script type="text/javascript" src="js/script.js"></script>
-		<script type="text/javascript" src="js/cryptage.js"></script>
-		<script type="text/javascript" src="js/vigenere.js"></script>
-		<link rel="stylesheet" href="css/style.css" />
-		<title>Crypto</title>
-	</head>
-	<body>
-    <div class="container">
-      <div class="row">
-        <div class="navbar navbar-inverse">
-            <div class="navbar-header">
-                <a class="navbar-brand" href="#">Mon beau site</a>
-            </div>
+<head>
+	<meta charset="utf-8" />  .
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<script type="text/javascript" src="js/jquery.min.js"></script>
+	<link href="css/bootstrap.min.css" rel="stylesheet">
+	<script src="js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="js/script.js"></script>
+	<script type="text/javascript" src="js/cryptage.js"></script>
+	<script type="text/javascript" src="js/vigenere.js"></script>
+	<script type="text/javascript" src="js/RSA.js"></script>
+	<link href='http://fonts.googleapis.com/css?family=Muli' rel='stylesheet' type='text/css'>
+	<link href='http://fonts.googleapis.com/css?family=Signika' rel='stylesheet' type='text/css'>
+	<link rel="stylesheet" href="css/style.css" />
+	<title>Cryptographie</title>
+</head>
+<body>
+	<div class="container">
+		<div class="row">
+			<div class="navbar navbar-inverse">
+				<div class="navbar-header">
+					<a class="navbar-brand" href="#">Cryptographie</a>
+				</div>
 				<ul class="nav navbar-nav" id="menu">
 					<li role="presentation" class="active"><a href="#">Code C&eacute;sar</a></li>
-					<li role="presentation"><a href="#">Vigenere</a></li>
+					<li role="presentation"><a href="#">Vigenère</a></li>
 					<li role="presentation"><a href="#">Hill</a></li>
 					<li role="presentation"><a href="#">Affine</a></li>
 					<li role="presentation"><a href="#">RSA</a></li>
 					<li role="presentation"><a href="#">Cryptanalyse</a></li>
 				</ul>
-        </div>
-        </div>
+			</div>
+		</div>
 		
-		<!-- A VIRER-->
-		<button id="LOL" style="font-weight: bold;font-size: 100px;">Clique !!!</button>
-		<!-- A VIRER-->
-		
-            <div class="row">
-             <div class="col-lg-12">
-	           <div class="col-lg-6">
-						<fieldset>
-							<legend>Cryptage</legend>
-							<form method="POST">
-								<textarea id="texteclair" class="form-control" rows="3" placeholder="Entrer une phrase ou charger un fichier"></textarea>
-								<input type="file" name="fichier" id="fichier_clair"/><br/>
-								<button onclick="saveTextAsFile(0)">Sauvegarder en .txt</button>
-                <textarea class="form-control" rows="3" id="resultCryptage"></textarea>
-							</form>
-						</fieldset>
-                </div>
-                <div class="col-lg-6">						
-                    <fieldset>
-							<legend>Decryptage</legend>
-							<textarea id="textecode" class="form-control" rows="3" placeholder="Entrer une phrase ou charger un fichier"></textarea>
-							<input type="file" name="fichier" id="fichier_code"/><br/>
-							<button onclick="saveTextAsFile(1)">Sauvegarder en .txt</button>
-              <textarea class="form-control" rows="3" id="resultDeCryptage"></textarea>
-						</fieldset>
-                </div>
-            </div>
-            </div>
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="col-lg-offset-2 col-lg-8" id="contenu">
-						<span id="error" class="alert alert-danger" role="alert"></span>
-						<div id="CesarDiv" class="active form-group">
-							Cl&eacute; : <input  class="form-control cle" type="text" name="Cle"/><br/>
+		<div class="row">
+			<div class="col-lg-12">
+				<div class="col-lg-6">
+					<fieldset>
+						<legend>Cryptage</legend>
+						<form method="POST">
+							<textarea id="texteclair" class="form-control" rows="3" placeholder="Entrer une phrase ou charger un fichier"></textarea>
+							<br/>
+							<label class="btn btn-primary" for="fichier_clair">
+								<span class="glyphicon glyphicon-file"></span> Charger un fichier
+								<input style="display:none;" type="file" name="fichier" id="fichier_clair"/>
+							</label>
+
+							<button type="button" class="btn btn-default" onclick="saveTextAsFile(0)" aria-label="Right Align">
+								<span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span>
+								Sauvegarder
+							</button>
+							<button type="button" class="btn btn-primary" onclick="modal(0)" data-toggle="modal" data-target="#modal">
+								<span class = "glyphicon glyphicon-plus-sign"></span>
+								Agrandir
+							</button>
+							<div class="modal fade bs-example-modal-lg" id="modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+								<div class="modal-dialog modal-lg">
+									<div class="modal-content">
+										<div class="modal-header">
+											<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+											<h4 class="modal-title"></h4>
+										</div>
+										<div class="modal-body">
+											<p></p>
+										</div>
+
+										<div class="modal-footer">
+											<button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
+											<button type="button" id="save" class="btn btn-primary">Sauvegarder</button>
+										</div>
+									</div>
+								</div>
+							</div>
+						</form>
+					</fieldset>
+				</div>
+				<div class="col-lg-6">						
+					<fieldset>
+						<legend>Décryptage</legend>
+						<textarea id="textecode" class="form-control" rows="3" placeholder="Entrer une phrase ou charger un fichier"></textarea>
+						<br/>
+						<label class="btn btn-primary" for="fichier_code">
+							<span class="glyphicon glyphicon-file"></span> 
+							Charger un fichier
+							<input style="display:none;" type="file" name="fichier" id="fichier_code"/>
+						</label>
+						
+						<button type="button" class="btn btn-default" onclick="saveTextAsFile(1)" aria-label="Right Align">
+							<span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span>
+							Sauvegarder
+						</button>
+						<button type="button" class="btn btn-default" onclick="modal(1)" data-toggle="modal" data-target="#modal">
+							<span class = "glyphicon glyphicon-eye-open"></span>
+ 								 Agrandir
+						</button>
+					</fieldset>
+				</div>
+				<div class="col-lg-6">
+					<h4 id = "clickme">Options  <span class="glyphicon glyphicon-wrench"></span> </h4>
+					<div style="display: none">
+						<label class="radio-inline"><input type="radio" name="optradio" value="0" checked>ASCII</label>
+						<label class="radio-inline"><input type="radio" name="optradio" value ="1" >Alphabet étendu</label>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-lg-12">
+				<div class="col-lg-offset-2 col-lg-8" id="contenu">
+					<div id="CesarDiv" class="active form-group onglet">
+						Cl&eacute; : <input  class="form-control cle" type="text" name="Cle"/><br/>
+						<div class="text-center">
 							<button class="btn btn-primary crypter-button" id="crypterCesar">Crypter</button>
 							<button class="btn btn-primary decrypter-button" id="decrypterCesar">D&eacute;crypter</button>
 						</div>
-						<div id="VigenereDiv" class="form-group">
-							Cl&eacute; : <input  class="form-control cle" id="keyVig" type="text" name="Cle"/><br/>
+					</div>
+					<div id="VigenereDiv" class="form-group onglet">
+						Cl&eacute; : <button class="btn btn-primary" id="KeyGenVig" >Générer</button><br/>
+						<input  class="form-control cle" id="keyVig" type="text" name="Cle"/><br/>
+						<div class="text-center">
 							<button id="cryptVig" class="btn btn-primary crypter-button">Crypter</button>
 							<button id="decryptVig" class="btn btn-primary decrypter-button">D&eacute;crypter</button>
 						</div>
-						<div id="HillDiv">
-							<form id= "matrice" class ="form-group">   
-								<table  class="row">
-									<tr>
-										<th class="col-md-2"><input type="number" class="form-control" name = "top-left"></th>
-										<th class="col-xs-2"><input type="number" class="form-control"  name = "top-right"></th>
-									</tr>
-									<tr>
-										<th class="col-xs-2"><input type="number" class="form-control"  name = "bottom-left"></th>
-										<th class="col-xs-2"><input type="number" class="form-control" name = "bottom-right"></th>
-									</tr>
-								</table>
-							</form>
+					</div>
+					<div class="onglet" id="HillDiv">
+						<form id= "matrice" class ="form-group">   
+							<table  class="row"> 
+								<tr>
+									<th class="col-xs-2"><input type="number" class="form-control" name = "top-left"></th>
+									<th class="col-xs-2"><input type="number" class="form-control"  name = "top-right"></th>
+								</tr>
+								<tr>
+									<th class="col-xs-2"><input type="number" class="form-control"  name = "bottom-left"></th>
+									<th class="col-xs-2"><input type="number" class="form-control" name = "bottom-right"></th>
+								</tr>
+							</table>
+						</form>
+						<div id="error" class="alert alert-danger text-center glyphicon glyphicon-remove" role="alert"></div>
+						<div class="text-center">
 							<button class="btn btn-primary" onclick="hill(1)">Crypter</button>
 							<button class="btn btn-primary" onclick="hill(0)">D&eacute;crypter</button>
 						</div>
-						<div id="affine">
-            <span class="row">
-               <span class="col-lg-offset-3 col-lg-2">Co&eacute;fficient A : <input  class="form-control cle cleAffine " id="CA" type="text" name="CA"/></span>
-                 <span class="col-lg-offset-2 col-lg-2">Co&eacute;fficient B : <input  class="form-control cleAffine " id="CB" type="text" name="CB"/></span>
-             </span>
-             <span class="row"> 
-             <span class="col-lg-offset-4 col-lg-2"><button class="btn btn-primary crypter-button"  id="crypterAffine"style="width:86px;">Crypter</button></span>
-              <span class="col-lg-2"><button class="btn btn-primary decrypter-button" id="decrypterAffine">D&eacute;crypter</button></span>
-             </span>
-             
-          
-                 
-            </div>
-						<div>RSA</div>
-						<div>Cryptanalyse</div>
+					</div>
+					<div class="onglet" id="affine">
+						<span class="row">
+							<span class="col-lg-offset-3 col-lg-2">Coefficient A : <input  class="form-control cle cleAffine " id="CA" type="text" name="CA"/></span>
+							<span class="col-lg-offset-2 col-lg-2">Coefficient B : <input  class="form-control cleAffine " id="CB" type="text" name="CB"/></span>
+						</span>
+						<span class="row">  
+							<span class="col-lg-offset-4 col-lg-2"><button class="btn btn-primary crypter-button"  id="crypterAffine" style="width:86px;">Crypter</button></span>
+							<span class="col-lg-2"><button class="btn btn-primary decrypter-button" id="decrypterAffine">D&eacute;crypter</button></span>
+						</span>
+					</div>
+					<div class="onglet" id="RSADiv">
+						<div class="col-lg-6">
+							<input  class="form-control cle" placeholder="p" type="number" id="RSA_p"  data-container="body" data-toggle="popover" data-placement="bottom" data-trigger="hover" data-content="p n'est pas un nombre premier" />
+						</div>
+						<div class="col-lg-6">
+							<input  class="form-control cle" placeholder="q" type="number" id="RSA_q" data-container="body" data-toggle="popover" data-placement="bottom" data-content="q n'est pas un nombre premier" data-trigger="hover" />
+						</div>
+
+						<div class="text-center">
+							<button class="btn btn-primary crypter-button"  id="cryptRSA" >Crypter</button>
+							<button class="btn btn-primary decrypter-button" id="decryptRSA">D&eacute;crypter</button>
+						</div>
+					</div>
+					<div class="onglet" id="CryptanalyseDiv">Cryptanalyse</div>
 				</div>
-            </div>
-         </div>
-      </div>
-      <script type="application/dart" src="dart/cesar.dart"></script>
-    <script src="packages/browser/dart.js"></script>
-	</body>
+			</div>
+		</div>
+	</div>
+	<script type="application/dart" src="dart/cesar.dart"></script>
+	<script src="packages/browser/dart.js"></script>
+</body>
 </html> 
+

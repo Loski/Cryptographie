@@ -2906,7 +2906,7 @@ var $$ = Object.create(null);
     }
   }
 }],
-["", "affine.dart", , N, {
+["affine", "affine.dart", , U, {
   "^": "",
   cryptageAffine: [function(e) {
     var cc, cAElement, cBElement, t1, t2, t3, list, texteCrypter, i;
@@ -2924,7 +2924,11 @@ var $$ = Object.create(null);
     t3 = J.get$runes$s(J.get$value$x(cc));
     list = P.List_List$from(t3, true, H.getRuntimeTypeArgument(t3, "IterableBase", 0));
     for (texteCrypter = "", i = 0; i < list.length; ++i) {
-      if (J.$gt$n(list[i], 64)) {
+      t3 = B.caractereSpeciaux(list[i]);
+      if (i >= list.length)
+        return H.ioore(list, i);
+      list[i] = t3;
+      if (J.$gt$n(t3, 64)) {
         if (i >= list.length)
           return H.ioore(list, i);
         t3 = J.$lt$n(list[i], 91);
@@ -2967,7 +2971,7 @@ var $$ = Object.create(null);
         return H.ioore(list, i);
       texteCrypter += H.Primitives_stringFromCharCode(list[i]);
     }
-    document.querySelector("#resultCryptage").textContent = texteCrypter;
+    document.querySelector("#textecode").textContent = texteCrypter;
   }, "call$1", "cryptageAffine$closure", 2, 0, 1],
   decryptageAffine: [function(e) {
     var cc, cAElement, cBElement, t1, t2, $A, t3, list, texteClaire, i, t4;
@@ -3041,23 +3045,23 @@ var $$ = Object.create(null);
         return H.ioore(list, i);
       texteClaire += H.Primitives_stringFromCharCode(list[i]);
     }
-    document.querySelector("#resultDeCryptage").textContent = texteClaire;
+    document.querySelector("#texteclair").textContent = texteClaire;
   }, "call$1", "decryptageAffine$closure", 2, 0, 1]
 }],
-["", "cesar.dart", , B, {
+["cesar", "cesar.dart", , U, {
   "^": "",
   main: [function() {
     var t1 = J.get$onClick$x(document.querySelector("#crypterCesar"));
-    H.setRuntimeTypeInfo(new W._EventStreamSubscription(0, t1._target, t1._eventType, W._wrapZone(B.cryptageCesar$closure()), t1._useCapture), [H.getTypeArgumentByIndex(t1, 0)])._tryResume$0();
+    H.setRuntimeTypeInfo(new W._EventStreamSubscription(0, t1._target, t1._eventType, W._wrapZone(U.cryptageCesar$closure()), t1._useCapture), [H.getTypeArgumentByIndex(t1, 0)])._tryResume$0();
     t1 = J.get$onClick$x(document.querySelector("#decrypterCesar"));
-    H.setRuntimeTypeInfo(new W._EventStreamSubscription(0, t1._target, t1._eventType, W._wrapZone(B.decryptageCesar$closure()), t1._useCapture), [H.getTypeArgumentByIndex(t1, 0)])._tryResume$0();
+    H.setRuntimeTypeInfo(new W._EventStreamSubscription(0, t1._target, t1._eventType, W._wrapZone(U.decryptageCesar$closure()), t1._useCapture), [H.getTypeArgumentByIndex(t1, 0)])._tryResume$0();
     t1 = J.get$onClick$x(document.querySelector("#crypterAffine"));
-    H.setRuntimeTypeInfo(new W._EventStreamSubscription(0, t1._target, t1._eventType, W._wrapZone(N.cryptageAffine$closure()), t1._useCapture), [H.getTypeArgumentByIndex(t1, 0)])._tryResume$0();
+    H.setRuntimeTypeInfo(new W._EventStreamSubscription(0, t1._target, t1._eventType, W._wrapZone(U.cryptageAffine$closure()), t1._useCapture), [H.getTypeArgumentByIndex(t1, 0)])._tryResume$0();
     t1 = J.get$onClick$x(document.querySelector("#decrypterAffine"));
-    H.setRuntimeTypeInfo(new W._EventStreamSubscription(0, t1._target, t1._eventType, W._wrapZone(N.decryptageAffine$closure()), t1._useCapture), [H.getTypeArgumentByIndex(t1, 0)])._tryResume$0();
+    H.setRuntimeTypeInfo(new W._EventStreamSubscription(0, t1._target, t1._eventType, W._wrapZone(U.decryptageAffine$closure()), t1._useCapture), [H.getTypeArgumentByIndex(t1, 0)])._tryResume$0();
   }, "call$0", "main$closure", 0, 0, 2],
   cryptageCesar: [function(e) {
-    var cc, t1, t2, list, texteCrypter, i;
+    var cc, t1, t2, list, texteCrypter, i, line;
     cc = document.querySelector("#texteclair");
     t1 = H.Primitives_parseInt(J.get$value$x(document.querySelector(".active .cle")), null, null);
     if (typeof t1 !== "number")
@@ -3066,6 +3070,14 @@ var $$ = Object.create(null);
     t2 = J.get$runes$s(J.get$value$x(cc));
     list = P.List_List$from(t2, true, H.getRuntimeTypeArgument(t2, "IterableBase", 0));
     for (texteCrypter = "", i = 0; i < list.length; ++i) {
+      t2 = B.caractereSpeciaux(list[i]);
+      if (i >= list.length)
+        return H.ioore(list, i);
+      list[i] = t2;
+      line = H.S(t2);
+      H.printString(line);
+      if (i >= list.length)
+        return H.ioore(list, i);
       if (J.$gt$n(list[i], 64)) {
         if (i >= list.length)
           return H.ioore(list, i);
@@ -3123,7 +3135,7 @@ var $$ = Object.create(null);
         return H.ioore(list, i);
       texteCrypter += H.Primitives_stringFromCharCode(list[i]);
     }
-    document.querySelector("#resultCryptage").textContent = texteCrypter;
+    document.querySelector("#textecode").textContent = texteCrypter;
   }, "call$1", "cryptageCesar$closure", 2, 0, 1],
   decryptageCesar: [function(e) {
     var cc, t1, t2, list, texteClaire, i;
@@ -3186,7 +3198,7 @@ var $$ = Object.create(null);
         return H.ioore(list, i);
       texteClaire += H.Primitives_stringFromCharCode(list[i]);
     }
-    document.querySelector("#resultDeCryptage").textContent = texteClaire;
+    document.querySelector("#texteclair").textContent = texteClaire;
   }, "call$1", "decryptageCesar$closure", 2, 0, 1]
 },
 1],
@@ -6205,6 +6217,43 @@ var $$ = Object.create(null);
     throw "Unable to print message: " + String(string);
   }
 }],
+["fonction", "fonction.dart", , B, {
+  "^": "",
+  caractereSpeciaux: function(ce) {
+    var t1 = J.getInterceptor(ce);
+    if (t1.$eq(ce, 232) || t1.$eq(ce, 233) || t1.$eq(ce, 234) || t1.$eq(ce, 255))
+      ce = 101;
+    else if (t1.$eq(ce, 200) || t1.$eq(ce, 201) || t1.$eq(ce, 202) || t1.$eq(ce, 203))
+      ce = 69;
+    else if (t1.$eq(ce, 231))
+      ce = 99;
+    else if (t1.$eq(ce, 199))
+      ce = 67;
+    else if (t1.$eq(ce, 224) || t1.$eq(ce, 225) || t1.$eq(ce, 226) || t1.$eq(ce, 227) || t1.$eq(ce, 228) || t1.$eq(ce, 229))
+      ce = 97;
+    else if (t1.$eq(ce, 192) || t1.$eq(ce, 193) || t1.$eq(ce, 194) || t1.$eq(ce, 195) || t1.$eq(ce, 196) || t1.$eq(ce, 197))
+      ce = 65;
+    else if (t1.$eq(ce, 249) || t1.$eq(ce, 250) || t1.$eq(ce, 251) || t1.$eq(ce, 252))
+      ce = 117;
+    else if (t1.$eq(ce, 217) || t1.$eq(ce, 218) || t1.$eq(ce, 219) || t1.$eq(ce, 220))
+      ce = 85;
+    else if (t1.$eq(ce, 242) || t1.$eq(ce, 243) || t1.$eq(ce, 244) || t1.$eq(ce, 255) || t1.$eq(ce, 246))
+      ce = 111;
+    else if (t1.$eq(ce, 210) || t1.$eq(ce, 211) || t1.$eq(ce, 212) || t1.$eq(ce, 213) || t1.$eq(ce, 214))
+      ce = 79;
+    else if (t1.$eq(ce, 236) || t1.$eq(ce, 237) || t1.$eq(ce, 238) || t1.$eq(ce, 239))
+      ce = 105;
+    else if (t1.$eq(ce, 241))
+      ce = 110;
+    else if (t1.$eq(ce, 209))
+      ce = 78;
+    else if (t1.$eq(ce, 253))
+      ce = 121;
+    else if (t1.$eq(ce, 221))
+      ce = 89;
+    return ce;
+  }
+}],
 ]);
 Isolate.$finishClasses($$, $, null);
 $$ = null;
@@ -7053,11 +7102,11 @@ init.dispatchPropertyName = init.getIsolateTag("dispatch_record");
   init.currentScript = currentScript;
   if (typeof dartMainRunner === "function") {
     dartMainRunner(function(a) {
-      H.startRootIsolate(B.main$closure(), a);
+      H.startRootIsolate(U.main$closure(), a);
     }, []);
   } else {
     (function(a) {
-      H.startRootIsolate(B.main$closure(), a);
+      H.startRootIsolate(U.main$closure(), a);
     })([]);
   }
 });

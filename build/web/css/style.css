@@ -1,14 +1,20 @@
 body
 {
-	cursor: url(http://www.rw-designer.com/cursor-extern.php?id=11463),pointer;
-    background-color: #e0e0e0
+	/*cursor: url(http://www.rw-designer.com/cursor-extern.php?id=11463),pointer;*/
+    background-color: #e0e0e0;
+    font-family: 'Signika', sans-serif;
+    
 }
-#contenu div, #error
+.onglet, #error
 {
 	display:none;
 }
-
-
+#clickme:hover{
+	cursor:pointer;
+}
+button, label{
+	font-family: 'Muli', sans-serif;
+} 
 #contenu div.active, #contenu #texte
 {
 	display:block;

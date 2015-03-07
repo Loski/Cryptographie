@@ -1,5 +1,7 @@
+library cesar;
 import 'dart:html';
 import 'dart:math';
+import 'fonction.dart';
 import 'affine.dart';
 
 void main(){
@@ -17,6 +19,8 @@ void cryptageCesar(Event e){
  String texteCrypter="";
  var list=texteACrypter.runes.toList();
  for(int i=0;i<list.length;i++){
+  list[i]=caractereSpeciaux(list[i]);
+  print(list[i]);
    if(list[i]>64 && list[i]<91)
    {
      list[i]=(list[i]+cle)%91;
@@ -35,7 +39,7 @@ void cryptageCesar(Event e){
    }
    texteCrypter=texteCrypter+new String.fromCharCode(list[i]);
  }
- querySelector('#resultCryptage').text=texteCrypter;
+ querySelector('#textecode').text=texteCrypter;
 }
 void decryptageCesar(Event e){
  TextAreaElement cc=querySelector('#textecode');
@@ -64,5 +68,5 @@ void decryptageCesar(Event e){
    }
    texteClaire=texteClaire+new String.fromCharCode(list[i]);
  }
- querySelector('#resultDeCryptage').text=texteClaire;
+ querySelector('#texteclair').text=texteClaire;
 }
