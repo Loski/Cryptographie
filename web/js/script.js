@@ -12,6 +12,11 @@
           $(".decrypter-button").attr("disabled", true);
        console.log("OK BUTTON DISA");
       }
+  else if($('.active#RSADiv').length){
+  	    $('.crypter-button').attr("disabled", false);
+  	    $(".decrypter-button").attr("disabled", false);
+
+  }
   else
   //Enlever les .cle.val()!='' et crée une clée aléatoire dans les fonctions de cryptage
       {

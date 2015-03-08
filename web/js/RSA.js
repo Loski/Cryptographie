@@ -20,7 +20,9 @@ function pgcd(a,b){
 function RSA_cryptePublic(texte, n, e){
 	n = bigInt(n);
 	e = bigInt(e);
-	$('#textecode').val(chiffrement(decoupeParTaille(decoupage(texte),4), e, n).join(' ')); 
+	$('#textecode').val(chiffrement(decoupeParTaille(decoupage(texte),4), e, n).join(' '));
+	console.log(e);
+	console.log(n);
 }
 function RSA_crypt(texte,p,q){
 	q = bigInt(q);
@@ -127,7 +129,7 @@ $(document).ready(function()
 				RSA_crypt(texte,p,q);
 			}
 			else{
-				var e = document.getElementById("RSA_q").value;
+				var e = document.getElementById("RSA_e").value;
 				RSA_cryptePublic(texte, n, e);
 			}
 		});
@@ -135,13 +137,9 @@ $(document).ready(function()
 	$('#decryptRSA').mousedown(function()
 		{
 			var texte=document.getElementById('textecode').value;
-<<<<<<< HEAD
 			var n = document.getElementById("RSA_n").value;
 			var d = document.getElementById("RSA_d").value;
-			// call decrypt
-=======
             RSA_decryptage(texte,4);
->>>>>>> origin/master
 		});
 });
 
