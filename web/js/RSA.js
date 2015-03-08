@@ -68,6 +68,8 @@ function RSA_crypt(texte,p,q){
 	$('#RSA_n').val(n);
 	$('#RSA_e').val(e);
 	$('#RSA_d').val(d);
+	$('#RSADiv').append("La clé publique est : ("+n+","+e+")");
+	$('#RSADiv').append("<br />La clé privée est : ("+n+","+d+")");
 }
 function decoupage(texte){
 	var str = "";
@@ -108,7 +110,7 @@ function chiffrement(tab, e, n){
 function RSA_decryptage(texte,taillebloc){
     var s=texte.split(" ");
     var n=bigInt($('#RSA_n').val());
-    var d=bigInt($('#RSA_d').val();
+    var d=bigInt($('#RSA_d').val());
     for(var i=0;i<s.length;i++)
     {
         s[i]=bigInt(s[i]);
