@@ -100,9 +100,19 @@ function chiffrement(tab, e, n){
 	}
 	return tab;
 }
-function RSA_decryptage(texte,bloc){
+function RSA_decryptage(texte,taillebloc){
     var s=texte.split(" ");
-    console.log(s[0]);
+    var cp=$('#cleprivée').val();
+    cp=cp.split(",");
+    cp[0]=bigInt(cp[0]);
+    cp[i]=bigInt(cp[1]);
+    for(var i=0;i<s.length;i++)
+    {
+        s[i]=bigInt(s[i]);
+        s[i]=s[i].modPow(cp[1],cp[0]);
+    }
+    console.log(s.join(" "));
+        
 }
 $(document).ready(function()
 { 
