@@ -17,7 +17,11 @@ function pgcd(a,b){
 	}
 	return a;
 }
-
+function RSA_cryptePublic(texte, n, e){
+	n = bigInt(n);
+	e = bigInt(e);
+	$('#textecode').val(chiffrement(decoupeParTaille(decoupage(texte),4), e, n).join(' ')); 
+}
 function RSA_crypt(texte,p,q){
 	q = bigInt(q);
 	p = bigInt(p);
@@ -59,8 +63,9 @@ function RSA_crypt(texte,p,q){
 	var d = bigInt(euclideEtendu(e,ind_euler)%ind_euler);
 	$('#textecode').val(chiffrement(decoupeParTaille(decoupage(texte),4), e, n).join(' '));  // Par 4 temp 
 	$('.decrypter-button').attr("disabled", false);
-	$('#RSADiv').append("La clé publique est : ("+n+","+e+")");
-	$('#RSADiv').append("<br />La clé privée est : ("+n+","+d+")");
+	$('#RSA_n').val(n);
+	$('#RSA_e').val(e);
+	$('#RSA_d').val(d);
 	
 }
 function decoupage(texte){
@@ -100,18 +105,27 @@ function chiffrement(tab, e, n){
 }
 $(document).ready(function()
 { 
-	$('#cryptRSA').mousedown(function()
-		{
+	$('#cryptRSA').mousedown(function(){
+		
 			var texte=document.getElementById('texteclair').value;
-			var p=document.getElementById("RSA_p").value;
-			var q=document.getElementById("RSA_q").value;
-			RSA_crypt(texte,p,q);
+			var n = document.getElementById("RSA_n").value;
+			if(n.trim() ===""){
+				var p=document.getElementById("RSA_p").value;
+				var q=document.getElementById("RSA_q").value;
+				RSA_crypt(texte,p,q);
+			}
+			else{
+				var e = document.getElementById("RSA_q").value;
+				RSA_cryptePublic(texte, n, e);
+			}
 		});
 		
 	$('#decryptRSA').mousedown(function()
 		{
-			console.log("RSA DECRYPTAGE");
 			var texte=document.getElementById('textecode').value;
+			var n = document.getElementById("RSA_n").value;
+			var d = document.getElementById("RSA_d").value;
+			// call decrypt
 		});
 });
 
