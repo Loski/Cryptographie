@@ -160,6 +160,31 @@ function verifMatrice(matrice, mod){
 	$('#matrice').addClass('has-success');
 	return determinant;
 }
+function verifMatriceGen(matrice, mod){
+	var determinant = calculdeterminant(matrice);
+	if(determinant === 0){//Matrice non inversible
+		return false;
+	}
+	else{
+		determinant = euclideEtendu(determinant, mod);
+		if(determinant === false){
+			return false;
+		}
+	}
+	return true;
+}
+function genererKey(){
+	var alphabet = creerAlphabet(recupererRadio()+26).length;
+	var matrice = [];
+	var determinant;
+	do{
+		for(var i = 0; i < 4; i++){
+			matrice[i] = Math.floor(Math.random()*alphabet);
+		}
+		determinant = calculdeterminant(matrice);
+	}while(!verifMatriceGen(matrice,alphabet));
+	$("input[name=top-left]").val(matrice[0]); $('input[name = top-right]').val(matrice[1]); $('input[name = "bottom-left"]').val(matrice[2]); $('input[name = "bottom-right"]').val(matrice[3]);	
+}
 function recupererTexte(choice){
 	if(choice == 1)
 		return $('#texteclair').val();

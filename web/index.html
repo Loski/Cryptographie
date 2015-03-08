@@ -111,16 +111,21 @@
 			<div class="col-lg-12">
 				<div class="col-lg-offset-2 col-lg-8" id="contenu">
 					<div id="CesarDiv" class="active form-group onglet">
-						Cl&eacute; : <input  class="form-control cle" type="text" name="Cle"/><br/>
+						<input  placeholder="Clé" class="form-control cle" type="text" name="Cle"/><br/>
 						<div class="text-center">
 							<button class="btn btn-primary crypter-button" id="crypterCesar">Crypter</button>
 							<button class="btn btn-primary decrypter-button" id="decrypterCesar">D&eacute;crypter</button>
 						</div>
 					</div>
 					<div id="VigenereDiv" class="form-group onglet">
+<<<<<<< HEAD
 					Alphabet : <input class="form-control" type="text" value="ABCDEFGHIJKLMOPQRSTUVWXYZ" id="alphaVig"/><br/>
 						Cl&eacute; : <button class="btn btn-primary" id="KeyGenVig" >Générer</button><br />
 						<input  class="form-control cle" id="keyVig" type="text" name="Cle"/><br/>
+=======
+						<input  placeholder="Clé" class="form-control cle" id="keyVig" type="text" name="Cle"/><br/>
+						<button class="btn btn-primary" id="KeyGenVig" >Générer</button><br/>
+>>>>>>> origin/master
 						<div class="text-center">
 							<button id="cryptVig" class="btn btn-primary crypter-button">Crypter</button>
 							<button id="decryptVig" class="btn btn-primary decrypter-button">D&eacute;crypter</button>
@@ -139,6 +144,7 @@
 								</tr>
 							</table>
 						</form>
+						 <button class="btn btn-primary" onclick="genererKey()" >Générer</button>
 						<div id="error" class="alert alert-danger text-center glyphicon glyphicon-remove" role="alert"></div>
 						<div class="text-center">
 							<button class="btn btn-primary crypter-button" onclick="hill(1)" crypter-button>Crypter</button>
@@ -156,7 +162,6 @@
 						</span>
 					</div>
 					<div class="onglet" id="RSADiv">
-					<button class="btn btn-primary" id="KeyGenRSA" >Générer</button><br/>
 						<div class="col-lg-6">
 							<input  class="form-control cle" placeholder="p" type="number" id="RSA_p"  data-container="body" data-toggle="popover" data-placement="bottom" data-trigger="hover" data-content="p n'est pas un nombre premier" />
 						</div>
@@ -174,6 +179,7 @@
 							<input  class="form-control cle" placeholder="d" type="number" id="RSA_d" data-container="body" data-toggle="popover" data-placement="bottom" data-content="q n'est pas un nombre premier" data-trigger="hover" />
 							</div>
 						</div>
+						<button class="btn btn-primary" id="KeyGenRSA" >Générer</button><br/>
                         <div class="row">
 						  <div class="text-center">
 							 <button class="btn btn-primary crypter-button"  id="cryptRSA" >Crypter</button>
