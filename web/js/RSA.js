@@ -176,7 +176,7 @@ $(document).ready(function()
 		
 	$('#KeyGenRSA').mousedown(function()
 		{
-			var max=1000000000000;
+			var max=10000000000000;
 			var min=100;
 			document.getElementById("RSA_e").value="";
 			document.getElementById("RSA_n").value="";
@@ -184,13 +184,13 @@ $(document).ready(function()
 			
 			var nb = bigInt(Math.floor(Math.random()*(max-min)+min));
 			while(!isPrime(nb))
-				var nb = bigInt(Math.floor(Math.random()*(max-min)+min));
+				nb = bigInt(Math.floor(Math.random()*(max-min)+min));
 			document.getElementById('RSA_p').value=nb;
 			
 			var nb2 = bigInt(Math.floor(Math.random()*(max-min)+min));
-			while(!isPrime(nb2) && !nb2.equals(nb))
-				var nb2 = bigInt(Math.floor(Math.random()*(max-min)+min));
-			document.getElementById('RSA_q').value=nb;
+			while(!(isPrime(nb2)) || nb2.equals(nb))
+				 nb2 = bigInt(Math.floor(Math.random()*(max-min)+min));
+			document.getElementById('RSA_q').value=nb2;
 			disable();
 		});
 });
