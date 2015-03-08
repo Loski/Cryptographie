@@ -88,6 +88,7 @@ function decoupeParTaille(texte, taille){
 			tab[tab.length-1]+="0";
 		tab[tab.length-1]+=tmp;
 	}
+    console.log(tab);
 	return tab;
 }
 
@@ -97,6 +98,10 @@ function chiffrement(tab, e, n){
 		tab[i] = tab[i].modPow(e,n);
 	}
 	return tab;
+}
+function RSA_decryptage(texte,bloc){
+    var s=texte.split(" ");
+    console.log(s[0]);
 }
 $(document).ready(function()
 { 
@@ -112,6 +117,7 @@ $(document).ready(function()
 		{
 			console.log("RSA DECRYPTAGE");
 			var texte=document.getElementById('textecode').value;
+            RSA_decryptage(texte,4);
 		});
 });
 
