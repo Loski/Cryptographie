@@ -49,9 +49,6 @@ function RSA_crypt(texte,p,q){
 		return;
 
 	var ind_euler = bigInt((p-1)*(q-1));
-	
-	
-	//Revoir le calcul aléa de e (là ça donne juste un nombre entre 2 et 10)
     
 	var e = bigInt(Math.floor(Math.random()*(ind_euler-2)+2));
 	while(pgcd(e,ind_euler)!==1 && e < ind_euler) 
@@ -63,7 +60,7 @@ function RSA_crypt(texte,p,q){
 	$('#textecode').val(chiffrement(decoupeParTaille(decoupage(texte),4), e, n).join(' '));  // Par 4 temp 
 	$('.decrypter-button').attr("disabled", false);
 	$('#RSADiv').append("La clé publique est : ("+n+","+e+")");
-	$('#RSADiv').append("La clé privé est : ("+n+","+d+")");
+	$('#RSADiv').append("<br />La clé privée est : ("+n+","+d+")");
 	
 }
 function decoupage(texte){
