@@ -173,6 +173,23 @@ $(document).ready(function()
 			var d = document.getElementById("RSA_d").value;
             RSA_decryptage(texte,4);
 		});
+		
+	$('#KeyGenRSA').mousedown(function()
+		{
+			console.log("RSA KEYGEN");
+			var max=100000000;
+			var min=100;
+			
+			var nb = bigInt(Math.floor(Math.random()*(max-min)+min));
+			while(!isPrime(nb))
+				var nb = bigInt(Math.floor(Math.random()*(max-min)+min));
+			document.getElementById('RSA_p').value=nb;
+			
+			var nb = bigInt(Math.floor(Math.random()*(max-min)+min));
+			while(!isPrime(nb))
+				var nb = bigInt(Math.floor(Math.random()*(max-min)+min));
+			document.getElementById('RSA_q').value=nb;
+		});
 });
 
 
