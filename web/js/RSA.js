@@ -179,6 +179,9 @@ $(document).ready(function()
 			console.log("RSA KEYGEN");
 			var max=100000000;
 			var min=100;
+			document.getElementById("RSA_e").value="";
+			document.getElementById("RSA_n").value="";
+			document.getElementById("RSA_d").value="";
 			
 			var nb = bigInt(Math.floor(Math.random()*(max-min)+min));
 			while(!isPrime(nb))
