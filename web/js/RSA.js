@@ -66,6 +66,9 @@ function RSA_crypt(texte,p,q){
 	$('#RSA_n').val(n);
 	$('#RSA_e').val(e);
 	$('#RSA_d').val(d);
+    $('#clepublique,#cleprivée').show();
+	$('#clepublique').text(n+","+e);
+	$('#cleprivée').text(n+","+d);
 	
 }
 function decoupage(texte){
@@ -93,6 +96,7 @@ function decoupeParTaille(texte, taille){
 			tab[tab.length-1]+="0";
 		tab[tab.length-1]+=tmp;
 	}
+    console.log(tab);
 	return tab;
 }
 
@@ -102,6 +106,10 @@ function chiffrement(tab, e, n){
 		tab[i] = tab[i].modPow(e,n);
 	}
 	return tab;
+}
+function RSA_decryptage(texte,bloc){
+    var s=texte.split(" ");
+    console.log(s[0]);
 }
 $(document).ready(function()
 { 
@@ -123,9 +131,13 @@ $(document).ready(function()
 	$('#decryptRSA').mousedown(function()
 		{
 			var texte=document.getElementById('textecode').value;
+<<<<<<< HEAD
 			var n = document.getElementById("RSA_n").value;
 			var d = document.getElementById("RSA_d").value;
 			// call decrypt
+=======
+            RSA_decryptage(texte,4);
+>>>>>>> origin/master
 		});
 });
 
