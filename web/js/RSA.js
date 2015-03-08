@@ -26,8 +26,7 @@ function RSA_cryptePublic(texte, n, e){
 	n = bigInt(n);
 	e = bigInt(e);
 	$('#textecode').val(chiffrement(decoupeParTaille(decoupage(texte),4), e, n).join(' '));
-	console.log(e);
-	console.log(n);
+
 }
 function RSA_crypt(texte,p,q){
 	q = bigInt(q);
@@ -35,7 +34,6 @@ function RSA_crypt(texte,p,q){
 	var premier = true;
 	if(!isPrime(p))
 	{
-		console.log("p non premier");
 		$('#RSA_p').popover(); //A mettre dans la vérif de clé (genre le même truc que Hill)
 		premier = false;
 		$('#RSA_p').parent().addClass('has-error');
@@ -47,7 +45,6 @@ function RSA_crypt(texte,p,q){
 	
 	if(!isPrime(q))
 	{
-		console.log("q non premier");
 		$('#RSA_q').popover(); //A mettre dans la vérif de clé (genre le même truc que Hill)
 		premier = false;
 		$('#RSA_q').parent().addClass('has-error');
@@ -173,7 +170,6 @@ $(document).ready(function()
 		
 	$('#KeyGenRSA').mousedown(function()
 		{
-			console.log("RSA KEYGEN");
 			var max=100000000;
 			var min=100;
 			document.getElementById("RSA_e").value="";
