@@ -182,14 +182,14 @@ $(document).ready(function()
 			document.getElementById("RSA_n").value="";
 			document.getElementById("RSA_d").value="";
 			
-			var nb = bigInt(Math.floor(Math.random()*(max-min)+min));
+			var nb = bigInt.randBetween("1000","1e8");
 			while(!isPrime(nb))
-				nb = bigInt(Math.floor(Math.random()*(max-min)+min));
+				nb = bigInt.randBetween("1000","1e8");
 			document.getElementById('RSA_p').value=nb;
 			
-			var nb2 = bigInt(Math.floor(Math.random()*(max-min)+min));
+			var nb2 = bigInt.randBetween("1000","1e8");
 			while(!(isPrime(nb2)) || nb2.equals(nb))
-				 nb2 = bigInt(Math.floor(Math.random()*(max-min)+min));
+				 nb2 = bigInt.randBetween("1000",1e8);
 			document.getElementById('RSA_q').value=nb2;
 			disable();
 		});
