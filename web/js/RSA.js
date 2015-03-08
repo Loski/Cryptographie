@@ -57,10 +57,10 @@ function RSA_crypt(texte,p,q){
 	while(pgcd(e,ind_euler)!==1 && e < ind_euler) 
 		e = bigInt(Math.floor(Math.random()*(ind_euler-2)+2));
 	console.log("e="+e);
-	var n = bigInt(p*q);
+	var n = bigInt(q).multiply(p);
 	console.log(n);
 	var d = bigInt(euclideEtendu(e,ind_euler)%ind_euler);
-	$('#textecode').val(chiffrement(decoupage(texte), e, n).join(' '));
+	$('#textecode').val(chiffrement(decoupeParTaille(decoupage(texte),4), e, n).join(' '));  // Par 4 temp 
 	$('.decrypter-button').attr("disabled", false);
 	$('#RSADiv').append("La clé publique est : ("+n+","+e+")");
 	$('#RSADiv').append("La clé privé est : ("+n+","+d+")");
@@ -77,7 +77,7 @@ function decoupage(texte){
 	}
 	return str;
 }
-function fourbyfour(texte, taille){
+function decoupeParTaille(texte, taille){
 	console.log(texte);
 	var tab = [];
 	for(var i = 0; i < texte.length; i+=taille)
@@ -87,7 +87,7 @@ function fourbyfour(texte, taille){
 	if(tailleLast > 0){
 		var tmp = tab[tab.length-1];
 		tab[tab.length-1] ="";
-		for(i = 0; i < 4-tailleLast; i++)
+		for(i = 0; i < taille -tailleLast; i++)
 			tab[tab.length-1]+="0";
 		tab[tab.length-1]+=tmp;
 	}
@@ -95,7 +95,6 @@ function fourbyfour(texte, taille){
 }
 
 function chiffrement(tab, e, n){
-	console.log("n=" + n);
 	for(var i = 0 ; i < tab.length;i++){
 		tab[i] = bigInt(tab[i]);
 		tab[i].modPow(e,n);
