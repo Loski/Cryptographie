@@ -1,5 +1,6 @@
-﻿function vigenere_crypt(texte,cle){
+﻿function vigenere_crypt(texte,cle,alphabet){
 	var crypt="";
+	var modulo = alphabet.length;
 	for(var i=0,j=0;i<texte.length;i++)
 	{
 		if(j==cle.length) //on reboucle sur le début de la clé
@@ -12,16 +13,16 @@
 		{
 			cara=cara.toUpperCase();
 			indice=cara.charCodeAt(0);
-			var somme=(indice+cle.charAt(j).charCodeAt(0))%26;
-			var val = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".charAt(somme);
+			var somme=(indice+cle.charAt(j).charCodeAt(0))%modulo;
+			var val = alphabet.charAt(somme);
 			crypt+=val.toLowerCase();
 			j++;
 		}
 		
 		else if((indice>="A".charCodeAt(0) && indice<="Z".charCodeAt(0))) //Maj
 		{
-			var somme=(indice+cle.charAt(j).charCodeAt(0))%26; //position dans l'alphabet
-			var val = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".charAt(somme);
+			var somme=(indice+cle.charAt(j).charCodeAt(0))%modulo; //position dans l'alphabet
+			var val = alphabet.charAt(somme);
 			crypt+=val;
 			j++;
 		}
@@ -36,9 +37,10 @@
 	$('.decrypter-button').attr("disabled", false);
 }
 
-function vigenere_decrypt(texte,cle){
+function vigenere_decrypt(texte,cle,alphabet){
 	console.log("DECRYPT");
 	var decrypt="";
+	var modulo = alphabet.length;
 	for(var i=0,j=0;i<texte.length;i++)
 	{
 		if(j==cle.length) //on reboucle sur le début de la clé
@@ -51,20 +53,20 @@ function vigenere_decrypt(texte,cle){
 		{
 			cara=cara.toUpperCase();
 			indice=cara.charCodeAt(0);
-			var somme=(indice-cle.charAt(j).charCodeAt(0))%26;
+			var somme=(indice-cle.charAt(j).charCodeAt(0))%modulo;
 			if(somme<0)
 				somme+=26;
-			var val = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".charAt(somme);
+			var val = alphabet.charAt(somme);
 			decrypt+=val.toLowerCase();
 			j++;
 		}
 		
 		else if((indice>="A".charCodeAt(0) && indice<="Z".charCodeAt(0))) //Maj
 		{
-			var somme=(indice-cle.charAt(j).charCodeAt(0))%26; //position dans l'alphabet
+			var somme=(indice-cle.charAt(j).charCodeAt(0))%modulo; //position dans l'alphabet
 			if(somme<0)
 				somme+=26;
-			var val = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".charAt(somme);
+			var val = alphabet.charAt(somme);
 			decrypt+=val;
 			j++;
 		}
@@ -86,7 +88,9 @@ $(document).ready(function()
 			console.log("VIGENERE CRYPTAGE");
 			var texte=document.getElementById('texteclair').value;
 			var cle = document.getElementById('keyVig').value;
-			vigenere_crypt(texte,cle);
+			var alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+			//var alphabet ="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz’«» \\\n\t&(ÀàÂâÄ†ãÑñíÍßóÓÁá©ÆæÇçÉéÈèÊêËëÎîÏïÔôÖŒœÙùÛûÜüŸÿ-_\"\'1234567890°)~#{[|`^@]}$£€!:;,?./§%*<>";
+			vigenere_crypt(texte,cle,alphabet);
 		});
 		
 	$('#decryptVig').mousedown(function()
@@ -94,7 +98,10 @@ $(document).ready(function()
 			console.log("VIGENERE DECRYPTAGE");
 			var texte=document.getElementById('textecode').value;
 			var cle = document.getElementById('keyVig').value;
-			vigenere_decrypt(texte,cle);
+			var alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+			//var alphabet ="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz’«» \\\n\t&(ÀàÂâÄ†ãÑñíÍßóÓÁá©ÆæÇçÉéÈèÊêËëÎîÏïÔôÖŒœÙùÛûÜüŸÿ-_\"\'1234567890°)~#{[|`^@]}$£€!:;,?./§%*<>";
+
+			vigenere_decrypt(texte,cle,alphabet);
 		});
 
 	$('#KeyGenVig').mousedown(function()
