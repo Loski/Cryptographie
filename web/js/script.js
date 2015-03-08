@@ -1,7 +1,6 @@
-﻿var disable = function disableBouton(){
+var disable = function disableBouton(){
 	$('.decrypter-button').attr("disabled", true);
 	$('.crypter-button').attr("disabled", true);
-	console.log("hi");
 	if(document.getElementById('texteclair').value!==''){
 		if($('.active#affine').length)
 		{
@@ -158,7 +157,6 @@ $(document).ready(function()
 	
 	$("label input[type=file]").change(function(event)
 	{
-		console.log("hi");
 		var file = this.files[0];
 		if (file) 
 		{
@@ -168,7 +166,7 @@ $(document).ready(function()
 			reader.onload = function(e) 
 			{
 				$(txt).text(e.target.result);
-				disableBouton();
+				disable();
 			};
 		}
 	});

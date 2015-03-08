@@ -185,6 +185,7 @@ $(document).ready(function()
 			while(!isPrime(nb))
 				var nb = bigInt(Math.floor(Math.random()*(max-min)+min));
 			document.getElementById('RSA_q').value=nb;
+			disable();
 		});
 });
 

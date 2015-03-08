@@ -116,7 +116,8 @@ $(document).ready(function()
 			for(var i=0;i<taille;i++)
 			{
 				var nb = Math.floor(Math.random()*(26-1)+1);
-				document.getElementById('keyVig').value+="ABCDEFGHIJKLMNOPQRSTUVWXYZ".charAt(nb)
+				document.getElementById('keyVig').value+="ABCDEFGHIJKLMNOPQRSTUVWXYZ".charAt(nb);
 			}
+			disable();
 		});
 });
