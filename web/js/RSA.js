@@ -176,7 +176,7 @@ $(document).ready(function()
 		
 	$('#KeyGenRSA').mousedown(function()
 		{
-			var max=10000000000000;
+			var max=100000000;
 			var min=100;
 			document.getElementById("RSA_e").value="";
 			document.getElementById("RSA_n").value="";
