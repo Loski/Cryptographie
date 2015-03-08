@@ -97,7 +97,7 @@ function decoupeParTaille(texte, taille){
 function chiffrement(tab, e, n){
 	for(var i = 0 ; i < tab.length;i++){
 		tab[i] = bigInt(tab[i]);
-		tab[i].modPow(e,n);
+		tab[i] = tab[i].modPow(e,n);
 	}
 	return tab;
 }
