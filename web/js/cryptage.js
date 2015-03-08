@@ -212,3 +212,7 @@ function retourneMotNombre(mot, alphabet){
 	}
 	return str;
 }
+
+function genereKeyCesar(){
+	$('#cesarKey').val(Math.floor(Math.random() * 26));
+}
