@@ -97,5 +97,15 @@ $(document).ready(function()
 			vigenere_decrypt(texte,cle);
 		});
 
-
+	$('#KeyGenVig').mousedown(function()
+		{
+			console.log("VIGENERE KEYGEN");
+			document.getElementById('keyVig').value="";
+			var taille = Math.floor(Math.random()*(26-1)+1);
+			for(var i=0;i<taille;i++)
+			{
+				var nb = Math.floor(Math.random()*(26-1)+1);
+				document.getElementById('keyVig').value+="ABCDEFGHIJKLMNOPQRSTUVWXYZ".charAt(nb)
+			}
+		});
 });
