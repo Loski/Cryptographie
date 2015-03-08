@@ -66,10 +66,6 @@ function RSA_crypt(texte,p,q){
 	$('#RSA_n').val(n);
 	$('#RSA_e').val(e);
 	$('#RSA_d').val(d);
-    $('#clepublique,#cleprivée').show();
-	$('#clepublique').text(n+","+e);
-	$('#cleprivée').text(n+","+d);
-	
 }
 function decoupage(texte){
 	var str = "";
@@ -109,14 +105,12 @@ function chiffrement(tab, e, n){
 }
 function RSA_decryptage(texte,taillebloc){
     var s=texte.split(" ");
-    var cp=$('#cleprivée').val();
-    cp=cp.split(",");
-    cp[0]=bigInt(cp[0]);
-    cp[i]=bigInt(cp[1]);
+    var n=bigInt($('#RSA_n').val());
+    var d=bigInt($('#RSA_d').val();
     for(var i=0;i<s.length;i++)
     {
         s[i]=bigInt(s[i]);
-        s[i]=s[i].modPow(cp[1],cp[0]);
+        s[i]=s[i].modPow(d,n);
     }
     console.log(s.join(" "));
         
