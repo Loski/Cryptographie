@@ -19,11 +19,8 @@ function pgcd(a,b){
 }
 
 function RSA_crypt(texte,p,q){
-	var crypt="";
-	
-	//Tester si p et q sont null
-		//->Clée aléa
-	console.log("hi");
+	q = bigInt(q);
+	p = bigInt(p);
 	var premier = true;
 	if(!isPrime(p))
 	{
@@ -51,28 +48,44 @@ function RSA_crypt(texte,p,q){
 	if(!premier)
 		return;
 
-	var ind_euler = (p-1)*(q-1);
+	var ind_euler = bigInt((p-1)*(q-1));
 	
 	
 	//Revoir le calcul aléa de e (là ça donne juste un nombre entre 2 et 10)
     
-	var e = Math.floor(Math.random()*(ind_euler-2)+2);
+	var e = bigInt(Math.floor(Math.random()*(ind_euler-2)+2));
 	while(pgcd(e,ind_euler)!==1 && e < ind_euler) 
-		e = Math.floor(Math.random()*(ind_euler-2)+2);
+		e = bigInt(Math.floor(Math.random()*(ind_euler-2)+2));
 	console.log("e="+e);
-	var n = p*q;
-	var d = euclideEtendu(e,ind_euler)%ind_euler;
-	document.getElementById('textecode').value=crypt;
+	var n = bigInt(p*q);
+	console.log(n);
+	var d = bigInt(euclideEtendu(e,ind_euler)%ind_euler);
+	$('#textecode').val(chiffrement(decoupage(texte), e, n).join(' '));
 	$('.decrypter-button').attr("disabled", false);
 	$('#RSADiv').append("La clé publique est : ("+n+","+e+")");
 	$('#RSADiv').append("La clé privé est : ("+n+","+d+")");
+	
+}
+function decoupage(texte){
+	var tab = [];
+	for(var i = 0; i < texte.length; i++){
+		tab[i] = texte.charCodeAt(i);
+	}
+	return tab;
 }
 
+function chiffrement(tab, e, n){
+	console.log("n=" + n);
+	for(var i = 0 ; i < tab.length;i++){
+		tab[i] = bigInt(tab[i]);
+		tab[i].modPow(e,n);
+	}
+	return tab;
+}
 $(document).ready(function()
 { 
 	$('#cryptRSA').mousedown(function()
 		{
-			console.log("RSA CRYPTAGE");
 			var texte=document.getElementById('texteclair').value;
 			var p=document.getElementById("RSA_p").value;
 			var q=document.getElementById("RSA_q").value;
@@ -84,6 +97,7 @@ $(document).ready(function()
 			console.log("RSA DECRYPTAGE");
 			var texte=document.getElementById('textecode').value;
 		});
-
-
 });
+
+
+
