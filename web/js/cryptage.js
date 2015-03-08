@@ -120,7 +120,8 @@ function hill(choice){
 	}
 	else{
 		$('#texteclair').val(decrypte_hill(texte, matrice, determinant, mod));
-	} 
+	}
+	disable();
 }
 function verifMatrice(matrice, mod){
 	var error = false;
@@ -183,7 +184,8 @@ function genererKey(){
 		}
 		determinant = calculdeterminant(matrice);
 	}while(!verifMatriceGen(matrice,alphabet));
-	$("input[name=top-left]").val(matrice[0]); $('input[name = top-right]').val(matrice[1]); $('input[name = "bottom-left"]').val(matrice[2]); $('input[name = "bottom-right"]').val(matrice[3]);	
+	$("input[name=top-left]").val(matrice[0]); $('input[name = top-right]').val(matrice[1]); $('input[name = "bottom-left"]').val(matrice[2]); $('input[name = "bottom-right"]').val(matrice[3]);
+	disable();
 }
 function recupererTexte(choice){
 	if(choice == 1)
@@ -211,4 +213,9 @@ function retourneMotNombre(mot, alphabet){
 			str += mot.charAt(i);
 	}
 	return str;
+}
+
+function genereKeyCesar(){
+	$('#cesarKey').val(Math.floor(Math.random() * 26));
+	disable();
 }
