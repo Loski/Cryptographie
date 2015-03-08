@@ -53,6 +53,12 @@ function RSA_crypt(texte,p,q){
 		$('#RSA_q').parent().addClass('has-success');
 		$('#RSA_q').popover('destroy');
 	}
+	if(q.equals(p)){
+		$('#RSA_q').parent().addClass('has-error');
+		$('#RSA_q').popover('destroy');
+		$('#RSA_q').popover({title:"p=q"});
+		return;
+	}
 	if(!premier)
 		return;
 
@@ -181,9 +187,9 @@ $(document).ready(function()
 				var nb = bigInt(Math.floor(Math.random()*(max-min)+min));
 			document.getElementById('RSA_p').value=nb;
 			
-			var nb = bigInt(Math.floor(Math.random()*(max-min)+min));
-			while(!isPrime(nb))
-				var nb = bigInt(Math.floor(Math.random()*(max-min)+min));
+			var nb2 = bigInt(Math.floor(Math.random()*(max-min)+min));
+			while(!isPrime(nb2) && nb2.equals(nb))
+				var nb2 = bigInt(Math.floor(Math.random()*(max-min)+min));
 			document.getElementById('RSA_q').value=nb;
 			disable();
 		});
