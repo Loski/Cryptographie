@@ -1,3 +1,8 @@
+String.prototype.repeat = function( num )
+{
+    return new Array( num + 1 ).join( this );
+}
+
 function isPrime(n) {
     if (n <= 3) { return n > 1; }
     if (n % 2 === 0 || n % 3 === 0) { return false; }
@@ -94,7 +99,6 @@ function decoupeParTaille(texte, taille){
 			tab[tab.length-1]+="0";
 		tab[tab.length-1]+=tmp;
 	}
-    console.log(tab);
 	return tab;
 }
 
@@ -108,13 +112,43 @@ function chiffrement(tab, e, n){
 function RSA_decryptage(texte,taillebloc){
     var s=texte.split(" ");
     var n=bigInt($('#RSA_n').val());
-    var d=bigInt($('#RSA_d').val();
+    var d=bigInt($('#RSA_d').val());
     for(var i=0;i<s.length;i++)
     {
         s[i]=bigInt(s[i]);
         s[i]=s[i].modPow(d,n);
+        s[i]=s[i].toString();
     }
-    console.log(s.join(" "));
+    var walid="";
+    for(var i=0;i<s.length-1;i++)
+    {
+            if(s[i].length<taillebloc)
+            {
+                s[i]="0".repeat(taillebloc-s[i].length)+s[i];
+            }
+    
+
+            
+        walid=walid+s[i];
+
+    }
+    walid=walid+s[s.length-1];
+    var tab=[];
+    for(var i=0;i<walid.length;i=i+3)
+    {
+        if(walid[i+2])
+            tab.push(walid[i]+walid[i+1]+walid[i+2])
+        else if (walid[i+1])
+            tab.push(walid[i]+walid[i+1])
+        else
+            tab.push(walid[i])
+    }
+   for(var i=0;i<tab.length;i++)
+   {
+       tab[i]=String.fromCharCode(tab[i]);
+   }
+  
+    $('#texteclair').val(tab.join(""));
         
 }
 $(document).ready(function()
