@@ -1,7 +1,6 @@
 ﻿var disable = function disableBouton(){
 	$('.decrypter-button').attr("disabled", true);
 	$('.crypter-button').attr("disabled", true);
-	console.log("hi");
 	if(document.getElementById('texteclair').value!==''){
 		if($('.active#affine').length)
 		{

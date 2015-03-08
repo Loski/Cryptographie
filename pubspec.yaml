@@ -1,7 +1,0 @@
-name: 'Cryptographie'
-description: A sample application
-environment:
-  sdk: '>=1.0.0 <2.0.0'
-dependencies:
-  browser: any
-  chrome: any
