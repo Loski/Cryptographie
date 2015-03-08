@@ -73,6 +73,8 @@ function RSA_crypt(texte,p,q){
 	$('#RSA_n').val(n);
 	$('#RSA_e').val(e);
 	$('#RSA_d').val(d);
+	$('#RSADiv').append("La clé publique est : ("+n+","+e+")");
+	$('#RSADiv').append("<br />La clé privée est : ("+n+","+d+")");
 }
 function decoupage(texte){
 	var str = "";

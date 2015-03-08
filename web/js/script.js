@@ -1,38 +1,54 @@
-﻿function disableBouton(){
-  if($('.active#affine').length)
-      {
-        if(document.getElementById('texteclair').value!=='' && $('#CA').val()!=='' && $('#CB').val()!=='')
-          $('.crypter-button').attr("disabled", false);
-        else
-          $('.crypter-button').attr("disabled", true);
-    
-        if(document.getElementById('textecode').value!=='' && $('#CA').val()!=='' && $('#CB').val()!=='')
-          $(".decrypter-button").attr("disabled", false);
-        else
-          $(".decrypter-button").attr("disabled", true);
-       console.log("OK BUTTON DISA");
-      }
-  else if($('.active#RSADiv').length){
-  	    $('.crypter-button').attr("disabled", false);
-  	    $(".decrypter-button").attr("disabled", false);
+﻿var disable = function disableBouton(){
+	$('.decrypter-button').attr("disabled", true);
+	$('.crypter-button').attr("disabled", true);
+	console.log("hi");
+	if(document.getElementById('texteclair').value!==''){
+		if($('.active#affine').length)
+		{
+			if($('#CA').val()!=='' && $('#CB').val()!=='')
+				$('.crypter-button').attr("disabled", false);
+		}
+		else if($('.active#RSADiv').length){
+			$('.crypter-button').attr("disabled", false);
+		}
+		else if($('.active#HillDiv').length){
+			var vide = false;
+			var matrice = recupererMatrice();
+			for(var i = 0; i < 4; i++){
+				if(matrice[i].trim()=== "")
+					vide = true;
+			}
+			if(!vide)
+				$(".crypter-button").attr("disabled", false);
+		}
+		else if($('.active .cle').val()!==''){
+			$(".crypter-button").attr("disabled", false);
+		}
+	}
+	if(document.getElementById('textecode').value!==''){
+		if($('.active#affine').length){
+			if($('#CA').val()!=='' && $('#CB').val()!=='')
+				$(".decrypter-button").attr("disabled", false);
+		}
+		else if($('.active#RSADiv').length){
+			$(".decrypter-button").attr("disabled", false);
+		}
+		else if($('.active#HillDiv').length){
+			var vide = false;
+			var matrice = recupererMatrice();
+			for(var i = 0; i < 4; i++){
+				if(matrice[i].trim()=== "")
+					vide = true;
+			}
+			if(!vide)
+				$(".decrypter-button").attr("disabled", false);
+		}
+		else if($('.active .cle').val()!==''){
+			$(".decrypter-button").attr("disabled", false);
+		}
+	}
+};
 
-  }
-  else
-  //Enlever les .cle.val()!='' et crée une clée aléatoire dans les fonctions de cryptage
-      {
-        if(document.getElementById('texteclair').value!=='' && $('.active .cle').val()!=='')
-		      $('.crypter-button').attr("disabled", false);
-	      else
-		      $('.crypter-button').attr("disabled", true);
-		
-	      if(document.getElementById('textecode').value!=='' && $('.active .cle').val()!=='')
-		      $(".decrypter-button").attr("disabled", false);
-	      else
-		      $(".decrypter-button").attr("disabled", true);
-	     console.log("OK BUTTON DISA");
-	    }
-	
-}
 
 function modal(nb){
 	if(nb === 0){
@@ -116,9 +132,7 @@ function destroyClickedElement(event)
 
 $(document).ready(function()
 { 
-
-	disableBouton();
-	
+	disable();	
 	$( "#clickme" ).click(function() {
 		$("#clickme").siblings().toggle();
 	});
@@ -130,41 +144,17 @@ $(document).ready(function()
 			var i = $("#menu>li").index($(this));
 			$(".onglet").eq(i).addClass('active');
 			document.title=($("#menu>li").eq(i).text());
-			disableBouton();
+			disable();
 			$('#error').hide();
 
 		});
 	
-	$('#textecode').change(function() //Changer Keyup 
-	{
-		console.log(document.getElementById('textecode').value);
-		disableBouton();
-
-	});
-	 $('#texteclair').change(function() //Changer Keyup 
-  {
-    console.log(document.getElementById('textecode').value);
-    disableBouton();
-
-  });
-     $('.active .cle').keyup(function() //Changer Keyup 
-  {
-    console.log(document.getElementById('textecode').value);
-    disableBouton();
-
-  });
-      $('.cleAffine').keyup(function() //Changer Keyup 
-  {
-    console.log(document.getElementById('textecode').value);
-    disableBouton();
-
-  });
-	
-	$("#keyVig").keyup(function() //Permet de mettre la clé en MAJ
-	{
-		this.value=this.value.toUpperCase();
-		disableBouton();
-	});
+	$('#textecode').on("keyup change", disable);	
+	$('#texteclair').on("keyup change", disable); //Changer Keyup 
+    $('.active .cle').keyup(disable);
+    $('.cleAffine').keyup(disable);
+	$("#keyVig").keyup(disable);
+	$("#matrice th").keyup(disable);
 	
 	$("label input[type=file]").change(function(event)
 	{
