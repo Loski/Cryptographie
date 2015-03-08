@@ -59,8 +59,9 @@ function RSA_crypt(texte,p,q){
 	var d = bigInt(euclideEtendu(e,ind_euler)%ind_euler);
 	$('#textecode').val(chiffrement(decoupeParTaille(decoupage(texte),4), e, n).join(' '));  // Par 4 temp 
 	$('.decrypter-button').attr("disabled", false);
-	$('#RSADiv').append("La clé publique est : ("+n+","+e+")");
-	$('#RSADiv').append("<br />La clé privée est : ("+n+","+d+")");
+    $('#clepublique,#cleprivée').show();
+	$('#clepublique').text(n+","+e);
+	$('#cleprivée').text(n+","+d);
 	
 }
 function decoupage(texte){

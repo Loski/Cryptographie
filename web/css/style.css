@@ -23,3 +23,7 @@ button, label{
     background-color: #c4c2c2;
     padding:-100px;
 }
+#clepublique,#cleprivée
+{
+    display:none;
+}
