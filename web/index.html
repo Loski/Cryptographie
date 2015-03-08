@@ -101,8 +101,8 @@
 				<div class="col-lg-6">
 					<h4 id = "clickme">Options  <span class="glyphicon glyphicon-wrench"></span> </h4>
 					<div style="display: none">
-						<label class="radio-inline"><input type="radio" name="optradio" value="0" checked>ASCII</label>
-						<label class="radio-inline"><input type="radio" name="optradio" value ="1" >Alphabet étendu</label>
+						<label id="ascii_check" class="radio-inline"><input  type="radio" name="optradio" value="0" checked>ASCII</label>
+						<label id="alphaExt_check" class="radio-inline"><input type="radio" name="optradio" value ="1" >Alphabet étendu</label>
 					</div>
 				</div>
 			</div>
@@ -118,7 +118,8 @@
 						</div>
 					</div>
 					<div id="VigenereDiv" class="form-group onglet">
-						Cl&eacute; : <button class="btn btn-primary" id="KeyGenVig" >Générer</button><br/>
+					Alphabet : <input class="form-control" type="text" value="ABCDEFGHIJKLMOPQRSTUVWXYZ" id="alphaVig"/><br/>
+						Cl&eacute; : <button class="btn btn-primary" id="KeyGenVig" >Générer</button><br />
 						<input  class="form-control cle" id="keyVig" type="text" name="Cle"/><br/>
 						<div class="text-center">
 							<button id="cryptVig" class="btn btn-primary crypter-button">Crypter</button>
