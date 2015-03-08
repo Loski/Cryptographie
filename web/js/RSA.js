@@ -1,7 +1,7 @@
 String.prototype.repeat = function( num )
 {
     return new Array( num + 1 ).join( this );
-}
+};
 
 function isPrime(n) {
     if (n <= 3) { return n > 1; }
@@ -64,9 +64,7 @@ function RSA_crypt(texte,p,q){
 	var e = bigInt(Math.floor(Math.random()*(ind_euler-2)+2));
 	while(pgcd(e,ind_euler)!==1 && e < ind_euler) 
 		e = bigInt(Math.floor(Math.random()*(ind_euler-2)+2));
-	console.log("e="+e);
 	var n = bigInt(q).multiply(p);
-	console.log(n);
 	var d = bigInt(euclideEtendu(e,ind_euler)%ind_euler);
 	$('#textecode').val(chiffrement(decoupeParTaille(decoupage(texte),4), e, n).join(' '));  // Par 4 temp 
 	$('.decrypter-button').attr("disabled", false);
@@ -88,12 +86,10 @@ function decoupage(texte){
 	return str;
 }
 function decoupeParTaille(texte, taille){
-	console.log(texte);
 	var tab = [];
 	for(var i = 0; i < texte.length; i+=taille)
 		tab.push(texte.substring(i, i +taille));
 	var tailleLast = texte.length%taille;
-	console.log(tailleLast);
 	if(tailleLast > 0){
 		var tmp = tab[tab.length-1];
 		tab[tab.length-1] ="";
@@ -122,7 +118,7 @@ function RSA_decryptage(texte,taillebloc){
         s[i]=s[i].toString();
     }
     var walid="";
-    for(var i=0;i<s.length-1;i++)
+    for( i=0;i<s.length-1;i++)
     {
             if(s[i].length<taillebloc)
             {
@@ -136,16 +132,16 @@ function RSA_decryptage(texte,taillebloc){
     }
     walid=walid+s[s.length-1];
     var tab=[];
-    for(var i=0;i<walid.length;i=i+3)
+    for(i=0;i<walid.length;i=i+3)
     {
         if(walid[i+2])
-            tab.push(walid[i]+walid[i+1]+walid[i+2])
+            tab.push(walid[i]+walid[i+1]+walid[i+2]);
         else if (walid[i+1])
-            tab.push(walid[i]+walid[i+1])
+            tab.push(walid[i]+walid[i+1]);
         else
-            tab.push(walid[i])
+            tab.push(walid[i]);
     }
-   for(var i=0;i<tab.length;i++)
+   for(i=0;i<tab.length;i++)
    {
        tab[i]=String.fromCharCode(tab[i]);
    }
