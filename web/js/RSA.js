@@ -67,9 +67,29 @@ function RSA_crypt(texte,p,q){
 	
 }
 function decoupage(texte){
-	var tab = [];
+	var str = "";
 	for(var i = 0; i < texte.length; i++){
-		tab[i] = texte.charCodeAt(i);
+		var tmp = texte.charCodeAt(i);
+		if(tmp - 100 < 0)
+			str += "0"+tmp.toString();
+		else
+			str += tmp.toString();
+	}
+	return str;
+}
+function fourbyfour(texte, taille){
+	console.log(texte);
+	var tab = [];
+	for(var i = 0; i < texte.length; i+=taille)
+		tab.push(texte.substring(i, i +taille));
+	var tailleLast = texte.length%taille;
+	console.log(tailleLast);
+	if(tailleLast > 0){
+		var tmp = tab[tab.length-1];
+		tab[tab.length-1] ="";
+		for(i = 0; i < 4-tailleLast; i++)
+			tab[tab.length-1]+="0";
+		tab[tab.length-1]+=tmp;
 	}
 	return tab;
 }
