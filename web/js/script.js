@@ -1,3 +1,5 @@
+var fileName="cyptTest";
+
 var disable = function disableBouton(){
 	$('.decrypter-button').attr("disabled", true);
 	$('.crypter-button').attr("disabled", true);
@@ -94,13 +96,20 @@ function nl2br (str, is_xhtml) {
 
 function saveTextAsFile(id)
 {
+	var fileNameToSaveAs = fileName;
 	var textToWrite;
 	if(id===0)
+	{
 		 textToWrite = document.getElementById("texteclair").value;
+		 fileNameToSaveAs += "_decrypt";
+	}
 	else
+	{
 		 textToWrite = document.getElementById("textecode").value;
+		 fileNameToSaveAs += "_crypt";
+	}
 	var textFileAsBlob = new Blob([textToWrite], {type:'text/plain'});
-	var fileNameToSaveAs = "FILE";
+	
 
 	var downloadLink = document.createElement("a");
 	downloadLink.download = fileNameToSaveAs;
@@ -131,6 +140,9 @@ function destroyClickedElement(event)
 
 $(document).ready(function()
 { 
+
+	
+
 	disable();	
 	$( "#clickme" ).click(function() {
 		$("#clickme").siblings().toggle();
@@ -158,6 +170,7 @@ $(document).ready(function()
 	$("label input[type=file]").change(function(event)
 	{
 		var file = this.files[0];
+		fileName=file.name.substr(0,file.name.lastIndexOf('.'));
 		if (file) 
 		{
 			var reader = new FileReader();
