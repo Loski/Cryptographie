@@ -1,9 +1,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<meta charset="utf-8" />  .
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Cryptographie</title>
+	<meta charset="utf-8" />
 	<script type="text/javascript" src="js/jquery.min.js"></script>
 	<link href="css/bootstrap.min.css" rel="stylesheet">
 	<script src="js/bootstrap.min.js"></script>
@@ -17,7 +16,6 @@
 	<link href='http://fonts.googleapis.com/css?family=Muli' rel='stylesheet' type='text/css'>
 	<link href='http://fonts.googleapis.com/css?family=Signika' rel='stylesheet' type='text/css'>
 	<link rel="stylesheet" href="css/style.css" />
-	<title>Cryptographie</title>
 </head>
 <body>
 	<div class="container">
@@ -144,7 +142,7 @@
 						 <button class="btn btn-primary" onclick="genererKey()" >Générer</button>
 						<div id="error" class="alert alert-danger text-center glyphicon glyphicon-remove" role="alert"></div>
 						<div class="text-center">
-							<button class="btn btn-primary crypter-button" onclick="hill(1)" crypter-button>Crypter</button>
+							<button class="btn btn-primary crypter-button" onclick="hill(1)">Crypter</button>
 							<button class="btn btn-primary decrypter-button" onclick="hill(0)">D&eacute;crypter</button>
 						</div>
 					</div>
@@ -167,13 +165,13 @@
 						</div>
 						<div class ="row">
 							<div class="col-lg-4">
-								<input  class="form-control cle" placeholder="n" type="number" id="RSA_n"  data-container="body" data-toggle="popover" data-placement="bottom" data-trigger="hover" data-content="p n'est pas un nombre premier" />
+								<input  class="form-control cle" placeholder="n" type="number" id="RSA_n"/>
 							</div>
 							<div class="col-lg-4">
-								<input  class="form-control cle" placeholder="e" type="number" id="RSA_e" data-container="body" data-toggle="popover" data-placement="bottom" data-content="q n'est pas un nombre premier" data-trigger="hover" />
+								<input  class="form-control cle" placeholder="e" type="number" id="RSA_e"/>
 							</div>
 							<div class="col-lg-4">
-							<input  class="form-control cle" placeholder="d" type="number" id="RSA_d" data-container="body" data-toggle="popover" data-placement="bottom" data-content="q n'est pas un nombre premier" data-trigger="hover" />
+							<input  class="form-control cle" placeholder="d" type="number" id="RSA_d"/>
 							</div>
 						</div>
 						<button class="btn btn-primary" id="KeyGenRSA" >Générer</button><br/>

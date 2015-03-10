@@ -102,3 +102,8 @@ $(document).ready(function()
 
 
 });
+
+function genereKeyCesar(){
+  $('#cesarKey').val(Math.floor(Math.random() * 26));
+  disable();
+}

@@ -1,6 +1,6 @@
 function creerAlphabet(mod){
 	if(mod===26)
-		return "abcdefghijklmnopqrstuvwxyz".split("");
+		return "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
 	return creerAlphabetEtendu();
 }
 function creerAlphabetEtendu(){
@@ -30,7 +30,7 @@ function traitementCaracSpe(txt){
 	return txt;
 
 }
-  function euclideEtendu(determinant, mod){
+function euclideEtendu(determinant, mod){
   	var r = determinant; var r2 = mod; var u = 1; var v = 0; var u2 = 0; var v2 = 1;
   	while(r2 > 0){
   		var q = Math.floor(r/r2);
@@ -107,7 +107,7 @@ function hill(choice){
 	var alphabet;
 	if(mod === 0){
 		mod = 26;
-		texte = nettoyage(texte);
+		texte = nettoyage(texte.toUpperCase());
 	}
 	else {
 		mod = creerAlphabet(0).length;
@@ -180,7 +180,7 @@ function genererKey(){
 	var determinant;
 	do{
 		for(var i = 0; i < 4; i++){
-			matrice[i] = Math.floor(Math.random()*alphabet);
+			matrice[i] = Math.floor(Math.random()*10000000);
 		}
 		determinant = calculdeterminant(matrice);
 	}while(!verifMatriceGen(matrice,alphabet));
@@ -215,7 +215,92 @@ function retourneMotNombre(mot, alphabet){
 	return str;
 }
 
-function genereKeyCesar(){
-	$('#cesarKey').val(Math.floor(Math.random() * 26));
-	disable();
-}
+
+var Matrice = function (array) {
+	this.matrice = [];
+	this.setMatrice(array);
+	console.log(this);
+};
+
+Matrice.prototype = {
+	gauss: function(){
+		var r = 0;
+		for(j = 0; j < this.taille ; j ++){ //Colonne
+			k = this.maxColonne(j);
+			console.log("k value = "+ k);
+			if(this.matrice[k][j] !== 0){
+				r++;
+				this.diviserLigne(k, this.matrice[k][j]);
+				console.log(" divi" + this.matrice[k]);
+				this.swap(k, r);
+				for(var i = 0; i < this.taille; i++){
+					console.log(i+ " " + j);
+					console.log(this.matrice[i]);
+					if(i !==r){
+						this.multiliplierLigne(r, this.matrice[i][j]);
+					}
+				}
+			}
+		}
+	},
+	maxColonne: function(j){
+		var max = this.matrice[j][0];
+		var indice  = 0;
+		for(var i = 1; i < this.taille; i++){
+			if(max < Math.abs(this.matrice[i][j])){
+				indice = i;
+				max = Math.abs(this.matrice[i][j]);
+			}
+		}
+		return indice;
+	},
+	swap: function(i, k){
+		if(i === k)
+			return;
+		var tmp = this.matrice[i];
+		this.matrice[i] = this.matrice[k];
+		this.matrice[k] = tmp;
+	},
+	diviserLigne: function(i, diviseur){
+		if(diviseur === 0)
+			return;
+		for(var j = 0; j < this.taille; j++){
+			this.matrice[i][j] /= diviseur;
+		}
+		return this;
+	},
+	multiliplierLigne: function(ligne, facteur){
+		for(var j = 0; j < this.taille; j++){
+			this.matrice[ligne][j] *= facteur;
+		}
+		return this;
+	},
+	soustraitreLigne: function(ligne, moins){
+		for(var j = 0; j < this.taille; j++){
+			this.matrice[ligne][j] -= moins;
+		}
+		return this;
+	},
+	toString: function(){
+		var str = "";
+		for(var i = 0; i < this.taille; i++){
+			for(var j = 0; j < this.taille; j++)
+				str+= this.matrice[i][j];
+			str+="\n";
+		}
+	},
+	setMatrice: function(els) {
+		var n = Math.sqrt(els.length);
+		for(var i = 0; i < n; i++){
+			this.matrice[i] = [];
+				for(var j = 0; j < n; j++)
+						this.matrice[i].push(els[j + i * n]);
+		}
+		 this.taille =  this.matrice.length;
+		 return this;
+	}
+
+
+
+};
+

@@ -178,7 +178,7 @@ $(document).ready(function()
 			var txt = $(this).parent().siblings('textarea').eq(0);
 			reader.onload = function(e) 
 			{
-				$(txt).text(e.target.result);
+				$(txt).val(e.target.result);
 				disable();
 			};
 		}

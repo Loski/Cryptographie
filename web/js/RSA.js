@@ -65,8 +65,12 @@ function RSA_crypt(texte,p,q){
 	var ind_euler = bigInt((p-1)*(q-1));
     
 	var e = bigInt(Math.floor(Math.random()*(ind_euler-2)+2));
-	while(pgcd(e,ind_euler)!==1 && e < ind_euler) 
-		e = bigInt(Math.floor(Math.random()*(ind_euler-2)+2));
+	var i = 0;
+	while(pgcd(e,ind_euler)!==1 && e < ind_euler){
+		e = bigInt(Math.floor(Math.random()*(ind_euler-e)+e));
+		console.log(i);
+		i++;
+	}
 	var n = bigInt(q).multiply(p);
 	var d = bigInt(euclideEtendu(e,ind_euler)%ind_euler);
 	$('#textecode').val(chiffrement(decoupeParTaille(decoupage(texte),4), e, n).join(' '));  // Par 4 temp 
@@ -110,6 +114,7 @@ function chiffrement(tab, e, n){
 	}
 	return tab;
 }
+
 function RSA_decryptage(texte,taillebloc){
     var s=texte.split(" ");
     var n=bigInt($('#RSA_n').val());
@@ -149,6 +154,27 @@ function RSA_decryptage(texte,taillebloc){
     $('#texteclair').val(tab.join(""));
         
 }
+/*function genererNombre(nbbit){
+	var nombre="";
+	for(var i = 0; i < nbbit - 1; i++)
+		nombre+= Math.round(Math.random()).toString();
+	nombre+="1"; //dernier bit à 1
+	return bigInt(nombre,2);
+}
+function genereNombrePremier(){
+	var nb = genererNombre(512);
+	while(true)
+		nb.add(2);
+
+}
+function plusGrandDiviseurImpair(nb){
+	if(nb.even())
+		return false;
+	nb = nb.divide(2);
+	while(!nb.odd()){
+
+	}
+}*/
 $(document).ready(function()
 { 
 	$('#cryptRSA').mousedown(function(){
@@ -176,20 +202,18 @@ $(document).ready(function()
 		
 	$('#KeyGenRSA').mousedown(function()
 		{
-			var max=100000000;
-			var min=100;
 			document.getElementById("RSA_e").value="";
 			document.getElementById("RSA_n").value="";
 			document.getElementById("RSA_d").value="";
-			
-			var nb = bigInt.randBetween("1000","1e8");
+			var max  = bigInt("1e8");
+			var nb = bigInt.randBetween("1000",max);
 			while(!isPrime(nb))
-				nb = bigInt.randBetween("1000","1e8");
+				nb = bigInt.randBetween("1000",max);
 			document.getElementById('RSA_p').value=nb;
 			
-			var nb2 = bigInt.randBetween("1000","1e8");
+			var nb2 = bigInt.randBetween("1000",max);
 			while(!(isPrime(nb2)) || nb2.equals(nb))
-				 nb2 = bigInt.randBetween("1000",1e8);
+				 nb2 = bigInt.randBetween("1000",max);
 			document.getElementById('RSA_q').value=nb2;
 			disable();
 		});
