@@ -223,35 +223,41 @@ var Matrice = function (array) {
 };
 
 Matrice.prototype = {
-	gauss: function(){
-		var r = 0;
-		for(j = 0; j < this.taille ; j ++){ //Colonne
-			k = this.maxColonne(j);
-			console.log("k value = "+ k);
-			if(this.matrice[k][j] !== 0){
-				r++;
-				this.diviserLigne(k, this.matrice[k][j]);
-				console.log(" divi" + this.matrice[k]);
-				this.swap(k, r);
-				for(var i = 0; i < this.taille; i++){
-					console.log(i+ " " + j);
-					console.log(this.matrice[i]);
-					if(i !==r){
-						this.multiliplierLigne(r, this.matrice[i][j]);
-					}
+	
+calculdeterminant: function(){
+	if(this.taille == 2)
+		return this.matrice[0][0] * this.matrice[1][1] - this.matrice[1][0] * this.matrice[0][1];
+	else{
+		
+	}
+},
+gauss2: function(){
+	for (var i=0; i<this.taille; i++) {
+		var maxRow = this.maxColonne(i);
+		this.swap(i, maxRow);
+		for (var k=i+1; k<this.taille; k++) {
+			var c = -this.matrice[k][i]/this.matrice[i][i];
+			for(var j=i; j<this.taille; j++) {
+				if (i==j) {
+					this.matrice[k][j] = 0;
+				} else {
+					this.matrice[k][j] += c * this.matrice[i][j];
 				}
 			}
 		}
-	},
-	maxColonne: function(j){
-		var max = this.matrice[j][0];
-		var indice  = 0;
-		for(var i = 1; i < this.taille; i++){
-			if(max < Math.abs(this.matrice[i][j])){
-				indice = i;
-				max = Math.abs(this.matrice[i][j]);
+	}
+	return this;
+},
+maxColonne: function(j){
+	var max = this.matrice[j][0];
+	var indice  = 0;
+	for(var i = 1; i < this.taille; i++){
+		if(max < Math.abs(this.matrice[i][j])){
+			indice = i;
+			max = Math.abs(this.matrice[i][j]);
 			}
 		}
+		console.log(indice);
 		return indice;
 	},
 	swap: function(i, k){
@@ -260,18 +266,19 @@ Matrice.prototype = {
 		var tmp = this.matrice[i];
 		this.matrice[i] = this.matrice[k];
 		this.matrice[k] = tmp;
+		console.log("k value " +k);
 	},
-	diviserLigne: function(i, diviseur){
+	diviserLigne: function(ligne, diviseur){
 		if(diviseur === 0)
 			return;
 		for(var j = 0; j < this.taille; j++){
-			this.matrice[i][j] /= diviseur;
+			this.matrice[ligne][j] = (this.matrice[ligne][j]/diviseur).toFixed(2);
 		}
 		return this;
 	},
-	multiliplierLigne: function(ligne, facteur){
+	multiplierLigne: function(ligne, facteur){
 		for(var j = 0; j < this.taille; j++){
-			this.matrice[ligne][j] *= facteur;
+			this.matrice[ligne][j] = (this.matrice[ligne][j]*facteur).toFixed(2);
 		}
 		return this;
 	},

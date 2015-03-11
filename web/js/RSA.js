@@ -154,27 +154,59 @@ function RSA_decryptage(texte,taillebloc){
     $('#texteclair').val(tab.join(""));
         
 }
-/*function genererNombre(nbbit){
+function expbysquaring(x,n){
+     if(n<0) 
+      return expbysquaring(1/x, -n);
+     else if (n===0)  
+     	return 1;
+     else if(n === 1)
+     	return x;
+     else if(n.isEven())
+     	return expbysquaring(x2, n/2);
+     else 
+     	return x * expbysquaring(x2, (n-1)/2);
+ }
+function genererNombre(nbbit){
 	var nombre="";
 	for(var i = 0; i < nbbit - 1; i++)
 		nombre+= Math.round(Math.random()).toString();
 	nombre+="1"; //dernier bit à 1
 	return bigInt(nombre,2);
 }
-function genereNombrePremier(){
+function genererNombrePremier(){
 	var nb = genererNombre(512);
-	while(true)
-		nb.add(2);
+	while(!Miller(nb, 5))
+		nb = nb.add(2);
+	return nb.isPrime();
 
 }
-function plusGrandDiviseurImpair(nb){
-	if(nb.even())
+function Miller(nb, k){
+	if(nb.lesser(2))
 		return false;
-	nb = nb.divide(2);
-	while(!nb.odd()){
-
+	if(nb.mod(2).equals(0) && nb.notEquals(2))
+		return false;
+	var s = new bigInt(nb.minus(1));
+	var mod;
+	var temp;
+	while(s.mod(2).equals(0)){
+		s = s.divide(2);
+		console.log("heu");
 	}
-}*/
+	for(var i = 0; i < k ; i++){
+		a =  bigInt.randBetween(2, nb.minus(2));
+		temp = s;
+		console.log("heu2");
+		mod = a.multiply(temp).mod(nb);
+		while(temp != nb.minus(1) && mod.notEquals(1) && mod.notEquals(nb.minus(1))){
+			mod = mod.modPow(2,nb);
+			temp.multiply(2);
+		}
+		if(mod!=nb-1 && temp%2===0)
+			return false;
+	}
+	return true;
+}
+
 $(document).ready(function()
 { 
 	$('#cryptRSA').mousedown(function(){
