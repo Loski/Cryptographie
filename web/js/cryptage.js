@@ -10,20 +10,6 @@ function nettoyage(txt){
 	txt = traitementTxt(txt);
 	return txt.replace(new RegExp("[^(a-zA-Z)]", "g"), '');
 }
-function calculdeterminant(array){ 
-	return array[0] * array[3] - array[1] * array[2];
-}
-function inverserMatrice(matrice, determinant){
-		return [(determinant * matrice[3]), (determinant * -matrice[1]), (determinant * -matrice[2]), (determinant * matrice[0])];
-}
-//Fonction pour trouver les nombres premiers entrent eux. Le petit génie qui va faire la fonction affine et qui va récupérer un magnifique travail tout fait. JE L'EMMERDE 
-function trouverDeterminantModulo(determinant, modulo, liste_premier){
-	liste_premier = [1, 3, 5, 7, 9, 11, 15, 17, 21, 23, 25]; //On met pas 2 et 13, car c'est jamais premier avec 26. #LOL
-	for(var i = 0; i < liste_premier.length; i++)
-		if(((determinant*liste_premier[i])%26) ===1)
-			return liste_premier[i];
-	return false;
-}
 
 function traitementCaracSpe(txt){
 	txt.replace('/\n'/g, '╚');
@@ -31,42 +17,59 @@ function traitementCaracSpe(txt){
 
 }
 function euclideEtendu(determinant, mod){
-  	var r = determinant; var r2 = mod; var u = 1; var v = 0; var u2 = 0; var v2 = 1;
-  	while(r2 > 0){
-  		var q = Math.floor(r/r2);
-  		var rs = r;
-  		var us = u;
-  		var vs = v;
-  		r = r2;
-  		u = u2;
-  		v = v2;
-  		r2 = rs - q *r2;
-  		u2 = us - q * u2;
-  		v2 = vs - q * v2;
-  	}
-  	if(r!==1)
+	var r = determinant; var r2 = mod; var u = 1; var v = 0; var u2 = 0; var v2 = 1;
+	while(r2 > 0){
+		var q = Math.floor(r/r2);
+		var rs = r;
+		var us = u;
+		var vs = v;
+		r = r2;
+		u = u2;
+		v = v2;
+		r2 = rs - q *r2;
+		u2 = us - q * u2;
+		v2 = vs - q * v2;
+	}
+	if(r!==1)
 		return false;
 	else
 		return mod+u;
-  }
-
-function absoluteMatrice(matrice, mod){
-	for(var i = 0; i< 4; i++){
-		matrice[i] = matrice[i]%mod;
-		if(matrice[i] < 0)
-			matrice[i] = matrice[i] + mod;
-	}
-	return matrice;
 }
+
+
 function crypte_hill(texte, matrice, mod){
-	var alphabet = creerAlphabet(mod);
-	matrice = absoluteMatrice(matrice, mod);
-	if(!texte.length%2){
+
+	for(var i = 0; i< this.taille; i++){
+		this.matrice[i] = this.matrice[i]%mod;
+		if(this.matrice[i] < 0)
+			this.matrice[i] = this.matrice[i] + mod;
+	}	var alphabet = creerAlphabet(mod);
+	while(texte.length%matrice.taille!==0)
 		texte+='a';
-	}
-	var message_non_code_num = [];
+	var message_non_code_num = couperTexte(texte, matrice.taille);
+	message_code = crypterTexte(message_non_code_num, matrice, mod).split(',');
+	message_code.pop(); // supprime le dernier caract donc la ,
+	return retourneMot(message_code,alphabet);
+}
+
+function crypterTexte(tab, mat, mod){
+	var alphabet = creerAlphabet(mod);
+	var message_code ="";
+	tab.forEach(function(element, index, array){ // On choppe le message codé en nombre
+		for(var i = 0; i < mat.taille ;i++){ //par ligne
+			message_code_tmp = 0;    //index de la lettre
+			for(var j = 0; j < mat.taille;j++){
+				 message_code_tmp += alphabet.indexOf(element.charAt(j))*mat.matrice[i][j];
+			}
+			message_code += message_code_tmp%mod + ',';
+		}
+	});
+	return message_code;
+}
+function couperTexte(texte, taille){
 	var j = 0; 
-	while(true){ // On coupe les éléments 2/2. Fuck si c'est impaire. FUCK FUCK FUCK FUCK
+	var message_non_code_num = [];
+	while(true){
 		if(texte.length === 0)
 			break;
 		var i = 0;
@@ -79,7 +82,7 @@ function crypte_hill(texte, matrice, mod){
 			}
 			nb++;
 			message_non_code_num[j] += texte.charAt(i);
-			if(nb == 2){
+			if(nb == taille){
 				texte = texte.substring(i+1, texte.length); // on vire la partie découpé !
 				j++;
 				break;
@@ -87,17 +90,10 @@ function crypte_hill(texte, matrice, mod){
 			i++;
 		}
 	}
-	var message_code ="";
-	message_non_code_num.forEach(function(element, index, array){ // On choppe le message codé en nombre
-		message_code += (alphabet.indexOf(element.charAt(0))*matrice[0] + alphabet.indexOf(element.charAt(1))*matrice[1])%mod + ',';
-		message_code += (alphabet.indexOf(element.charAt(0))*matrice[2] +alphabet.indexOf(element.charAt(1))*matrice[3])%mod + ',';
-	});
-	message_code = message_code.split(',');
-	message_code.pop();
-	return retourneMot(message_code,alphabet);
+	return message_non_code_num;
 }
 function decrypte_hill(texte, matrice, determinant, mod){
-	matrice = inverserMatrice(matrice, determinant);
+	matrice = matrice.inverserMatrice(mod);
 	return crypte_hill(texte, matrice, mod);
 }
 function hill(choice){
@@ -112,7 +108,7 @@ function hill(choice){
 	else {
 		mod = creerAlphabet(0).length;
 	}
-	var determinant = verifMatrice(matrice, mod);
+	var determinant = matrice.verifMatrice(mod);
 	if(determinant===false)
 		return;
 	if(choice == 1){
@@ -123,68 +119,20 @@ function hill(choice){
 	}
 	disable();
 }
-function verifMatrice(matrice, mod){
-	var error = false;
-	for(var i = 0; i < 4; i++){
-		if(!matrice[i].match(/[0-9]+/)){
-			$('#matrice th').eq(i).addClass('has-error');
-			$('#error').text('Erreur dans la matrice.');
-			$('#error').show();
-			error = true;
-		}
-		else{
-			$('#matrice th').eq(i).removeClass('has-error');
-		}
-	}
-	if(error)
-		return false;
-	var determinant = calculdeterminant(matrice);
-	if(determinant === 0){//Matrice non inversible
-		$('#matrice').addClass('has-error');
-		$('#error').text('Clé invalide.');
-		$('#error').show();
-		error = true;	
-	}
-	else{
-		determinant = euclideEtendu(determinant, mod);
-		if(determinant === false){
-			$('#matrice').addClass('has-error');
-			$('#error').text('Clé invalide.');
-			$('#error').show();
-			error = true;
-		}
-	}
-	if(error)
-		return false;
-	$('#error').hide();
-	$('#matrice').removeClass('has-error');
-	$('#matrice').addClass('has-success');
-	return determinant;
-}
-function verifMatriceGen(matrice, mod){
-	var determinant = calculdeterminant(matrice);
-	if(determinant === 0){//Matrice non inversible
-		return false;
-	}
-	else{
-		determinant = euclideEtendu(determinant, mod);
-		if(determinant === false){
-			return false;
-		}
-	}
-	return true;
-}
+
 function genererKey(){
-	var alphabet = creerAlphabet(recupererRadio()+26).length;
+	var mod = creerAlphabet(recupererRadio()+26).length;
 	var matrice = [];
-	var determinant;
+	var taille = Math.floor(Math.random() * 3 +2);
 	do{
-		for(var i = 0; i < 4; i++){
-			matrice[i] = Math.floor(Math.random()*10000000);
+		for(var i = 0; i < taille * taille; i++){
+			matrice[i] = Math.floor(Math.random()*100000);
 		}
-		determinant = calculdeterminant(matrice);
-	}while(!verifMatriceGen(matrice,alphabet));
-	$("input[name=top-left]").val(matrice[0]); $('input[name = top-right]').val(matrice[1]); $('input[name = "bottom-left"]').val(matrice[2]); $('input[name = "bottom-right"]').val(matrice[3]);
+		matriceObject = new Matrice(matrice);
+	}while(false === matriceObject.verifMatriceGen(mod));
+	creerTableHill(taille);
+	afficherMatrice(matriceObject);
+	$("#HillDiv select").val(taille);
 	disable();
 }
 function recupererTexte(choice){
@@ -193,7 +141,26 @@ function recupererTexte(choice){
 	return  $('#textecode').val();
 }
 function recupererMatrice(){
-	return [$("input[name=top-left]").val(), $('input[name = top-right]').val(), $('input[name = "bottom-left"]').val(), $('input[name = "bottom-right"]').val()];
+	var array = [];
+	var tr = $('table tr');
+	var n = $('#HillDiv select option:selected').val();
+	tr.each(function(element){
+		for(var i = 0; i < n; i++){
+			array.push(parseInt($(this).children().eq(i).children().val()));
+		}
+	});
+	return new Matrice(array);
+}
+function afficherMatrice(matrice){
+	var n = matrice.taille;
+	var tr = $('table tr');
+	var j = 0;
+	tr.each(function(element){
+		for(var i = 0; i < n; i++){
+			$(this).children().eq(i).children().val(matrice.matrice[j][i]);
+		}
+		j++;
+	});
 }
 function retourneMot(mot_chiffre, alphabet){
 	var mot_chiffre_text = "";
@@ -219,45 +186,37 @@ function retourneMotNombre(mot, alphabet){
 var Matrice = function (array) {
 	this.matrice = [];
 	this.setMatrice(array);
-	console.log(this);
 };
 
 Matrice.prototype = {
 	
-calculdeterminant: function(){
-	if(this.taille == 2)
-		return this.matrice[0][0] * this.matrice[1][1] - this.matrice[1][0] * this.matrice[0][1];
-	else{
-		
-	}
-},
-gauss2: function(){
-	for (var i=0; i<this.taille; i++) {
-		var maxRow = this.maxColonne(i);
-		this.swap(i, maxRow);
-		for (var k=i+1; k<this.taille; k++) {
-			var c = -this.matrice[k][i]/this.matrice[i][i];
-			for(var j=i; j<this.taille; j++) {
-				if (i==j) {
-					this.matrice[k][j] = 0;
-				} else {
-					this.matrice[k][j] += c * this.matrice[i][j];
-				}
+	calculdeterminant: function(){
+		if(this.taille == 2)
+			return this.matrice[0][0] * this.matrice[1][1] - this.matrice[1][0] * this.matrice[0][1];
+		else{
+			matricetmp = this.gauss();
+			return matricetmp.multiDiago();
+		}
+	},
+	verifCarre: function(){
+		return this.matrice.length === this.matrice[0].length;
+	},
+	multiDiago: function(){
+		var valDiago = this.matrice[0][0];
+		for(i = 1;  i <  this.taille;i++){
+			valDiago*= this.matrice[i][i];
+		}
+		return valDiago;
+	},
+	maxColonne: function(j){
+		var max = this.matrice[j][0];
+		var indice  = 0;
+		for(var i = 1; i < this.taille; i++){
+			if(max < Math.abs(this.matrice[i][j])){
+				indice = i;
+				max = Math.abs(this.matrice[i][j]);
 			}
 		}
-	}
-	return this;
-},
-maxColonne: function(j){
-	var max = this.matrice[j][0];
-	var indice  = 0;
-	for(var i = 1; i < this.taille; i++){
-		if(max < Math.abs(this.matrice[i][j])){
-			indice = i;
-			max = Math.abs(this.matrice[i][j]);
-			}
-		}
-		console.log(indice);
 		return indice;
 	},
 	swap: function(i, k){
@@ -266,48 +225,180 @@ maxColonne: function(j){
 		var tmp = this.matrice[i];
 		this.matrice[i] = this.matrice[k];
 		this.matrice[k] = tmp;
-		console.log("k value " +k);
+		return this;
+	},
+	gauss: function() {
+		var M = new Matrice(this), els;
+		var n = this.matrice.length, k = n, i, np, kp = this.matrice[0].length, p;
+		do { i = k - n;
+			if (M.matrice[i][i] === 0) {
+				for (j = i + 1; j < k; j++) {
+					if (M.matrice[j][i] !== 0) {
+						els = []; np = kp;
+						do { p = kp - np;
+							els.push(M.matrice[i][p] + M.matrice[j][p]);
+						} while (--np);
+						M.matrice[i] = els;
+						break;
+					}
+				}
+			}
+			if (M.matrice[i][i] !== 0) {
+				for (j = i + 1; j < k; j++) {
+					var multiplier = M.matrice[j][i] / M.matrice[i][i];
+					els = []; np = kp;
+					do { p = kp - np;
+            // Elements with column numbers up to an including the number
+            // of the row that we're subtracting can safely be set straight to
+            // zero, since that's the point of this routine and it avoids having
+            // to loop over and correct rounding errors later
+	            els.push(p <= i ? 0 : M.matrice[j][p] - M.matrice[i][p] * multiplier);
+	        } while (--np);
+	        M.matrice[j] = els;
+	    }
+	}
+	} while (--n);
+	    /*for( i = 0; i < M.taille; i ++ ){
+	    	M.diviserLigne(i, M.matrice[i][i]);
+	    }*/
+	    return M;
+	},
+	cofacteur:function(){
+		var determinant = this.calculdeterminant();
+		array = [];
+		for(var i = 0; i < this.taille; i++)
+			for(var j = 0; j < this.taille;j++){
+				var detCo = this.supprimerLigneColonne(this, i, j).calculdeterminant();
+				if((i+j)%2 !==0)
+					detCo*=-1;
+				array.push(detCo);
+			}
+			return new Matrice(array);
+	},
+	supprimerLigneColonne:function(mat, ligne, colonne){
+		var array_nouvelle_matrice = [];
+		for(var i = 0; i < mat.taille; i++){
+			for(var j = 0; j < mat.taille; j++)
+				if(i!== ligne && j !== colonne)
+					array_nouvelle_matrice.push(mat.matrice[i][j]);
+			}
+			return new Matrice(array_nouvelle_matrice);
 	},
 	diviserLigne: function(ligne, diviseur){
 		if(diviseur === 0)
 			return;
 		for(var j = 0; j < this.taille; j++){
-			this.matrice[ligne][j] = (this.matrice[ligne][j]/diviseur).toFixed(2);
+			this.matrice[ligne][j] = (this.matrice[ligne][j]/diviseur);
 		}
 		return this;
 	},
 	multiplierLigne: function(ligne, facteur){
 		for(var j = 0; j < this.taille; j++){
-			this.matrice[ligne][j] = (this.matrice[ligne][j]*facteur).toFixed(2);
+			this.matrice[ligne][j] = (this.matrice[ligne][j]*facteur);
 		}
 		return this;
+	},
+	inverserMatrice2:function(mod){
+		var I = matriceIdentite(this.taille);
+		var matriceTmp = new Matrice(this);
+		for(var k = 0; k < I.taille; i++){
+			var pivot = matriceTmp.maxColonne();
+			matriceTmp = matriceTmp(k, matriceTmp.matrice[k][k]);
+			for(var i = 0; i< I.taille; i++){
+				if(i != k){
+
+					matriceTmp = matriceTmp(i,k );
+				}
+			}
+		}
+	return I;
+	},
+	inverserMatrice:function(mod){
+		var determinant = this.calculdeterminant();
+		determinant = euclideEtendu(determinant, mod);
+		var cofacteur_inverser = this.cofacteur().transposer();
+		for(var i = 0; i < cofacteur_inverser.taille; i++)
+			for(var j = 0; j <cofacteur_inverser.taille; j++)
+				cofacteur_inverser.matrice[i][j] = (cofacteur_inverser.matrice[i][j] / determinant);
+		return cofacteur_inverser;
+	},
+	transposer: function(){
+		var matriceTranspo = new Matrice(this);
+		for(var i = 0; i < matriceTranspo.taille;i++)
+			for(var j = 0; j < matriceTranspo.taille; j++){
+				matriceTranspo.matrice[i][j] = this.matrice[j][i];
+			}
+			return matriceTranspo;
 	},
 	soustraitreLigne: function(ligne, moins){
+		var tmp = new Matrice(this);
 		for(var j = 0; j < this.taille; j++){
-			this.matrice[ligne][j] -= moins;
+			tmp.matrice[ligne][j] -= moins;
 		}
-		return this;
+		return tmp;
 	},
-	toString: function(){
-		var str = "";
-		for(var i = 0; i < this.taille; i++){
-			for(var j = 0; j < this.taille; j++)
-				str+= this.matrice[i][j];
-			str+="\n";
-		}
+	ajouterLigne: function(ligne, plus){
+		this.soustraitreLigne(ligne,-plus);
 	},
-	setMatrice: function(els) {
-		var n = Math.sqrt(els.length);
-		for(var i = 0; i < n; i++){
-			this.matrice[i] = [];
-				for(var j = 0; j < n; j++)
+		setMatrice: function(els) {
+			this.matrice = [];
+			if(els.hasOwnProperty('matrice')){ //Double dimension
+				var taille = els.matrice.length;
+				for(var i = 0; i <taille; i++){
+					this.matrice[i] = [];
+					for(var j = 0; j < taille; j++){
+						this.matrice[i].push(els.matrice[i][j]);
+					}
+				}
+			}
+			else{
+				var n = Math.sqrt(els.length);
+				for(var i = 0; i < n; i++){
+					this.matrice[i] = [];
+					for(var j = 0; j < n; j++)
 						this.matrice[i].push(els[j + i * n]);
+				}
+			}
+			this.taille =  this.matrice.length;
+		},
+	verifMatriceGen:function(mod){
+		var determinant = this.calculdeterminant();
+		if(determinant === 0){//Matrice non inversible
+			return false;
 		}
-		 this.taille =  this.matrice.length;
-		 return this;
-	}
-
-
+		else{
+			determinant = euclideEtendu(determinant, mod);
+			if(determinant === false){
+				return false;
+			}
+		}
+		return determinant;
+	},
+	verifMatrice: function(mod){
+		var determinant = this.verifMatriceGen(mod);
+		if(determinant === false){
+			$('#matrice').addClass('has-error');
+			$('#error').text('Clé invalide.');
+			$('#error').show();
+			return false;
+		}
+		$('#error').hide();
+		$('#matrice').removeClass('has-error');
+		$('#matrice').addClass('has-success');
+		return determinant;
+	},
 
 };
+
+function matriceIdentite(n){
+	var array =[];
+	for(var i = 0; i < n; i++){
+		for(var j = 0; j < n; j++){
+			if(i===j)
+				array.push(1);
+			else array.push(0);
+		}
+	}
+	return new Matrice(array);
+}
 

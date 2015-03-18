@@ -128,23 +128,29 @@
 					</div>
 					<div class="onglet" id="HillDiv">
 						<form id= "matrice" class ="form-group">   
-							<table  class="row"> 
-								<tr>
-									<th class="col-xs-2"><input type="number" class="form-control" name = "top-left"></th>
-									<th class="col-xs-2"><input type="number" class="form-control"  name = "top-right"></th>
-								</tr>
-								<tr>
-									<th class="col-xs-2"><input type="number" class="form-control"  name = "bottom-left"></th>
-									<th class="col-xs-2"><input type="number" class="form-control" name = "bottom-right"></th>
-								</tr>
-							</table>
-						</form>
-						 <button class="btn btn-primary" onclick="genererKey()" >Générer</button>
+						<select>
+							<option value="2" selected>2</option>
+							<option value="3">3</option>
+							<option value="4">4</option>
+							<option value="5">5</option>
+							<option value="6">6</option>
+							<option value="7">7</option>
+							<option value="8">8</option>
+							<option value="9">9</option>
+							<option value="10">10</option>
+						</select>
+						<table  class="row"> 
+							<tr><th class="col-xs-1"><input pattern="/[0-9]+/"type="number" class="form-control" required></th><th class="col-xs-1"><input pattern="/[0-9]+/"type="number" class="form-control" required></th></tr>
+							<tr><th class="col-xs-1"><input pattern="/[0-9]+/"type="number" class="form-control" required></th><th class="col-xs-1"><input pattern="/[0-9]+/"type="number" class="form-control" required></th></tr>
+						</table>
+						<button class="btn btn-primary" onclick="genererKey()" >Générer</button>
 						<div id="error" class="alert alert-danger text-center glyphicon glyphicon-remove" role="alert"></div>
 						<div class="text-center">
-							<button class="btn btn-primary crypter-button" onclick="hill(1)">Crypter</button>
-							<button class="btn btn-primary decrypter-button" onclick="hill(0)">D&eacute;crypter</button>
+							<input type="submit" class="btn btn-primary crypter-button" onclick="hill(1)" value="Crypter"></input>
+							<input type="submit" class="btn btn-primary decrypter-button" onclick="hill(0)" value="D&eacute;crypter"></input>
 						</div>
+						</form>
+						
 					</div>
 					<div class="onglet" id="affine">
 						<span class="row">
@@ -171,7 +177,7 @@
 								<input  class="form-control cle" placeholder="e" type="number" id="RSA_e"/>
 							</div>
 							<div class="col-lg-4">
-							<input  class="form-control cle" placeholder="d" type="number" id="RSA_d"/>
+									<input  class="form-control cle" placeholder="d" type="number" id="RSA_d"/>
 							</div>
 						</div>
 						<button class="btn btn-primary" id="KeyGenRSA" >Générer</button><br/>

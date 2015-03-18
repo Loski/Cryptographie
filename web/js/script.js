@@ -13,13 +13,13 @@ var disable = function disableBouton(){
 			$('.crypter-button').attr("disabled", false);
 		}
 		else if($('.active#HillDiv').length){
-			var vide = false;
+			/*var vide = false;
 			var matrice = recupererMatrice();
 			for(var i = 0; i < 4; i++){
 				if(matrice[i].trim()=== "")
 					vide = true;
 			}
-			if(!vide)
+			if(!vide)*/
 				$(".crypter-button").attr("disabled", false);
 		}
 		else if($('.active .cle').val()!==''){
@@ -35,13 +35,13 @@ var disable = function disableBouton(){
 			$(".decrypter-button").attr("disabled", false);
 		}
 		else if($('.active#HillDiv').length){
-			var vide = false;
+			/*var vide = false;
 			var matrice = recupererMatrice();
 			for(var i = 0; i < 4; i++){
 				if(matrice[i].trim()=== "")
 					vide = true;
 			}
-			if(!vide)
+			if(!vide)*/
 				$(".decrypter-button").attr("disabled", false);
 		}
 		else if($('.active .cle').val()!==''){
@@ -137,28 +137,34 @@ function destroyClickedElement(event)
 {
 	document.body.removeChild(event.target);
 }
-
+function creerTableHill(n){
+	$('#HillDiv table').text('');
+	var str ="<tr>";
+	for(var i = 0; i < n; i++){
+		str+='<th class="col-xs-1"><input pattern="/[0-9]+/"type="number" required class="form-control"></th>';
+	}
+	str+="</tr>";
+	for(i = 0; i< n;i++){
+		$('#HillDiv table').append(str);
+	}
+}
 $(document).ready(function()
 { 
-
-	
-
 	disable();	
 	$( "#clickme" ).click(function() {
 		$("#clickme").siblings().toggle();
 	});
 	
 	$('#menu li').mousedown(function()
-		{
-			$('.active').removeClass('active');
-			$(this).addClass('active');
-			var i = $("#menu>li").index($(this));
-			$(".onglet").eq(i).addClass('active');
-			document.title=($("#menu>li").eq(i).text());
-			disable();
-			$('#error').hide();
-
-		});
+	{
+		$('.active').removeClass('active');
+		$(this).addClass('active');
+		var i = $("#menu>li").index($(this));
+		$(".onglet").eq(i).addClass('active');
+		document.title=($("#menu>li").eq(i).text());
+		disable();
+		$('#error').hide();
+	});
 	
 	$('#textecode').on("keyup change", disable);	
 	$('#texteclair').on("keyup change", disable); //Changer Keyup 
@@ -166,7 +172,9 @@ $(document).ready(function()
     $('.cleAffine').keyup(disable);
 	$("#keyVig").keyup(disable);
 	$("#matrice th").keyup(disable);
-	
+	$('#HillDiv select').change(function(event) {
+		creerTableHill(event.target.value);
+	});
 	$("label input[type=file]").change(function(event)
 	{
 		var file = this.files[0];
