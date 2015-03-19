@@ -39,11 +39,14 @@ function euclideEtendu(determinant, mod){
 
 function crypte_hill(texte, matrice, mod){
 
-	for(var i = 0; i< this.taille; i++){
-		this.matrice[i] = this.matrice[i]%mod;
-		if(this.matrice[i] < 0)
-			this.matrice[i] = this.matrice[i] + mod;
-	}	var alphabet = creerAlphabet(mod);
+	for(var i = 0; i< matrice.taille; i++){
+		for(var j =0;j < matrice.taille;j++){
+			matrice.matrice[i][j] = matrice.matrice[i][j]%mod;
+			if(matrice.matrice[i][j] < 0)
+				matrice.matrice[i][j] = matrice.matrice[i][j] + mod;
+		}
+	}	
+	var alphabet = creerAlphabet(mod);
 	while(texte.length%matrice.taille!==0)
 		texte+='a';
 	var message_non_code_num = couperTexte(texte, matrice.taille);
@@ -195,7 +198,7 @@ Matrice.prototype = {
 			return this.matrice[0][0] * this.matrice[1][1] - this.matrice[1][0] * this.matrice[0][1];
 		else{
 			matricetmp = this.gauss();
-			return matricetmp.multiDiago();
+			return Math.round(matricetmp.multiDiago());
 		}
 	},
 	verifCarre: function(){
@@ -275,6 +278,14 @@ Matrice.prototype = {
 			}
 			return new Matrice(array);
 	},
+	gauss3:function(){
+		var mat = new Matrice(this);
+		for(var k = 0; k < n; k++)
+			for(i = k; i < n; i++){
+				var c = mat.matrice[i][k]/mat.matrice[k][k];
+
+			}
+	},
 	supprimerLigneColonne:function(mat, ligne, colonne){
 		var array_nouvelle_matrice = [];
 		for(var i = 0; i < mat.taille; i++){
@@ -298,6 +309,21 @@ Matrice.prototype = {
 		}
 		return this;
 	},
+	transvection: function (ligne, ligne_facteur, facteur){
+		var mat = new Matrice(this);
+		for(var j = 0; j < this.taille; j++){
+			mat.matrice[ligne][j] = mat.matrice[ligne][j]*(facteur*mat.matrice[ligne_facteur][j]);
+		}
+		return mat;
+	},
+	triangulation: function(){
+		var mat = new Matrice(this);
+		mat = mat.diviserLigne(0, mat.matrice[0][0]);
+		for(var i = 1; i < mat.taille; i++){
+			mat = mat.transvection(i, 0, mat.matrice[i][0]/mat.matrice[0][0]);
+		} 
+		return mat;
+	},
 	inverserMatrice2:function(mod){
 		var I = matriceIdentite(this.taille);
 		var matriceTmp = new Matrice(this);
@@ -319,7 +345,7 @@ Matrice.prototype = {
 		var cofacteur_inverser = this.cofacteur().transposer();
 		for(var i = 0; i < cofacteur_inverser.taille; i++)
 			for(var j = 0; j <cofacteur_inverser.taille; j++)
-				cofacteur_inverser.matrice[i][j] = (cofacteur_inverser.matrice[i][j] / determinant);
+				cofacteur_inverser.matrice[i][j] = (cofacteur_inverser.matrice[i][j] * determinant);
 		return cofacteur_inverser;
 	},
 	transposer: function(){
@@ -328,6 +354,7 @@ Matrice.prototype = {
 			for(var j = 0; j < matriceTranspo.taille; j++){
 				matriceTranspo.matrice[i][j] = this.matrice[j][i];
 			}
+		console.log(matriceTranspo);
 			return matriceTranspo;
 	},
 	soustraitreLigne: function(ligne, moins){
