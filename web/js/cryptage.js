@@ -48,7 +48,7 @@ function crypte_hill(texte, matrice, mod){
 	}	
 	var alphabet = creerAlphabet(mod);
 	while(texte.length%matrice.taille!==0)
-		texte+='a';
+		texte+='A';
 	var message_non_code_num = couperTexte(texte, matrice.taille);
 	message_code = crypterTexte(message_non_code_num, matrice, mod).split(',');
 	message_code.pop(); // supprime le dernier caract donc la ,
@@ -126,10 +126,10 @@ function hill(choice){
 function genererKey(){
 	var mod = creerAlphabet(recupererRadio()+26).length;
 	var matrice = [];
-	var taille = Math.floor(Math.random() * 3 +2);
+	var taille = Math.floor(Math.random() * 5+2);
 	do{
 		for(var i = 0; i < taille * taille; i++){
-			matrice[i] = Math.floor(Math.random()*100000);
+			matrice[i] = Math.floor(Math.random()*150);
 		}
 		matriceObject = new Matrice(matrice);
 	}while(false === matriceObject.verifMatriceGen(mod));
@@ -278,14 +278,6 @@ Matrice.prototype = {
 			}
 			return new Matrice(array);
 	},
-	gauss3:function(){
-		var mat = new Matrice(this);
-		for(var k = 0; k < n; k++)
-			for(i = k; i < n; i++){
-				var c = mat.matrice[i][k]/mat.matrice[k][k];
-
-			}
-	},
 	supprimerLigneColonne:function(mat, ligne, colonne){
 		var array_nouvelle_matrice = [];
 		for(var i = 0; i < mat.taille; i++){
@@ -323,21 +315,6 @@ Matrice.prototype = {
 			mat = mat.transvection(i, 0, mat.matrice[i][0]/mat.matrice[0][0]);
 		} 
 		return mat;
-	},
-	inverserMatrice2:function(mod){
-		var I = matriceIdentite(this.taille);
-		var matriceTmp = new Matrice(this);
-		for(var k = 0; k < I.taille; i++){
-			var pivot = matriceTmp.maxColonne();
-			matriceTmp = matriceTmp(k, matriceTmp.matrice[k][k]);
-			for(var i = 0; i< I.taille; i++){
-				if(i != k){
-
-					matriceTmp = matriceTmp(i,k );
-				}
-			}
-		}
-	return I;
 	},
 	inverserMatrice:function(mod){
 		var determinant = this.calculdeterminant();
@@ -390,7 +367,7 @@ Matrice.prototype = {
 		},
 	verifMatriceGen:function(mod){
 		var determinant = this.calculdeterminant();
-		if(determinant === 0){//Matrice non inversible
+		if(Math.abs(determinant) < 0.000001){//Matrice non inversible
 			return false;
 		}
 		else{
