@@ -9,7 +9,7 @@
 		var cara=texte.charAt(i);
 		var indice=cara.charCodeAt(0);
 		
-		if(indice>="a".charCodeAt(0) && indice<="z".charCodeAt(0)) //Minuscule
+		if(alphabet.indexOf('a')==-1 && indice>="a".charCodeAt(0) && indice<="z".charCodeAt(0)) //Minuscule si ASCII
 		{
 			cara=cara.toUpperCase();
 			indice=alphabet.indexOf(cara);
@@ -26,6 +26,7 @@
 			var val = alphabet.charAt(somme);
 			crypt+=val;
 			j++;
+			console.log(cara+" "+indice+" =>"+somme+" "+val);
 		}		
 	}
 	
@@ -45,7 +46,7 @@ function vigenere_decrypt(texte,cle,alphabet){
 		var cara=texte.charAt(i);
 		var indice=cara.charCodeAt(0);
 		
-		if(indice>="a".charCodeAt(0) && indice<="z".charCodeAt(0)) //Minuscule
+		if(alphabet.indexOf('a')==-1 && indice>="a".charCodeAt(0) && indice<="z".charCodeAt(0)) //Minuscule
 		{
 			cara=cara.toUpperCase();
 			indice=alphabet.indexOf(cara);
@@ -95,7 +96,7 @@ $(document).ready(function()
 	$('#alphaExt_check').mousedown(function()
 		{
 			console.log("EXTEND ALPHA");
-			var alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz’«» \\\n\t&(ÀàÂâÄ†ãÑñíÍßóÓÁá©ÆæÇçÉéÈèÊêËëÎîÏïÔôÖŒœÙùÛûÜüŸÿ-_\"\'1234567890°)~#{[|`^@]}$£€!:;,?./§%*<>";
+			var alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz’«» \\\n\t&(ÀàÂâÄ†ãÑñíÍßóÓÁá©ÆæÇçÉéÈèÊêËëÎîÏïÔôÖŒœÙùÛûÜüŸÿ-_\"\'1234567890°)~#{[|`^@]}$£€!:;,?./§%*<>".split();
 			document.getElementById('alphaVig').value=alphabet;
 		});
 		
