@@ -1,8 +1,11 @@
-﻿function vigenere_crypt(texte,cle,alphabet){
+﻿function vigenere_crypt(texte,cle,alphabet,paquet){
+console.log(paquet);
 	var crypt="";
 	var modulo = alphabet.length;
-	for(var i=0,j=0;i<texte.length;i++)
+	var k=1;
+	for(var i=0,j=0;i<texte.length;i++,k++)
 	{
+	
 		if(j==cle.length) //on reboucle sur le début de la clé
 			j=0;
 		
@@ -16,7 +19,11 @@
 			var somme=(indice+alphabet.indexOf(cle.charAt(j)))%modulo;
 			var val = alphabet.charAt(somme);
 			crypt+=val.toLowerCase();
-			j++;
+			if(k>=paquet)
+			{
+				j++;
+				k=1;
+			}
 		}
 		
 		else
@@ -25,7 +32,11 @@
 			var somme=(indice+alphabet.indexOf(cle.charAt(j)))%modulo;
 			var val = alphabet.charAt(somme);
 			crypt+=val;
-			j++;
+			if(k>=paquet)
+			{
+				j++;
+				k=1;
+			}
 			console.log(cara+" "+indice+" =>"+somme+" "+val);
 		}		
 	}
@@ -34,11 +45,12 @@
 	$('.decrypter-button').attr("disabled", false);
 }
 
-function vigenere_decrypt(texte,cle,alphabet){
+function vigenere_decrypt(texte,cle,alphabet,paquet){
 	console.log("DECRYPT");
 	var decrypt="";
 	var modulo = alphabet.length;
-	for(var i=0,j=0;i<texte.length;i++)
+	var k=1;
+	for(var i=0,j=0;i<texte.length;i++,k++)
 	{
 		if(j==cle.length) //on reboucle sur le début de la clé
 			j=0;
@@ -55,7 +67,11 @@ function vigenere_decrypt(texte,cle,alphabet){
 				somme+=modulo;
 			var val = alphabet.charAt(somme);
 			decrypt+=val.toLowerCase();
-			j++;
+			if(k>=paquet)
+			{
+				j++;
+				k=1;
+			}
 		}
 		
 		else
@@ -66,7 +82,11 @@ function vigenere_decrypt(texte,cle,alphabet){
 				somme+=modulo;
 			var val = alphabet.charAt(somme);
 			decrypt+=val;
-			j++;
+			if(k>=paquet)
+			{
+				j++;
+				k=1;
+			}
 		}
 		
 	}
@@ -77,13 +97,23 @@ function vigenere_decrypt(texte,cle,alphabet){
 
 $(document).ready(function()
 { 
+	paquet=1;
+
+	$("#codagePaquet").mousedown(function()
+	{
+		if(paquet==1)
+			paquet=2;
+		else
+			paquet=1;
+	});
+	
 	$('#cryptVig').mousedown(function()
 		{
 			console.log("VIGENERE CRYPTAGE");
 			var texte=document.getElementById('texteclair').value;
 			var cle = document.getElementById('keyVig').value;
 			var alphabet = document.getElementById('alphaVig').value;
-			vigenere_crypt(texte,cle,alphabet);
+			vigenere_crypt(texte,cle,alphabet,paquet);
 		});
 		
 	$('#ascii_check').mousedown(function()
@@ -106,7 +136,7 @@ $(document).ready(function()
 			var texte=document.getElementById('textecode').value;
 			var cle = document.getElementById('keyVig').value;
 			var alphabet = document.getElementById('alphaVig').value;
-			vigenere_decrypt(texte,cle,alphabet);
+			vigenere_decrypt(texte,cle,alphabet,paquet);
 		});
 
 	$('#KeyGenVig').mousedown(function()
