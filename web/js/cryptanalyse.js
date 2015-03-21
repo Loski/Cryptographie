@@ -36,6 +36,7 @@ function frequence(texte, taille){
 			arrayValue.push(element2);
 		});
 	}
+	arrayFreq[taille].reverse();
 	return arrayFreq[taille];
 }
 
@@ -60,4 +61,5 @@ function uniq_fast(a) {
          }
     }
     return out;
+
 }

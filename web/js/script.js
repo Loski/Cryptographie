@@ -141,7 +141,7 @@ function creerTableHill(n){
 	$('#HillDiv table').text('');
 	var str ="<tr>";
 	for(var i = 0; i < n; i++){
-		str+='<th class="col-xs-1"><input pattern="/[0-9]+/"type="number" required class="form-control"></th>';
+		str+='<th class="col-xs-1"><input pattern="/[0-9]+/" type="number" required class="form-control"></th>';
 	}
 	str+="</tr>";
 	for(i = 0; i< n;i++){

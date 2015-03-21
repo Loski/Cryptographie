@@ -130,18 +130,22 @@
 						</div>
 					</div>
 					<div class="onglet" id="HillDiv">
-						<form id= "matrice" class ="form-group">   
-						<select>
-							<option value="2" selected>2</option>
-							<option value="3">3</option>
-							<option value="4">4</option>
-							<option value="5">5</option>
-							<option value="6">6</option>
-						</select>
-						<table  class="row"> 
-							<tr><th class="col-xs-1"><input pattern="/[0-9]+/"type="number" class="form-control" required></th><th class="col-xs-1"><input pattern="/[0-9]+/"type="number" class="form-control" required></th></tr>
-							<tr><th class="col-xs-1"><input pattern="/[0-9]+/"type="number" class="form-control" required></th><th class="col-xs-1"><input pattern="/[0-9]+/"type="number" class="form-control" required></th></tr>
-						</table>
+						<form id= "matrice" class ="form-group">
+						<div class="row">
+							<div class="col-lg-5">
+							<select class="form-control ">
+								<option value="2" selected>2</option>
+								<option value="3">3</option>
+								<option value="4">4</option>
+								<option value="5">5</option>
+								<option value="6">6</option>
+							</select>
+							</div>
+							<table class="col-lg-offset-2 col-lg-9"> 
+								<tr><th class="col-xs-1"><input pattern="/[0-9]+/" type="number" class="form-control" required></th><th class="col-xs-1"><input pattern="/[0-9]+/" type="number" class="form-control" required></th></tr>
+								<tr><th class="col-xs-1"><input pattern="/[0-9]+/" type="number" class="form-control" required></th><th class="col-xs-1"><input pattern="/[0-9]+/" type="number" class="form-control" required></th></tr>
+							</table>
+						</div>
 						<button class="btn btn-primary" onclick="genererKey()" >Générer</button>
 						<div id="error" class="alert alert-danger text-center glyphicon glyphicon-remove" role="alert"></div>
 						<div class="text-center">
