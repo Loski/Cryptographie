@@ -44,7 +44,9 @@ function frequence(texte, taille){
 function  arrayFreqAppartion(){
 	var lettre = "easintrluodcmpvgfqhbxjyzkw".split('');
 	var bigramme ="es,le,de,re,en,on,nt,er,te,et,el,an,se,la,ai,ne,ou,qu,me,it,ie,em,ed,ur,is,ec,ue,ti,ra,ns,in,ta".split(',');
-	return [[lettre],[bigramme]];
+	var trigramme = "ent,que,les,ede,des,ela,ion,ait,res".split(',');
+	var quadrigramme = "tion,ment,ique,emen,dela,elle".split(',');
+	return [[lettre],[bigramme][trigramme][quadrigramme]];
 }
 
 /**VOL******/
