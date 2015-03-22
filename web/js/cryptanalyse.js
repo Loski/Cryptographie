@@ -41,12 +41,12 @@ function frequence(texte, taille){
 }
 
 // créer les arrays des lettres les plus probable
-function  arrayFreqAppartion(){
+function  arrayFreqApparition(){
 	var lettre = "easintrluodcmpvgfqhbxjyzkw".split('');
 	var bigramme ="es,le,de,re,en,on,nt,er,te,et,el,an,se,la,ai,ne,ou,qu,me,it,ie,em,ed,ur,is,ec,ue,ti,ra,ns,in,ta".split(',');
 	var trigramme = "ent,que,les,ede,des,ela,ion,ait,res".split(',');
 	var quadrigramme = "tion,ment,ique,emen,dela,elle".split(',');
-	return [[lettre],[bigramme][trigramme][quadrigramme]];
+	return [[lettre],[bigramme],[trigramme],[quadrigramme]];
 }
 
 /**VOL******/
@@ -66,6 +66,21 @@ function uniq_fast(a) {
 
 }
 
+//décrypte juste par 2
+function cryptanalyseHill(texte, taille){
+	var alphabet =  creerAlphabet(26);
+	var frequenceMax = frequence(texte,4);
+	var motMaxFrance = arrayFreqApparition()[3][0];
+	var txt1 =	frequenceMax[0][0].substring(0,2).toUpperCase();
+	var txt2 = frequenceMax[0][0].substring(2,4).toUpperCase();
+	var matrice = [];
+	for(var i = 0; i < 2; i++){
+		matrice.push(alphabet.indexOf(txt1[i]));
+		matrice.push(alphabet.indexOf(txt2[i]));
+	}
+	var matriceInverse = new Matrice(matrice).inverserMatrice(26);
+	return crypte_hill(texte, matriceInverse, 26);
+}
 function key_Vigenere(alphabet,text,keyLength)
 {
 	var texte_espace ="";
