@@ -65,3 +65,35 @@ function uniq_fast(a) {
     return out;
 
 }
+
+function key_Vigenere(alphabet,text,keyLength)
+{
+	var texte_espace ="";
+	for(var i=0;i<text.length;i+=parseInt(keyLength))
+	{
+		texte_espace += text.substr(i,keyLength)+" ";
+		console.log(i+texte_espace);
+	}
+	
+	document.getElementById('textecode').value=texte_espace;
+
+	/*key="";
+	for(int i=0;i<keyLength;i+=keyLength)
+	{
+		var decalage = calculDecalage();
+	
+		key+=alphabet.charAt(decalage);
+	}*/
+}
+
+
+$(document).ready(function()
+{ 
+	$("#cryptanalyseDecrypt").mousedown(function()
+	{
+		var texte=document.getElementById('textecode').value;
+		var keylength = document.getElementById("keyCryptanalyse").value;
+	
+		key_Vigenere("ABCDEFGHIJKLMNOPQRSTUVWXYZ",texte,keylength);
+	});
+});
