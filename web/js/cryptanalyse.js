@@ -90,24 +90,40 @@ function cryptanalyseHill(texte, taille){
 	var matriceInverse = new Matrice(matrice).inverserMatrice(26);
 	return crypte_hill(texte, matriceInverse, 26);
 }
+
+function maxCharacterFrequence(text,taille){
+	
+	var array=frequence(text, taille);
+	var key;
+	tabKey=[];
+	for (key in array)
+    {
+		tabKey.push(key);
+    }
+	var occurence = [];
+	for(key in tabKey)
+	{
+		occurence.push(array[tabKey[key]]);
+	}
+		
+	var max = Math.max.apply(Math, occurence);
+	
+	for(var i=0;i<tabKey.length;i++)
+	{
+		if(max==array[tabKey[i]])
+		{
+			return tabKey[i];
+		}
+	}
+}
+
+function key_Cesar(text,alphabet){
+	
+}
+
 function key_Vigenere(alphabet,text,keyLength)
 {
-	var texte_espace ="";
-	for(var i=0;i<text.length;i+=parseInt(keyLength))
-	{
-		texte_espace += text.substr(i,keyLength)+" ";
-		console.log(i+texte_espace);
-	}
-	
-	document.getElementById('textecode').value=texte_espace;
 
-	/*key="";
-	for(int i=0;i<keyLength;i+=keyLength)
-	{
-		var decalage = calculDecalage();
-	
-		key+=alphabet.charAt(decalage);
-	}*/
 }
 
 
@@ -115,6 +131,7 @@ $(document).ready(function()
 { 
 	$("#cryptanalyseDecrypt").mousedown(function()
 	{
+		//Si vigenère est coché
 		var texte=document.getElementById('textecode').value;
 		var keylength = document.getElementById("keyCryptanalyse").value;
 	
