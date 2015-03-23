@@ -2,9 +2,10 @@
 console.log(paquet);
 	var crypt="";
 	var modulo = alphabet.length;
-	var k=1;
-	for(var i=0,j=0;i<texte.length;i++,k++)
-	{
+	for(var i=0,j=0;i<texte.length;i++)
+	{	
+		if(i%paquet==0 && i!=0)
+				j++;
 	
 		if(j==cle.length) //on reboucle sur le début de la clé
 			j=0;
@@ -19,26 +20,41 @@ console.log(paquet);
 			var somme=(indice+alphabet.indexOf(cle.charAt(j)))%modulo;
 			var val = alphabet.charAt(somme);
 			crypt+=val.toLowerCase();
-			if(k>=paquet)
-			{
-				j++;
-				k=1;
-			}
+
 		}
 		
 		else
 		{
 			indice=alphabet.indexOf(cara);
-			var somme=(indice+alphabet.indexOf(cle.charAt(j)))%modulo;
-			var val = alphabet.charAt(somme);
-			crypt+=val;
-			if(k>=paquet)
+			if(indice==-1)
+				crypt+=cara;
+			else
 			{
-				j++;
-				k=1;
+				var somme=(indice+alphabet.indexOf(cle.charAt(j)))%modulo;
+				var val = alphabet.charAt(somme);
+				crypt+=val;
 			}
-			console.log(cara+" "+indice+" =>"+somme+" "+val);
+			//console.log(cara+" "+indice+" =>"+somme+" "+val);
 		}		
+	}
+	
+	//Codage par paquets
+	if(paquet>1)
+	{
+		newcrypt="";
+		var nb = 0;
+		for(var i=0;i<crypt.length;i++)
+		{
+			console.log(crypt[i],alphabet.indexOf(crypt[i]));
+			nb=alphabet.indexOf(crypt[i]);
+			/*if(i%paquet==0 && i!=0)
+				newcrypt+=" ";*/
+			if(nb<10)
+				newcrypt+="0";
+			newcrypt+=nb;
+		}
+		
+		crypt=newcrypt;
 	}
 	
 	document.getElementById('textecode').value=crypt;
@@ -49,9 +65,36 @@ function vigenere_decrypt(texte,cle,alphabet,paquet){
 	console.log("DECRYPT");
 	var decrypt="";
 	var modulo = alphabet.length;
-	var k=1;
-	for(var i=0,j=0;i<texte.length;i++,k++)
+	
+	//déCodage par paquets
+	if(paquet>1)
 	{
+		var iteration=0;
+		for(var i=0,j=0;i<texte.length;i+=paquet,iteration++)
+		{
+			if(iteration%paquet==0 && iteration!=0)
+				j++;
+		
+			if(j==cle.length) //on reboucle sur le début de la clé
+				j=0;
+			
+			var nb = parseInt(texte.substr(i,paquet));
+			nb-=alphabet.indexOf(cle.charAt(j))%modulo;
+			if(nb<0)
+				nb+=modulo;
+			console.log(nb,nb);
+			
+			decrypt+=alphabet.charAt(nb);
+		}
+	}
+	
+	else
+	
+	for(var i=0,j=0;i<texte.length;i++)
+	{
+		if(i%paquet==0 && i!=0)
+				j++;
+	
 		if(j==cle.length) //on reboucle sur le début de la clé
 			j=0;
 		
@@ -67,28 +110,23 @@ function vigenere_decrypt(texte,cle,alphabet,paquet){
 				somme+=modulo;
 			var val = alphabet.charAt(somme);
 			decrypt+=val.toLowerCase();
-			if(k>=paquet)
-			{
-				j++;
-				k=1;
-			}
+			
 		}
 		
 		else
 		{
 			indice=alphabet.indexOf(cara);
-			var somme=(indice-alphabet.indexOf(cle.charAt(j)))%modulo; //position dans l'alphabet
-			if(somme<0)
-				somme+=modulo;
-			var val = alphabet.charAt(somme);
-			decrypt+=val;
-			if(k>=paquet)
+			if(indice==-1)
+				crypt+=cara;
+			else
 			{
-				j++;
-				k=1;
+				var somme=(indice-alphabet.indexOf(cle.charAt(j)))%modulo; //position dans l'alphabet
+				if(somme<0)
+					somme+=modulo;
+				var val = alphabet.charAt(somme);
+				decrypt+=val;
 			}
 		}
-		
 	}
 	
 	document.getElementById('texteclair').value=decrypt;
