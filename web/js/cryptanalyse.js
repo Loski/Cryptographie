@@ -1,5 +1,6 @@
 //Tentative dans le train !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 function frequence(texte, taille){
+	texte = $('#textecode').val();
 	var arrayTxt = [];
 	var txttmp = texte;
 	arrayFreq = [];
