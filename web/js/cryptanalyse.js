@@ -144,6 +144,13 @@ function key_Cesar(text,alphabet,iteration){
 
 function key_Vigenere(alphabet,text,keyLength,iteration)
 {
+	var row = [];
+	
+	for(var j=0;j<keyLength;j++)
+		for(var i=0;i<text.length;i+=keyLength)
+			row.push(text[i]);
+			
+
 	console.log(key_Cesar(text,alphabet,iteration));
 	$('.active .cle').val(keyLength);
 }
@@ -151,7 +158,6 @@ function key_Vigenere(alphabet,text,keyLength,iteration)
 
 $(document).ready(function()
 { 
-
 	var iteration =0;
 	$("#cryptanalyseDecrypt").mousedown(function()
 	{

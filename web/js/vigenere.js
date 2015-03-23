@@ -150,7 +150,7 @@ $(document).ready(function()
 			console.log("VIGENERE CRYPTAGE");
 			var texte=document.getElementById('texteclair').value;
 			var cle = document.getElementById('keyVig').value;
-			var alphabet = document.getElementById('alphaVig').value;
+			var alphabet = document.getElementById('alphabet').value;
 			vigenere_crypt(texte,cle,alphabet,paquet);
 		});
 		
@@ -158,14 +158,14 @@ $(document).ready(function()
 		{
 			console.log("ASCII");
 			var alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-			document.getElementById('alphaVig').value=alphabet;
+			document.getElementById('alphabet').value=alphabet;
 		});
 		
 	$('#alphaExt_check').mousedown(function()
 		{
 			console.log("EXTEND ALPHA");
 			var alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz’«» \\\n\t&(ÀàÂâÄ†ãÑñíÍßóÓÁá©ÆæÇçÉéÈèÊêËëÎîÏïÔôÖŒœÙùÛûÜüŸÿ-_\"\'1234567890°)~#{[|`^@]}$£€!:;,?./§%*<>".split();
-			document.getElementById('alphaVig').value=alphabet;
+			document.getElementById('alphabet').value=alphabet;
 		});
 		
 	$('#decryptVig').mousedown(function()
@@ -173,7 +173,7 @@ $(document).ready(function()
 			console.log("VIGENERE DECRYPTAGE");
 			var texte=document.getElementById('textecode').value;
 			var cle = document.getElementById('keyVig').value;
-			var alphabet = document.getElementById('alphaVig').value;
+			var alphabet = document.getElementById('alphabet').value;
 			vigenere_decrypt(texte,cle,alphabet,paquet);
 		});
 
