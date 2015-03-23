@@ -45,19 +45,19 @@
 						<form method="POST">
 							<textarea id="texteclair" class="form-control" rows="3" placeholder="Entrer une phrase ou charger un fichier"></textarea>
 							<br/>
-							<label class="btn btn-primary" for="fichier_clair">
-								<span class="glyphicon glyphicon-file"></span> Charger un fichier
-								<input style="display:none;" type="file" name="fichier" id="fichier_clair"/>
-							</label>
 
-							<button type="button" class="btn btn-default" onclick="saveTextAsFile(0)" aria-label="Right Align">
-								<span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span>
-								Sauvegarder
-							</button>
-							<button type="button" class="btn btn-primary" onclick="modal(0)" data-toggle="modal" data-target="#modal">
+							<button type="button" class="btn btn-primary col-lg-3" onclick="modal(0)" data-toggle="modal" data-target="#modal">
 								<span class = "glyphicon glyphicon-plus-sign"></span>
 								Agrandir
 							</button>
+                            <button type="button" class="btn btn-default col-lg-offset-1 col-lg-3 " onclick="saveTextAsFile(0)" aria-label="Right Align">
+								<span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span>
+								Sauvegarder
+							</button>
+                            <label class="btn btn-primary col-lg-offset-1 col-lg-4" for="fichier_clair">
+								<span class="glyphicon glyphicon-file"></span> Charger un fichier
+								<input style="display:none;" type="file" name="fichier" id="fichier_clair"/>
+							</label>
 							<div class="modal fade bs-example-modal-lg" id="modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
 								<div class="modal-dialog modal-lg">
 									<div class="modal-content">
@@ -84,17 +84,17 @@
 						<legend>Décryptage</legend>
 						<textarea id="textecode" class="form-control" rows="3" placeholder="Entrer une phrase ou charger un fichier"></textarea>
 						<br/>
-						<label class="btn btn-primary" for="fichier_code">
+						<label class="btn btn-primary col-lg-4" for="fichier_code">
 							<span class="glyphicon glyphicon-file"></span> 
 							Charger un fichier
 							<input style="display:none;" type="file" name="fichier" id="fichier_code"/>
 						</label>
 						
-						<button type="button" class="btn btn-default" onclick="saveTextAsFile(1)" aria-label="Right Align">
+						<button type="button" class="btn btn-default col-lg-offset-1 col-lg-3" onclick="saveTextAsFile(1)" aria-label="Right Align">
 							<span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span>
 							Sauvegarder
 						</button>
-						<button type="button" class="btn btn-default" onclick="modal(1)" data-toggle="modal" data-target="#modal">
+						<button type="button" class="btn btn-primary col-lg-offset-1 col-lg-3" onclick="modal(1)" data-toggle="modal" data-target="#modal">
 							<span class = "glyphicon glyphicon-eye-open"></span>
  								 Agrandir
 						</button>
@@ -116,11 +116,10 @@
 					<div id="CesarDiv" class="active form-group onglet">
 						<input  placeholder="Clé" class="form-control cle" id="cesarKey" type="text" name="Cle"/><br/>
 						<button class="btn btn-primary" onclick="genereKeyCesar()" >Générer</button><br/>
-						<div class="text-center">
-							<button class="btn btn-primary crypter-button" id="crypterCesar">Crypter</button>
-							<button class="btn btn-primary decrypter-button" id="decrypterCesar">D&eacute;crypter</button>
+						<div class="text-center col-lg-12" >
+							<button class="btn btn-primary crypter-button col-lg-offset-3 col-lg-2" id="crypterCesar">Crypter</button>
+							<button class="btn btn-primary decrypter-button col-lg-offset-2 col-lg-2" id="decrypterCesar">D&eacute;crypter</button>
 						</div>
-					</div>
 					<div id="VigenereDiv" class="form-group onglet">
 					Alphabet : <input class="form-control" type="text" value="ABCDEFGHIJKLMNOPQRSTUVWXYZ" id="alphaVig"/><br/>
 						<button class="btn btn-primary" id="KeyGenVig">Générer</button><input  placeholder="Clé" class="form-control cle" id="keyVig" type="text" name="Cle"/><br/>
