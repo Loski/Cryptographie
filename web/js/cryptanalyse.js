@@ -113,18 +113,32 @@ function maxCharacterFrequence(text,taille){
 	{
 		if(max==array[tabKey[i]])
 		{
+			console.log(tabKey[i]);
 			return tabKey[i];
 		}
 	}
 }
 
 function key_Cesar(text,alphabet){
+	var array=arrayFreqApparition(1);
 	
+	var caraMaxOcurrence = alphabet.indexOf(maxCharacterFrequence(text,1));
+	var letterMostUse = alphabet.indexOf(array[0].toUpperCase());
+	
+	console.log(letterMostUse,caraMaxOcurrence);
+	
+	var key =(caraMaxOcurrence-letterMostUse)%alphabet.length;
+	if(key<0)
+		key+=alphabet.length;
+	
+	console.log("Decrypt clé de césar : "+key);
+	
+	return key;
 }
 
 function key_Vigenere(alphabet,text,keyLength)
 {
-
+	console.log(key_Cesar(text,alphabet));
 }
 
 
