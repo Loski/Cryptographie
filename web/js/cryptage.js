@@ -325,6 +325,15 @@ Matrice.prototype = {
 				cofacteur_inverser.matrice[i][j] = (cofacteur_inverser.matrice[i][j] * determinant);
 		return cofacteur_inverser;
 	},
+	multiplicationMatrice:function(matrice2){
+		var matriceMultiplier =[];
+		matriceMultiplier.push(this.matrice[0][0] * matrice2.matrice[0][0]+this.matrice[0][1] * matrice2.matrice[1][0]);
+		matriceMultiplier.push(this.matrice[0][0] * matrice2.matrice[0][1]+this.matrice[0][1] * matrice2.matrice[1][1]);
+		matriceMultiplier.push(this.matrice[1][0] * matrice2.matrice[0][0]+this.matrice[1][1] * matrice2.matrice[1][0]);
+		matriceMultiplier.push(this.matrice[1][0] * matrice2.matrice[0][1]+this.matrice[1][1] * matrice2.matrice[1][1]);
+	
+			return matriceMultiplier;
+	},
 	transposer: function(){
 		var matriceTranspo = new Matrice(this);
 		for(var i = 0; i < matriceTranspo.taille;i++)
@@ -344,27 +353,27 @@ Matrice.prototype = {
 	ajouterLigne: function(ligne, plus){
 		this.soustraitreLigne(ligne,-plus);
 	},
-		setMatrice: function(els) {
-			this.matrice = [];
-			if(els.hasOwnProperty('matrice')){ //Double dimension
-				var taille = els.matrice.length;
-				for(var i = 0; i <taille; i++){
-					this.matrice[i] = [];
-					for(var j = 0; j < taille; j++){
-						this.matrice[i].push(els.matrice[i][j]);
-					}
+	setMatrice: function(els) {
+		this.matrice = [];
+		if(els.hasOwnProperty('matrice')){ //Double dimension
+			var taille = els.matrice.length;
+			for(var i = 0; i <taille; i++){
+				this.matrice[i] = [];
+				for(var j = 0; j < taille; j++){
+					this.matrice[i].push(els.matrice[i][j]);
 				}
 			}
-			else{
-				var n = Math.sqrt(els.length);
-				for(var i = 0; i < n; i++){
-					this.matrice[i] = [];
-					for(var j = 0; j < n; j++)
-						this.matrice[i].push(els[j + i * n]);
-				}
+		}
+		else{
+			var n = Math.sqrt(els.length);
+			for(var i = 0; i < n; i++){
+				this.matrice[i] = [];
+				for(var j = 0; j < n; j++)
+					this.matrice[i].push(els[j + i * n]);
 			}
-			this.taille =  this.matrice.length;
-		},
+		}
+		this.taille =  this.matrice.length;
+	},
 	verifMatriceGen:function(mod){
 		var determinant = this.calculdeterminant();
 		if(Math.abs(determinant) < 0.000001){//Matrice non inversible
