@@ -39,64 +39,93 @@ $(document).ready(function()
     
   $('#crypterCesar').click(function()
   {
-     var cle=parseInt($('.active .cle').val())%26;
-     var texteACrypter=document.getElementById('texteclair').value;
+      var texteACrypter=document.getElementById('texteclair').value;
       var tab=[];
-     var texteCrypter="";
-     for(var i=0;i<texteACrypter.length;i++){
-      tab.push(texteACrypter.charCodeAt(i));
-      tab[i]=caractereSpeciaux(tab[i]);
-       if(tab[i]>64 && tab[i]<91)
-       {
-         tab[i]=(tab[i]+cle)%91;
-         if(tab[i]<65)
-         {
-           tab[i]=tab[i]+65;
+      var texteCrypter="";
+      var check=$('input[type=radio][name=optradio]:checked').attr('value');
+      if(check==0)
+        {
+         var cle=parseInt($('.active .cle').val())%26;
+         for(var i=0;i<texteACrypter.length;i++){
+          tab.push(texteACrypter.charCodeAt(i));
+          tab[i]=caractereSpeciaux(tab[i]);
+           if(tab[i]>64 && tab[i]<91)
+           {
+             tab[i]=(tab[i]+cle)%91;
+             if(tab[i]<65)
+             {
+               tab[i]=tab[i]+65;
+             }
+           }
+           else if(tab[i]>96 && tab[i]<123)
+           {
+             tab[i]=(tab[i]+cle)%123;
+             if(tab[i]<97)
+             {
+               tab[i]=tab[i]+97;
+             }
+           }
+           texteCrypter=texteCrypter+String.fromCharCode(tab[i]);
          }
-       }
-       else if(tab[i]>96 && tab[i]<123)
-       {
-         tab[i]=(tab[i]+cle)%123;
-         if(tab[i]<97)
-         {
-           tab[i]=tab[i]+97;
+    
+        }
+      else if(check==1)
+      {
+          var cle=parseInt($('.active .cle').val())%256; 
+           for(var i=0;i<texteACrypter.length;i++){
+          tab.push(texteACrypter.charCodeAt(i));
+                tab[i]=tab[i]+cle;
+                tab[i]=tab[i]%256;
+           texteCrypter=texteCrypter+String.fromCharCode(tab[i]);
          }
-       }
-       texteCrypter=texteCrypter+String.fromCharCode(tab[i]);
-     }
-      console.log(texteCrypter);
-     $('#textecode').val(texteCrypter);
+      }
+      $('#textecode').val(texteCrypter);
   });
   
   $('#decrypterCesar').click(function()
     {
- 
-     var cle=parseInt($('.active .cle').val())%26;
-     var texteADeCrypter=document.getElementById('textecode').value;
-     var texteClaire="";
-     var tab=[];
-     for(var i=0;i<texteADeCrypter.length;i++){
-       tab.push(texteADeCrypter.charCodeAt(i));
-       if(tab[i]>64 && tab[i]<91)
-       {
-         tab[i]=tab[i]-cle;
-         if(tab[i]<65)
-         {
-           tab[i]=tab[i]-65+91;
+        var texteADeCrypter=document.getElementById('textecode').value;
+        var texteClaire="";
+        var tab=[];
+        var check=$('input[type=radio][name=optradio]:checked').attr('value');
+      if(check==0)
+      {
+             var cle=parseInt($('.active .cle').val())%26;
+             for(var i=0;i<texteADeCrypter.length;i++){
+               tab.push(texteADeCrypter.charCodeAt(i));
+               if(tab[i]>64 && tab[i]<91)
+               {
+                 tab[i]=tab[i]-cle;
+                 if(tab[i]<65)
+                 {
+                   tab[i]=tab[i]-65+91;
 
-         }
-       }
-       else if(tab[i]>96 && tab[i]<123)
-       {
-         tab[i]=tab[i]-cle;
-         if(tab[i]<97)
-         {
-           tab[i]=tab[i]-97+123;
-         }
-       }
-       texteClaire=texteClaire+String.fromCharCode(tab[i]);
-     }
-     $('#texteclair').val(texteClaire);
+                 }
+               }
+               else if(tab[i]>96 && tab[i]<123)
+               {
+                 tab[i]=tab[i]-cle;
+                 if(tab[i]<97)
+                 {
+                   tab[i]=tab[i]-97+123;
+                 }
+               }
+               texteClaire=texteClaire+String.fromCharCode(tab[i]);
+             }
+      }
+      else if(check==1)
+      {
+          var cle=parseInt($('.active .cle').val())%256;
+          for(var i=0;i<texteADeCrypter.length;i++){
+               tab.push(texteADeCrypter.charCodeAt(i));
+               tab[i]=tab[i]+256;
+               tab[i]=tab[i]-cle;
+               tab[i]=tab[i]%256;
+               texteClaire=texteClaire+String.fromCharCode(tab[i]);
+               }
+        }
+      $('#texteclair').val(texteClaire);
+          
   });   
     
 
