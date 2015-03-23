@@ -124,6 +124,7 @@ $(document).ready(function()
                texteClaire=texteClaire+String.fromCharCode(tab[i]);
                }
         }
+	console.log(cle,texteADeCrypter);
       $('#texteclair').val(texteClaire);
           
   });   
