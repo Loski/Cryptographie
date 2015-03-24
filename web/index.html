@@ -124,10 +124,11 @@
 						</div>
 					</div>
 					<div id="VigenereDiv" class="form-group onglet">
-						<button class="btn btn-primary" id="KeyGenVig">Générer</button><input  placeholder="Clé" class="form-control cle" id="keyVig" type="text" name="Cle"/><br/>
-						<div class="text-center">
-							<button id="cryptVig" class="btn btn-primary crypter-button">Crypter</button>
-							<button id="decryptVig" class="btn btn-primary decrypter-button">D&eacute;crypter</button>
+					<input  placeholder="Clé" class="form-control cle" id="keyVig" type="text" name="Cle"/><br/>
+					<button class="btn btn-primary" id="KeyGenVig">Générer</button>
+						<div class="text-center col-lg-12">
+							<button id="cryptVig" class="btn btn-primary crypter-button col-lg-offset-3 col-lg-2">Crypter</button>
+							<button id="decryptVig" class="btn btn-primary decrypter-button col-lg-offset-2 col-lg-2">D&eacute;crypter</button>
 						</div>
 					</div>
 					<div class="onglet" id="HillDiv">
@@ -149,9 +150,9 @@
 						</div>
 						<button class="btn btn-primary" onclick="genererKey()" >Générer</button>
 						<div id="error" class="alert alert-danger text-center glyphicon glyphicon-remove" role="alert"></div>
-						<div class="text-center">
-							<input type="submit" class="btn btn-primary crypter-button" onclick="hill(1)" value="Crypter"></input>
-							<input type="submit" class="btn btn-primary decrypter-button" onclick="hill(0)" value="D&eacute;crypter"></input>
+						<div class="text-center col-lg-12">
+							<input type="submit" class="btn btn-primary crypter-button col-lg-offset-3 col-lg-2" onclick="hill(1)" value="Crypter"></input>
+							<input type="submit" class="btn btn-primary decrypter-button col-lg-offset-2 col-lg-2" onclick="hill(0)" value="D&eacute;crypter"></input>
 						</div>
 						</form>
 						
@@ -161,10 +162,11 @@
 							<span class="col-lg-offset-3 col-lg-2">Coefficient A : <input  class="form-control cle cleAffine " id="CA" type="text" name="CA"/></span>
 							<span class="col-lg-offset-2 col-lg-2">Coefficient B : <input  class="form-control cleAffine " id="CB" type="text" name="CB"/></span>
 						</span>
-						<span class="row">  
-							<span class="col-lg-offset-4 col-lg-2"><button class="btn btn-primary crypter-button"  id="crypterAffine" style="width:86px;">Crypter</button></span>
-							<span class="col-lg-2"><button class="btn btn-primary decrypter-button" id="decrypterAffine">D&eacute;crypter</button></span>
-						</span>
+						<br/>
+						<div class="text-center col-lg-12">
+							<button class="btn btn-primary crypter-button col-lg-offset-3 col-lg-2"  id="crypterAffine">Crypter</button>
+							<button class="btn btn-primary decrypter-button col-lg-offset-2 col-lg-2" id="decrypterAffine">D&eacute;crypter</button>
+						</div>
 					</div>
 					<div class="onglet" id="RSADiv">
 						<div class="col-lg-6">
@@ -186,9 +188,9 @@
 						</div>
 						<button class="btn btn-primary" id="KeyGenRSA" >Générer</button><br/>
                         <div class="row">
-						  <div class="text-center">
-							 <button class="btn btn-primary crypter-button"  id="cryptRSA" >Crypter</button>
-							 <button class="btn btn-primary decrypter-button" id="decryptRSA">D&eacute;crypter</button>
+						  <div class="text-center col-lg-12">
+							 <button class="btn btn-primary crypter-button col-lg-offset-3 col-lg-2"  id="cryptRSA" >Crypter</button>
+							 <button class="btn btn-primary decrypter-button col-lg-offset-2 col-lg-2" id="decryptRSA">D&eacute;crypter</button>
 						  </div>
                         </div>
 					</div>

@@ -69,6 +69,9 @@ function modal(nb){
 function recupererRadio(){
 	return parseInt($('input[type=radio][name=optradio]:checked').val());
 }
+function recupererRadio2(){
+	return parseInt($('input[type=radio][name=optradio2]:checked').val());
+}
 function traitementTxt(str){
 	str = str.trim();
     var accent = [

@@ -77,19 +77,24 @@ function uniq_fast(a) {
 }
 
 //décrypte juste par 2
-function cryptanalyseHill(texte, taille){
-	var alphabet =  creerAlphabet(26);
+function cryptanalyseHill(texte, taille, alphabet){
 	var frequenceMax = maxCharacterFrequence(frequence(texte,4),4,changeLetter);	
 	var motMaxFrance = arrayFreqApparition(4);
 	var txt1 =	frequenceMax.substring(0,2).toUpperCase();
 	var txt2 = frequenceMax.substring(2,4).toUpperCase();
+	var crypt1 = motMaxFrance.substring(0,2).toUpperCase();
+	var crytp2 = motMaxFrance.substring(2,4).toUpperCase();
 	var matrice = [];
+	var matriceCrypter = [];
 	for(var i = 0; i < 2; i++){
 		matrice.push(alphabet.indexOf(txt1[i]));
 		matrice.push(alphabet.indexOf(txt2[i]));
+		matriceCrypter.push(alphabet.indexOf(crypt1[i]));
+		matriceCrypter.push(alphabet.indexOf(crypt2[i]));
 	}
-	var matriceInverse = new Matrice(matrice).inverserMatrice(26);
-	return crypte_hill(texte, matriceInverse, 26);
+	matriceCrypter = new Matrice(matriceCrypter);
+	var matriceInverse = new Matrice(matrice).inverserMatrice(alphabet.length);
+	console.log(crypte_hill(texte, matriceCrypter.multiplicationMatrice(matriceInverse, 26)));
 }
 
 function maxCharacterFrequence(text,taille,changeLetter){
@@ -179,16 +184,29 @@ $(document).ready(function()
 { 
 	var iteration =0;
 	var changeLetter =0;
-	$("#cryptanalyseDecrypt").mousedown(function()
+	$("#cryptanalyseDecrypt").mousedown(function()                //Foutre un reset en cas de changement du bouton radio/texte codé
 	{
-		//Si vigenère est coché
 		var texte=document.getElementById('textecode').value;
 		var keylength = document.getElementById("keyCryptanalyse").value;
 		var alphabet = document.getElementById('alphabet').value;
-	
-		key_Vigenere(alphabet,texte,parseInt(keylength),iteration%alphabet.length,changeLetter);
-		iteration++;
-		if(iteration%alphabet.length==0)
-			changeLetter++;
+		var cryptage = recupererRadio2();
+		if(cryptage == 2 || cryptage == 1){
+			key_Vigenere(alphabet,texte,parseInt(keylength),iteration%alphabet.length,changeLetter);
+			iteration++;
+			if(iteration%alphabet.length==0)
+				changeLetter++;
+		}
+		else if(cryptage == 3){
+			cryptanalyseHill(texte, keyLength, alphabet);
+		}
+		else if(cryptage == 4){
+			///afine
+		}
+		else if(cryptage == 5){
+			//rsa
+		}
+		else{
+			//nodef
+		}
 	});
 });
