@@ -126,7 +126,7 @@ function maxCharacterFrequence(text,taille,changeLetter){
 			listeMax+=tabKey[i];
 		}
 	}
-	return tabKey[changeLetter].toUpperCase();
+	return listeMax[changeLetter].toUpperCase();
 }
 
 function key_Cesar(text,alphabet,iteration,changeLetter){
