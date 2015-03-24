@@ -45,13 +45,25 @@
 		var nb = 0;
 		for(var i=0;i<crypt.length;i++)
 		{
-			console.log(crypt[i],alphabet.indexOf(crypt[i]));
-			nb=alphabet.indexOf(crypt[i]);
-			/*if(i%paquet==0 && i!=0)
-				newcrypt+=" ";*/
-			if(nb<10)
-				newcrypt+="0";
-			newcrypt+=nb;
+			if(alphabet.indexOf(crypt[i])!=-1)
+			{
+				//console.log(crypt[i],alphabet.indexOf(crypt[i]));
+				nb=alphabet.indexOf(crypt[i]);
+				/*if(i%paquet==0 && i!=0)
+					newcrypt+=" ";*/
+				if(nb<10)
+					newcrypt+="0";
+				newcrypt+=nb;
+			}
+			else 
+			{
+				var textFalse ="";
+			
+				for(var k=0;k<paquet;k++)
+					textFalse+="!";
+				
+				newcrypt+=textFalse;
+			}
 		}
 		
 		crypt=newcrypt;
@@ -78,13 +90,24 @@ function vigenere_decrypt(texte,cle,alphabet,paquet){
 			if(j==cle.length) //on reboucle sur le début de la clé
 				j=0;
 			
-			var nb = parseInt(texte.substr(i,paquet));
-			nb-=alphabet.indexOf(cle.charAt(j))%modulo;
-			if(nb<0)
-				nb+=modulo;
-			console.log(nb,nb);
+			var textFalse ="";
 			
-			decrypt+=alphabet.charAt(nb);
+			for(var k=0;k<paquet;k++)
+				textFalse+="!";
+			
+			if(texte.substr(i,paquet)!=textFalse)
+			{
+				var nb = parseInt(texte.substr(i,paquet));
+				nb-=alphabet.indexOf(cle.charAt(j))%modulo;
+				if(nb<0)
+					nb+=modulo;
+				//console.log(nb,nb);
+				
+				decrypt+=alphabet.charAt(nb);
+			}
+			
+			else
+				decrypt+=textFalse;
 		}
 	}
 	
@@ -154,9 +177,9 @@ $(document).ready(function()
 			vigenere_crypt(texte,cle,alphabet,paquet);
 		});
 		
-	$('#ascii_check').mousedown(function()
+	$('#standard_check').mousedown(function()
 		{
-			console.log("ASCII");
+			console.log("Basique alphabet");
 			var alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 			document.getElementById('alphabet').value=alphabet;
 		});
@@ -165,6 +188,15 @@ $(document).ready(function()
 		{
 			console.log("EXTEND ALPHA");
 			var alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz’«» \\\n\t&(ÀàÂâÄ†ãÑñíÍßóÓÁá©ÆæÇçÉéÈèÊêËëÎîÏïÔôÖŒœÙùÛûÜüŸÿ-_\"\'1234567890°)~#{[|`^@]}$£€!:;,?./§%*<>".split();
+			document.getElementById('alphabet').value=alphabet;
+		});
+		
+	$('#ascii_check').mousedown(function()
+		{
+			console.log("ASCII");
+			var alphabet ="";
+			for(var i=0;i<128;i++)
+				alphabet+=String.fromCharCode(i);
 			document.getElementById('alphabet').value=alphabet;
 		});
 		
