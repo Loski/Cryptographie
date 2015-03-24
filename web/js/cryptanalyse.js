@@ -118,7 +118,6 @@ function maxCharacterFrequence(text,taille,changeLetter){
 			listeMax+=tabKey[i];
 		}
 	}
-	console.log("Letter :"+changeLetter);
 	return tabKey[changeLetter].toUpperCase();
 }
 
@@ -165,7 +164,7 @@ else{
 
 	for(var i=0,j=0;j<keyLength;i+=keyLength,j++)
 	{
-		key+=vig_row_analyse(row.substring(i,i+keyLength),alphabet,iteration);
+		key+=vig_row_analyse(row.substring(i,i+keyLength),alphabet,iteration,changeLetter);
 	}
 	
 	document.getElementById('keyVig').value=key;
