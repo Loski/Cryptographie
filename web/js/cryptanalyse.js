@@ -1,6 +1,6 @@
 //Tentative dans le train !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 function frequence(texte, taille){
-	texte = $('#textecode').val();
+	//texte = $('#textecode').val();
 	var arrayTxt = [];
 	var txttmp = texte;
 	arrayFreq = [];
@@ -48,13 +48,13 @@ function  arrayFreqApparition(n){
 	switch(n){
 	//Rajout des espaces c'est parfois le caractère qui revient le plus
 		case 1:
-			return " easintrluodcmpvgfqhbxjyzkw ".split('');
+			return "eas intrluodcmpvgfqhbxjyzkw ".split('');
 		case 2:
-			return " ,es,le,de,re,en,on,nt,er,te,et,el,an,se,la,ai,ne,ou,qu,me,it,ie,em,ed,ur,is,ec,ue,ti,ra,ns,in,ta".split(',');
+			return "es,le,de,re,en,on,nt,er,te,et,el,an,se,la,ai,ne,ou,qu,me,it,ie,em,ed,ur,is,ec,ue,ti,ra,ns,in,ta".split(',');
 		case 3: 
-			return " ,ent,que,les,ede,des,ela,ion,ait,res".split(',');
+			return "ent,que,les,ede,des,ela,ion,ait,res".split(',');
 		case 4:
-			return " ,tion,ment,ique,emen,dela,elle".split(',');
+			return "tion,ment,ique,emen,dela,elle".split(',');
 	} 
 	
 }
@@ -79,8 +79,7 @@ function uniq_fast(a) {
 //décrypte juste par 2
 function cryptanalyseHill(texte, taille){
 	var alphabet =  creerAlphabet(26);
-//	var frequenceMax = frequence(texte,4).ZGRF;
-	var frequenceMax = "fthe";
+	var frequenceMax = maxCharacterFrequence(frequence(texte,4),4,changeLetter);	
 	var motMaxFrance = arrayFreqApparition(4);
 	var txt1 =	frequenceMax.substring(0,2).toUpperCase();
 	var txt2 = frequenceMax.substring(2,4).toUpperCase();

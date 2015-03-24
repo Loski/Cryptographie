@@ -332,7 +332,7 @@ Matrice.prototype = {
 		matriceMultiplier.push(this.matrice[1][0] * matrice2.matrice[0][0]+this.matrice[1][1] * matrice2.matrice[1][0]);
 		matriceMultiplier.push(this.matrice[1][0] * matrice2.matrice[0][1]+this.matrice[1][1] * matrice2.matrice[1][1]);
 	
-			return matriceMultiplier;
+			return new Matrice(matriceMultiplier);
 	},
 	transposer: function(){
 		var matriceTranspo = new Matrice(this);
