@@ -1,5 +1,5 @@
 ﻿function vigenere_crypt(texte,cle,alphabet,paquet){
-console.log(paquet);
+
 	var crypt="";
 	var modulo = alphabet.length;
 	for(var i=0,j=0;i<texte.length;i++)
