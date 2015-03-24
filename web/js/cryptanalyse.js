@@ -103,7 +103,7 @@ function cryptanalyseHill(texte, taille, alphabet,changeLetter){
 function maxCharacterFrequence(text,taille,changeLetter){
 	
 	var array=frequence(text, taille);
-	console.log(array);
+	console.log("TABLEAU DE FREQUENCE :",array);
 	var key;
 	tabKey=[];
 	for (key in array)
@@ -126,7 +126,13 @@ function maxCharacterFrequence(text,taille,changeLetter){
 			listeMax+=tabKey[i];
 		}
 	}
-	return tabKey[changeLetter].toUpperCase();
+	console.log("Val de changeLetter :"+changeLetter);
+	return listeMax[changeLetter].toUpperCase();
+}
+
+function decryptCesarAppel(key){
+	$('.active .cle').val(key);
+	$('#decrypterCesar').click();
 }
 
 function key_Cesar(text,alphabet,iteration,changeLetter){
@@ -140,10 +146,7 @@ function key_Cesar(text,alphabet,iteration,changeLetter){
 		if(key<0)
 			key+=alphabet.length;
 		
-		console.log("Decrypt clé de césar : "+key);
-		
-		$('.active .cle').val(key);
-		$('#decrypterCesar').click();
+		console.log("Decrypt clé de césar : ",key);
 	
 		return key;
 }
@@ -156,7 +159,12 @@ function vig_row_analyse(text,alphabet,iteration,changeLetter)
 function key_Vigenere(alphabet,text,keyLength,iteration,changeLetter)
 {
 	if(keyLength==1)
-		console.log(key_Cesar(text,alphabet,iteration,changeLetter));
+	{
+		var key =key_Cesar(text,alphabet,iteration,changeLetter);
+		console.log(key);
+		decryptCesarAppel(key);
+		
+	}
 else{
 	var row = "";
 	
@@ -176,13 +184,19 @@ else{
 	}
 	
 	document.getElementById('keyVig').value=key;
-	$('#decryptVig').click();
+	document.getElementById('keyCryptanalyse').value=key;
+	vigenere_decrypt(text,key,alphabet,1);
 	console.log("Decrypt clé de VIVI : "+key);
-		
 }
-$('.active .cle').val(keyLength);
 }
 
+function showKeyLength(){
+	var cryptage = recupererRadio2();
+	if(cryptage==2)
+		$("#keySize").css("display","block");
+	else
+		$("#keySize").css("display","none");
+}
 
 $(document).ready(function()
 { 
@@ -191,14 +205,15 @@ $(document).ready(function()
 	$("#cryptanalyseDecrypt").mousedown(function()                //Foutre un reset en cas de changement du bouton radio/texte codé
 	{
 		var texte=document.getElementById('textecode').value;
-		var keylength = parseInt(document.getElementById("keyCryptanalyse").value);
+		var keylength = parseInt(document.getElementById("keySize").value);
 		var alphabet = document.getElementById('alphabet').value;
 		var cryptage = recupererRadio2();
-		if(cryptage == 2 || cryptage == 1){
+		if (cryptage ==1)
+		{
+			key_Vigenere(alphabet,texte,1,iteration%alphabet.length,changeLetter);
+		}
+		else if(cryptage == 2){
 			key_Vigenere(alphabet,texte,keylength,iteration%alphabet.length,changeLetter);
-			iteration++;
-			if(iteration%alphabet.length==0)
-				changeLetter++;
 		}
 		else if(cryptage == 3){
 			cryptanalyseHill(texte, keylength, alphabet,changeLetter);
@@ -212,5 +227,9 @@ $(document).ready(function()
 		else{
 			//nodef
 		}
+		
+		iteration++;
+		if(iteration%alphabet.length==0)
+				changeLetter++;
 	});
 });
