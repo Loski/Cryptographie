@@ -77,13 +77,16 @@ function uniq_fast(a) {
 }
 
 //décrypte juste par 2
-function cryptanalyseHill(texte, taille, alphabet){
-	var frequenceMax = maxCharacterFrequence(frequence(texte,4),4,changeLetter);	
-	var motMaxFrance = arrayFreqApparition(4);
-	var txt1 =	frequenceMax.substring(0,2).toUpperCase();
-	var txt2 = frequenceMax.substring(2,4).toUpperCase();
-	var crypt1 = motMaxFrance.substring(0,2).toUpperCase();
-	var crytp2 = motMaxFrance.substring(2,4).toUpperCase();
+function cryptanalyseHill(texte, taille, alphabet,changeLetter){
+	taille = parseInt(taille);
+	alphabet = alphabet.split('');
+	var frequenceMax = maxCharacterFrequence(texte,taille+taille,changeLetter);	
+	var f = frequence(texte, 4);
+	var motMaxFrance = arrayFreqApparition(taille*2)[0];
+	var txt1 =	frequenceMax.substring(0,taille).toUpperCase();
+	var txt2 = frequenceMax.substring(taille, taille+taille).toUpperCase();
+	var crypt1 = motMaxFrance.substring(0,taille).toUpperCase();
+	var crypt2 = motMaxFrance.substring(taille,taille*2).toUpperCase();
 	var matrice = [];
 	var matriceCrypter = [];
 	for(var i = 0; i < 2; i++){
@@ -93,13 +96,14 @@ function cryptanalyseHill(texte, taille, alphabet){
 		matriceCrypter.push(alphabet.indexOf(crypt2[i]));
 	}
 	matriceCrypter = new Matrice(matriceCrypter);
-	var matriceInverse = new Matrice(matrice).inverserMatrice(alphabet.length);
-	console.log(crypte_hill(texte, matriceCrypter.multiplicationMatrice(matriceInverse, 26)));
+	var matriceInverse = new Matrice(matrice).inverserMatrice(alphabet.length); 
+	console.log(crypte_hill(texte, matriceCrypter.multiplicationMatrice(matriceInverse, alphabet.length),alphabet.length));
 }
 
 function maxCharacterFrequence(text,taille,changeLetter){
 	
 	var array=frequence(text, taille);
+	console.log(array);
 	var key;
 	tabKey=[];
 	for (key in array)
@@ -187,17 +191,17 @@ $(document).ready(function()
 	$("#cryptanalyseDecrypt").mousedown(function()                //Foutre un reset en cas de changement du bouton radio/texte codé
 	{
 		var texte=document.getElementById('textecode').value;
-		var keylength = document.getElementById("keyCryptanalyse").value;
+		var keylength = parseInt(document.getElementById("keyCryptanalyse").value);
 		var alphabet = document.getElementById('alphabet').value;
 		var cryptage = recupererRadio2();
 		if(cryptage == 2 || cryptage == 1){
-			key_Vigenere(alphabet,texte,parseInt(keylength),iteration%alphabet.length,changeLetter);
+			key_Vigenere(alphabet,texte,keylength,iteration%alphabet.length,changeLetter);
 			iteration++;
 			if(iteration%alphabet.length==0)
 				changeLetter++;
 		}
 		else if(cryptage == 3){
-			cryptanalyseHill(texte, keyLength, alphabet);
+			cryptanalyseHill(texte, keylength, alphabet,changeLetter);
 		}
 		else if(cryptage == 4){
 			///afine
