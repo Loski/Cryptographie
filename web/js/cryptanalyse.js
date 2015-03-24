@@ -46,14 +46,15 @@ function compare(x, y) {
 // créer les arrays des lettres les plus probable
 function  arrayFreqApparition(n){
 	switch(n){
+	//Rajout des espaces c'est parfois le caractère qui revient le plus
 		case 1:
-			return "easintrluodcmpvgfqhbxjyzkw".split('');
+			return " easintrluodcmpvgfqhbxjyzkw ".split('');
 		case 2:
-			return "es,le,de,re,en,on,nt,er,te,et,el,an,se,la,ai,ne,ou,qu,me,it,ie,em,ed,ur,is,ec,ue,ti,ra,ns,in,ta".split(',');
+			return " ,es,le,de,re,en,on,nt,er,te,et,el,an,se,la,ai,ne,ou,qu,me,it,ie,em,ed,ur,is,ec,ue,ti,ra,ns,in,ta".split(',');
 		case 3: 
-			return "ent,que,les,ede,des,ela,ion,ait,res".split(',');
+			return " ,ent,que,les,ede,des,ela,ion,ait,res".split(',');
 		case 4:
-			return "tion,ment,ique,emen,dela,elle".split(',');
+			return " ,tion,ment,ique,emen,dela,elle".split(',');
 	} 
 	
 }
@@ -92,7 +93,7 @@ function cryptanalyseHill(texte, taille){
 	return crypte_hill(texte, matriceInverse, 26);
 }
 
-function maxCharacterFrequence(text,taille){
+function maxCharacterFrequence(text,taille,changeLetter){
 	
 	var array=frequence(text, taille);
 	var key;
@@ -108,26 +109,26 @@ function maxCharacterFrequence(text,taille){
 	}
 		
 	var max = Math.max.apply(Math, occurence);
+	var listeMax="";
 	
 	for(var i=0;i<tabKey.length;i++)
 	{
 		if(max==array[tabKey[i]])
 		{
-			console.log(tabKey[i]);
-			return tabKey[i].toUpperCase();
+			listeMax+=tabKey[i];
 		}
 	}
+	console.log("Letter :"+changeLetter);
+	return tabKey[changeLetter].toUpperCase();
 }
 
-function key_Cesar(text,alphabet,iteration){
+function key_Cesar(text,alphabet,iteration,changeLetter){
 
 		var array=arrayFreqApparition(1);
 		
-		var caraMaxOcurrence = alphabet.indexOf(maxCharacterFrequence(text,1));
+		var caraMaxOcurrence = alphabet.indexOf(maxCharacterFrequence(text,1,changeLetter));
 		var letterMostUse = alphabet.indexOf(array[iteration].toUpperCase());
-		
-		console.log(letterMostUse,caraMaxOcurrence);
-		
+		console.log(maxCharacterFrequence(text,1,changeLetter),array[iteration].toUpperCase());
 		var key =(caraMaxOcurrence-letterMostUse)%alphabet.length;
 		if(key<0)
 			key+=alphabet.length;
@@ -136,36 +137,60 @@ function key_Cesar(text,alphabet,iteration){
 		
 		$('.active .cle').val(key);
 		$('#decrypterCesar').click();
-		
-		text=text.replace(caraMaxOcurrence,"");
 	
-	return key;
+		return key;
 }
 
-function key_Vigenere(alphabet,text,keyLength,iteration)
+function vig_row_analyse(text,alphabet,iteration,changeLetter)
 {
-	var row = [];
+	return alphabet.charAt(key_Cesar(text,alphabet,iteration,changeLetter));
+}
+
+function key_Vigenere(alphabet,text,keyLength,iteration,changeLetter)
+{
+	if(keyLength==1)
+		console.log(key_Cesar(text,alphabet,iteration,changeLetter));
+else{
+	var row = "";
 	
 	for(var j=0;j<keyLength;j++)
-		for(var i=0;i<text.length;i+=keyLength)
-			row.push(text[i]);
-			
+	{
+		for(var i=j;i<text.length;i+=keyLength)
+		{
+			row+=text[i];
+		}
+	}
+	var key="";
+	console.log(row);
 
-	console.log(key_Cesar(text,alphabet,iteration));
-	$('.active .cle').val(keyLength);
+	for(var i=0,j=0;j<keyLength;i+=keyLength,j++)
+	{
+		key+=vig_row_analyse(row.substring(i,i+keyLength),alphabet,iteration);
+	}
+	
+	document.getElementById('keyVig').value=key;
+	$('#decryptVig').click();
+	console.log("Decrypt clé de VIVI : "+key);
+		
+}
+$('.active .cle').val(keyLength);
 }
 
 
 $(document).ready(function()
 { 
 	var iteration =0;
+	var changeLetter =0;
 	$("#cryptanalyseDecrypt").mousedown(function()
 	{
 		//Si vigenère est coché
 		var texte=document.getElementById('textecode').value;
 		var keylength = document.getElementById("keyCryptanalyse").value;
+		var alphabet = document.getElementById('alphabet').value;
 	
-		key_Vigenere("ABCDEFGHIJKLMNOPQRSTUVWXYZ",texte,keylength,iteration);
+		key_Vigenere(alphabet,texte,parseInt(keylength),iteration%alphabet.length,changeLetter);
 		iteration++;
+		if(iteration%alphabet.length==0)
+			changeLetter++;
 	});
 });
