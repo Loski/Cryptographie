@@ -31,10 +31,8 @@ function frequence(texte, taille){
 	}
 	for(i = 0; i < taille; i++){
 		var arrayValue = [];
-		var j = 0;
-		var taillej = 0;
 		arrayTxt[i].forEach(function(element2, index, array){
-			for(var j = 0; j < arrayTxt[i].length + taillej; j++){
+			for(var j = 0; j < arrayObject.length; j++){
 				if(arrayObject[j].hasOwnProperty('label')){
 					if(arrayObject[j].label == element2){
 						arrayObject[j].y += arrayFreq[i][element2];
@@ -42,10 +40,8 @@ function frequence(texte, taille){
 				}
 				else if(!existe(arrayObject, element2)){
 					arrayObject[arrayObject.length] = [];
-					console.log(arrayObject);
 					arrayObject[arrayObject.length-1].y = arrayFreq[i][element2];
 					arrayObject[arrayObject.length-1].label = element2;
-					taillej++;
 				}
 		}
 		});
