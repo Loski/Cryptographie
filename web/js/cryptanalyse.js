@@ -102,27 +102,35 @@ function cryptanalyseHill(texte, taille, alphabet,changeLetter){
 
 function histo(tab){
 	console.log("Histo",tab);
+	CanvasJS.addColorSet("greenShades",
+                [//colorSet Array
+
+                "#204D74"        
+                ]);
+	
     var chart = new CanvasJS.Chart("chartContainer",
     {
+		colorSet: "greenShades",
+	
       title:{
-        text: "Top Oil Reserves"    
+        text: "Analyse Fréquentielle"    
       },
       animationEnabled: true,
       axisY: {
-        title: "Reserves(MMbbl)"
+        title: "Occurence"
       },
       legend: {
         verticalAlign: "bottom",
         horizontalAlign: "center"
       },
-      theme: "theme2",
+      //theme: "theme2",
       data: [
 
       {        
         type: "column",  
-        showInLegend: true, 
-        legendMarkerColor: "grey",
-        legendText: "MMbbl = one million barrels",
+        /*showInLegend: true, 
+        legendMarkerColor: "white",
+        legendText: " ",*/
         dataPoints: tab
       }   
       ]
