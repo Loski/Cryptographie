@@ -190,9 +190,12 @@ function maxCharacterFrequence(text,taille,changeLetter){
 	var occurence=[];
 	for(var i=0;i<array.length;i++)
 	{
+		if (typeof array[i].y != 'undefined')
 		occurence.push(array[i].y);
 	}
-		
+	
+	console.log(occurence);
+	
 	var max = Math.max.apply(Math, occurence);
 	var listeMax="";
 	
@@ -200,12 +203,13 @@ function maxCharacterFrequence(text,taille,changeLetter){
 	
 	for(var i=0;i<array.length;i++)
 	{
+	
 		if(max==array[i].y)
 		{
 			listeMax+=array[i].label;
 		}
 	}
-	console.log("Val de changeLetter :"+changeLetter);
+	console.log("Val de changeLetter :"+changeLetter,"ListeMax :"+listeMax);
 	return listeMax[changeLetter].toUpperCase();
 }
 
