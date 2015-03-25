@@ -100,7 +100,8 @@ function cryptanalyseHill(texte, taille, alphabet,changeLetter){
 	console.log(crypte_hill(texte, matriceCrypter.multiplicationMatrice(matriceInverse, alphabet.length),alphabet.length));
 }
 
-function histo(data){
+function histo(tab){
+	console.log("Histo",tab);
     var chart = new CanvasJS.Chart("chartContainer",
     {
       title:{
@@ -122,7 +123,7 @@ function histo(data){
         showInLegend: true, 
         legendMarkerColor: "grey",
         legendText: "MMbbl = one million barrels",
-        dataPoints: data
+        dataPoints: tab
       }   
       ]
     });
@@ -141,15 +142,21 @@ function maxCharacterFrequence(text,taille,changeLetter){
 		tabKey.push(key);
     }
 	var occurence = [];
-	for(key in tabKey)
+	var tabHisto=[];
+	var ii=0;
+	for(var key in tabKey)
 	{
+		tabHisto[ii]=[];
+		tabHisto[ii].y=array[tabKey[key]];
+		tabHisto[ii].label=tabKey[key];
+		ii++;
 		occurence.push(array[tabKey[key]]);
 	}
-	
-	histo(tabKey);
-	
+		
 	var max = Math.max.apply(Math, occurence);
 	var listeMax="";
+	
+	histo(tabHisto);
 	
 	for(var i=0;i<tabKey.length;i++)
 	{
@@ -209,7 +216,7 @@ else{
 	}
 	var key="";
 	console.log(row);
-
+	
 	for(var i=0,j=0;j<keyLength;i+=keyLength,j++)
 	{
 		key+=vig_row_analyse(row.substring(i,i+keyLength),alphabet,iteration,changeLetter);
