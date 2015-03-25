@@ -26,20 +26,28 @@ function frequence(texte, taille){
 	var arrayObject = [];
 	for(i = 0; i < taille; i++)
 		arrayTxt[i] = uniq_fast(arrayTxt[i]);
+	for(i = 0; i < arrayTxt[0].length; i++){
+		arrayObject[i] = [];	
+	}
 	for(i = 0; i < taille; i++){
 		var arrayValue = [];
 		var j = 0;
+		var taillej = 0;
 		arrayTxt[i].forEach(function(element2, index, array){
-			arrayObject[j] = [];
-			if(arrayObject[j].hasOwnProperty('label')){
-				if(arrayObject.label == element2)
-					arrayObject[j].y += arrayFreq[i][element2];
-			}
-			else{
-				arrayObject[j].y = arrayFreq[i][element2];
-				arrayObject[j].label = element2;
-			}
-			j++;
+			for(var j = 0; j < arrayTxt[i].length + taillej; j++){
+				if(arrayObject[j].hasOwnProperty('label')){
+					if(arrayObject[j].label == element2){
+						arrayObject[j].y += arrayFreq[i][element2];
+					}
+				}
+				else if(!existe(arrayObject, element2)){
+					arrayObject[arrayObject.length] = [];
+					console.log(arrayObject);
+					arrayObject[arrayObject.length-1].y = arrayFreq[i][element2];
+					arrayObject[arrayObject.length-1].label = element2;
+					taillej++;
+				}
+		}
 		});
 	}
 	arrayObject.reverse(compare);
@@ -55,6 +63,13 @@ function creerObjet(array){
 	}
 	return array;
 }*/
+
+function existe(array, data){
+	for(var i = 0; i < array.length; i++){
+		if(array[i].label == data)
+			return true;
+	}return false;
+}
 function compare(a,b) {
     return a.y - b.y;
 }
