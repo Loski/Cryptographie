@@ -278,9 +278,9 @@ else{
 	var key="";
 	console.log(row);
 	
-	for(var i=0,j=0;j<keyLength;i+=keyLength,j++)
+	for(var i=0,j=0;j<keyLength;i+=text.length/keyLength,j++)
 	{
-		key+=vig_row_analyse(row.substring(i,i+keyLength),alphabet,iteration,changeLetter);
+		key+=vig_row_analyse(row.substring(i,i+text.length/keyLength),alphabet,iteration,changeLetter);
 	}
 	
 	document.getElementById('keyVig').value=key;

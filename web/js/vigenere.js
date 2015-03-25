@@ -140,7 +140,7 @@ function vigenere_decrypt(texte,cle,alphabet,paquet){
 		{
 			indice=alphabet.indexOf(cara);
 			if(indice==-1)
-				crypt+=cara;
+				decrypt+=cara;
 			else
 			{
 				var somme=(indice-alphabet.indexOf(cle.charAt(j)))%modulo; //position dans l'alphabet
