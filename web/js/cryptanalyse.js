@@ -22,26 +22,41 @@ function frequence(texte, taille){
 			}
 		});
 	}
-	//suprimme les multiples valeurs de arrayTxt
+	//supprimme les multiples valeurs de arrayTxt
+	var arrayObject = [];
 	for(i = 0; i < taille; i++)
 		arrayTxt[i] = uniq_fast(arrayTxt[i]);
 	for(i = 0; i < taille; i++){
 		var arrayValue = [];
+		var j = 0;
 		arrayTxt[i].forEach(function(element2, index, array){
-			if(arrayFreq[taille].hasOwnProperty(element2)){
-				arrayFreq[taille][element2] += arrayFreq[i][element2];
+			arrayObject[j] = [];
+			if(arrayObject[j].hasOwnProperty('label')){
+				if(arrayObject.label == element2)
+					arrayObject[j].y += arrayFreq[i][element2];
 			}
 			else{
-				arrayFreq[taille][element2] = arrayFreq[i][element2];
+				arrayObject[j].y = arrayFreq[i][element2];
+				arrayObject[j].label = element2;
 			}
-			arrayValue.push(element2);
+			j++;
 		});
 	}
-	arrayFreq[taille].sort(compare);
-	return arrayFreq[taille];
+	arrayObject.reverse(compare);
+	return arrayObject;
 }
-function compare(x, y) {
-    return y - x;
+
+/*
+function creerObjet(array){
+	var objet = [];
+	for(var i = 0; i < array.length;i++){
+		objet.y = array[i][]
+		objet.label = 
+	}
+	return array;
+}*/
+function compare(a,b) {
+    return a.y - b.y;
 }
 // créer les arrays des lettres les plus probable
 function  arrayFreqApparition(n){
