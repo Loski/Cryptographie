@@ -158,7 +158,9 @@ function histo(tab){
 	  
 	  axisX: {
 		labelFontColor: "black",
-		labelFontSize: 20
+		labelFontSize: 20,
+		labelAutoFit:true,
+		interval: 1
       },
 	  
       legend: {
