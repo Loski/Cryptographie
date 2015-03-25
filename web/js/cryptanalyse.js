@@ -180,6 +180,19 @@ function histo(tab){
         indexLabelOrientation: "horizontal",
 		indexLabelFontColor: "red",
         type: "column",  
+		mouseover: function(e){
+			var texte=document.getElementById('textecode').value;
+			var chain = "";
+			for(var i=0;i<texte.length;i++)
+			{
+				if(texte[i]==e.dataPoint.label)
+					chain+='<span style="color:red">'+texte[i]+"</span>"
+				else
+					chain+=texte[i];
+			}
+			
+			$("#editableDiv").html(chain);			
+		},
         /*showInLegend: true, 
         legendMarkerColor: "white",
         legendText: " ",*/
@@ -199,7 +212,7 @@ function maxCharacterFrequence(text,taille,changeLetter){
 	for(var i=0;i<array.length;i++)
 	{
 		if (typeof array[i].y != 'undefined')
-		occurence.push(array[i].y);
+			occurence.push(array[i].y);
 	}
 	
 	console.log(occurence);
