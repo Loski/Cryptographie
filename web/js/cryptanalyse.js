@@ -313,6 +313,10 @@ function calculSommeLettre(array){
 	}
 	return somme;
 }
+function calculFrequencePourcentage(array){
+	for(var i =0; i < array.length; i++)
+		array[i].y = array[i].y / array.nombreElement * 100;
+}
 $(document).ready(function()
 { 
 	var iteration =0;
