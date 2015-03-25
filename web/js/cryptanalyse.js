@@ -24,29 +24,33 @@ function frequence(texte, taille){
 	}
 	//supprimme les multiples valeurs de arrayTxt
 	var arrayObject = [];
+	var min = 0;
 	for(i = 0; i < taille; i++)
 		arrayTxt[i] = uniq_fast(arrayTxt[i]);
-	for(i = 0; i < arrayTxt[0].length; i++){
-		arrayObject[i] = [];	
-	}
 	for(i = 0; i < taille; i++){
 		var arrayValue = [];
 		arrayTxt[i].forEach(function(element2, index, array){
-			for(var j = 0; j < arrayObject.length; j++){
-				if(arrayObject[j].hasOwnProperty('label')){
+			for(var j = -1+min; j < arrayObject.length; j++){
+				min = 1;
+				if(!existe(arrayObject, element2)){
+					arrayObject.push({"label" : element2, "y" : 0});
+				}
+				else if(arrayObject[j].hasOwnProperty('label')){
 					if(arrayObject[j].label == element2){
 						arrayObject[j].y += arrayFreq[i][element2];
 					}
 				}
-				else if(!existe(arrayObject, element2)){
-					arrayObject[arrayObject.length] = [];
-					arrayObject[arrayObject.length-1].y = arrayFreq[i][element2];
-					arrayObject[arrayObject.length-1].label = element2;
-				}
 		}
 		});
 	}
-	arrayObject.reverse(compare);
+	arrayObject.sort(function(a,b){
+	if (a.y > b.y)
+      return 1;
+    if (a.nayme < b.y)
+      return -1;
+    // a doit être égale à b
+    return 0;
+	});
 	return arrayObject;
 }
 
@@ -67,7 +71,7 @@ function existe(array, data){
 	}return false;
 }
 function compare(a,b) {
-    return a.y - b.y;
+    
 }
 // créer les arrays des lettres les plus probable
 function  arrayFreqApparition(n){
