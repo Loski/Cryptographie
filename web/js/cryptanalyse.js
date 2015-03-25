@@ -174,34 +174,22 @@ function maxCharacterFrequence(text,taille,changeLetter){
 	
 	var array=frequence(text, taille);
 	console.log("TABLEAU DE FREQUENCE :",array);
-	var key;
-	tabKey=[];
-	for (key in array)
-    {
-		tabKey.push(key);
-    }
-	var occurence = [];
-	var tabHisto=[];
-	var ii=0;
-	for(var key in tabKey)
+	var occurence=[];
+	for(var i=0;i<array.length;i++)
 	{
-		tabHisto[ii]=[];
-		tabHisto[ii].y=array[tabKey[key]];
-		tabHisto[ii].label=tabKey[key];
-		ii++;
-		occurence.push(array[tabKey[key]]);
+		occurence.push(array[i].y);
 	}
 		
 	var max = Math.max.apply(Math, occurence);
 	var listeMax="";
 	
-	histo(tabHisto);
+	histo(array);
 	
-	for(var i=0;i<tabKey.length;i++)
+	for(var i=0;i<array.length;i++)
 	{
-		if(max==array[tabKey[i]])
+		if(max==array[i].y)
 		{
-			listeMax+=tabKey[i];
+			listeMax+=array[i].label;
 		}
 	}
 	console.log("Val de changeLetter :"+changeLetter);
