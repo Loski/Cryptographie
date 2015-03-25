@@ -126,14 +126,26 @@ function histo(tab){
     var chart = new CanvasJS.Chart("chartContainer",
     {
 		colorSet: "greenShades",
-	
+	zoomEnabled: true,
+	exportEnabled: true,
+	exportFileName: "Analyse_Frequencielle",
       title:{
-        text: "Analyse Fréquentielle"    
+        text: "Analyse Fréquentielle",
+		fontSize: 20,		
       },
       animationEnabled: true,
       axisY: {
-        title: "Occurence"
+        title: "Occurence",
+		titleFontColor: "black",
+		labelFontColor: "black",
+		labelFontSize: 20
       },
+	  
+	  axisX: {
+		labelFontColor: "black",
+		labelFontSize: 20
+      },
+	  
       legend: {
         verticalAlign: "bottom",
         horizontalAlign: "center"
@@ -141,7 +153,11 @@ function histo(tab){
       //theme: "theme2",
       data: [
 
-      {        
+      {     indexLabelWrap: true,
+		indexLabel: "{y}",
+        indexLabelPlacement: "outside",  
+        indexLabelOrientation: "horizontal",
+		indexLabelFontColor: "red",
         type: "column",  
         /*showInLegend: true, 
         legendMarkerColor: "white",
