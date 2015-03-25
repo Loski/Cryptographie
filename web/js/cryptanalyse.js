@@ -100,6 +100,36 @@ function cryptanalyseHill(texte, taille, alphabet,changeLetter){
 	console.log(crypte_hill(texte, matriceCrypter.multiplicationMatrice(matriceInverse, alphabet.length),alphabet.length));
 }
 
+function histo(data){
+    var chart = new CanvasJS.Chart("chartContainer",
+    {
+      title:{
+        text: "Top Oil Reserves"    
+      },
+      animationEnabled: true,
+      axisY: {
+        title: "Reserves(MMbbl)"
+      },
+      legend: {
+        verticalAlign: "bottom",
+        horizontalAlign: "center"
+      },
+      theme: "theme2",
+      data: [
+
+      {        
+        type: "column",  
+        showInLegend: true, 
+        legendMarkerColor: "grey",
+        legendText: "MMbbl = one million barrels",
+        dataPoints: data
+      }   
+      ]
+    });
+
+    chart.render();
+  }
+
 function maxCharacterFrequence(text,taille,changeLetter){
 	
 	var array=frequence(text, taille);
@@ -115,7 +145,9 @@ function maxCharacterFrequence(text,taille,changeLetter){
 	{
 		occurence.push(array[tabKey[key]]);
 	}
-		
+	
+	histo(tabKey);
+	
 	var max = Math.max.apply(Math, occurence);
 	var listeMax="";
 	
