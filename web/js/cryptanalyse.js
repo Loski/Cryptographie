@@ -51,6 +51,7 @@ function frequence(texte, taille){
     // a doit être égale à b
     return 0;
 	});
+	arrayObject.nombreElement = calculSommeLettre(arrayObject);
 	return arrayObject;
 }
 
@@ -89,6 +90,10 @@ function  arrayFreqApparition(n){
 	
 }
 
+function IClangue(){
+
+}
+
 /**VOL******/
 function uniq_fast(a) {
     var seen = {};
@@ -112,7 +117,6 @@ function cryptanalyseHill(texte, taille, alphabet,changeLetter){
 	alphabet = alphabet.split('');
 	var frequenceMax = maxCharacterFrequence(texte,taille+taille,changeLetter);	
 	var f = frequence(texte, 4);
-	var motMaxFrance = arrayFreqApparition(taille*2)[0];
 	var txt1 =	frequenceMax.substring(0,taille).toUpperCase();
 	var txt2 = frequenceMax.substring(taille, taille+taille).toUpperCase();
 	var crypt1 = motMaxFrance.substring(0,taille).toUpperCase();
