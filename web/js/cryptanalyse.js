@@ -135,6 +135,7 @@ function cryptanalyseHill(texte, taille, alphabet,changeLetter){
 }
 
 function histo(tab){
+	tab = calculFrequencePourcentage(tab);
 	CanvasJS.addColorSet("greenShades",
                 [//colorSet Array
 
@@ -189,7 +190,6 @@ function histo(tab){
 				else
 					chain+=texte[i];
 			}
-			
 			$("#editableDiv").html(chain);			
 		},
         /*showInLegend: true, 
@@ -315,7 +315,8 @@ function calculSommeLettre(array){
 }
 function calculFrequencePourcentage(array){
 	for(var i =0; i < array.length; i++)
-		array[i].y = array[i].y / array.nombreElement * 100;
+		array[i].y = (array[i].y / array.nombreElement * 100);
+	return array;
 }
 $(document).ready(function()
 { 
