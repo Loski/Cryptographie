@@ -33,7 +33,7 @@ function frequence(texte, taille){
 			for(var j = -1+min; j < arrayObject.length; j++){
 				min = 1;
 				if(!existe(arrayObject, element2)){
-					arrayObject.push({"label" : element2, "y" : 0});
+					arrayObject.push({"label" : element2, "y" : 0});   //Initialisation
 				}
 				else if(arrayObject[j].hasOwnProperty('label')){
 					if(arrayObject[j].label == element2){
@@ -46,7 +46,7 @@ function frequence(texte, taille){
 	arrayObject.sort(function(a,b){
 	if (a.y > b.y)
       return 1;
-    if (a.nayme < b.y)
+    if (a.y < b.y)
       return -1;
     // a doit être égale à b
     return 0;
@@ -284,7 +284,22 @@ function showKeyLength(){
 	else
 		$("#keySize").css("display","none");
 }
-
+function indiceCoincidence(array){
+	var somme = 0;
+	var n = calculSommeLettre(array);
+	for(var i = 0; i < array.length; i++){
+		somme += (array[i].y*(array[i].y-1))/(n*(n-1));
+	}
+	console.log(somme);
+	return somme;
+}
+function calculSommeLettre(array){
+	var somme = 0;
+	for(var i =0; i < array.length; i++){
+		somme+=array[i].y;
+	}
+	return somme;
+}
 $(document).ready(function()
 { 
 	var iteration =0;
@@ -319,4 +334,9 @@ $(document).ready(function()
 		if(iteration%alphabet.length==0)
 				changeLetter++;
 	});
+	$('#reset').mousedown(function(event) {
+		iteration = 0;
+		changeLetter = 0;
+	});
 });
+
