@@ -131,7 +131,6 @@ function cryptanalyseHill(texte, taille, alphabet,changeLetter){
 }
 
 function histo(tab){
-	console.log("Histo",tab);
 	CanvasJS.addColorSet("greenShades",
                 [//colorSet Array
 
@@ -203,7 +202,7 @@ function histo(tab){
 function maxCharacterFrequence(text,taille,changeLetter){
 	
 	var array=frequence(text, taille);
-	console.log("TABLEAU DE FREQUENCE :",array);
+	//console.log("TABLEAU DE FREQUENCE :",array);
 	var occurence=[];
 	for(var i=0;i<array.length;i++)
 	{
@@ -211,7 +210,7 @@ function maxCharacterFrequence(text,taille,changeLetter){
 			occurence.push(array[i].y);
 	}
 	
-	console.log(occurence);
+	//console.log(occurence);
 	
 	var max = Math.max.apply(Math, occurence);
 	var listeMax="";
@@ -226,7 +225,7 @@ function maxCharacterFrequence(text,taille,changeLetter){
 			listeMax+=array[i].label;
 		}
 	}
-	console.log("Val de changeLetter :"+changeLetter,"ListeMax :"+listeMax);
+	//console.log("Val de changeLetter :"+changeLetter,"ListeMax :"+listeMax);
 	return listeMax[changeLetter].toUpperCase();
 }
 
@@ -241,12 +240,10 @@ function key_Cesar(text,alphabet,iteration,changeLetter){
 		
 		var caraMaxOcurrence = alphabet.indexOf(maxCharacterFrequence(text,1,changeLetter));
 		var letterMostUse = alphabet.indexOf(array[iteration].toUpperCase());
-		console.log(maxCharacterFrequence(text,1,changeLetter),array[iteration].toUpperCase());
+		//console.log(maxCharacterFrequence(text,1,changeLetter),array[iteration].toUpperCase());
 		var key =(caraMaxOcurrence-letterMostUse)%alphabet.length;
 		if(key<0)
 			key+=alphabet.length;
-		
-		console.log("Decrypt clé de césar : ",key);
 	
 		return key;
 }
@@ -261,7 +258,6 @@ function key_Vigenere(alphabet,text,keyLength,iteration,changeLetter)
 	if(keyLength==1)
 	{
 		var key =key_Cesar(text,alphabet,iteration,changeLetter);
-		console.log(key);
 		decryptCesarAppel(key);
 		
 	}
