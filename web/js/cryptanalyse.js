@@ -1,6 +1,4 @@
-//Tentative dans le train !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 function frequence(texte, taille){
-	//texte = $('#textecode').val();
 	var arrayTxt = [];
 	var txttmp = texte;
 	arrayFreq = [];
@@ -44,26 +42,16 @@ function frequence(texte, taille){
 		});
 	}
 	arrayObject.sort(function(a,b){
-	if (a.y > b.y)
-      return 1;
-    if (a.y < b.y)
-      return -1;
-    // a doit être égale à b
-    return 0;
+		if (a.y > b.y)
+	      return 1;
+	    if (a.y < b.y)
+	      return -1;
+	    return 0;
 	});
 	arrayObject.nombreElement = calculSommeLettre(arrayObject);
 	return arrayObject;
 }
 
-/*
-function creerObjet(array){
-	var objet = [];
-	for(var i = 0; i < array.length;i++){
-		objet.y = array[i][]
-		objet.label = 
-	}
-	return array;
-}*/
 
 function existe(array, data){
 	for(var i = 0; i < array.length; i++){
@@ -71,9 +59,7 @@ function existe(array, data){
 			return true;
 	}return false;
 }
-function compare(a,b) {
-    
-}
+
 // créer les arrays des lettres les plus probable
 function  arrayFreqApparition(n){
 	switch(n){
@@ -90,11 +76,7 @@ function  arrayFreqApparition(n){
 	
 }
 
-function IClangue(){
 
-}
-
-/**VOL******/
 function uniq_fast(a) {
     var seen = {};
     var out = [];
@@ -115,22 +97,23 @@ function uniq_fast(a) {
 function cryptanalyseHill(texte, taille, alphabet,changeLetter){
 	taille = parseInt(taille);
 	alphabet = alphabet.split('');
-	var frequenceMax = maxCharacterFrequence(texte,taille+taille,changeLetter);	
-	var f = frequence(texte, 4);
-	var txt1 =	frequenceMax.substring(0,taille).toUpperCase();
-	var txt2 = frequenceMax.substring(taille, taille+taille).toUpperCase();
-	var crypt1 = motMaxFrance.substring(0,taille).toUpperCase();
-	var crypt2 = motMaxFrance.substring(taille,taille*2).toUpperCase();
+	var txt = [];
+	var crypt = [];
+	for(var i = 0; i<taille; i++){
+		txt[i] = maxFreq(texte,taille,changeLetter + i);
+		crypt[i] = arrayFreqApparition(taille)[i];
+	}
+	
 	var matrice = [];
 	var matriceCrypter = [];
-	for(var i = 0; i < 2; i++){
-		matrice.push(alphabet.indexOf(txt1[i]));
-		matrice.push(alphabet.indexOf(txt2[i]));
-		matriceCrypter.push(alphabet.indexOf(crypt1[i]));
-		matriceCrypter.push(alphabet.indexOf(crypt2[i]));
+	for(var i = 0; i < taille; i++){
+		matrice.push(alphabet.indexOf(txt[i]));
+		matriceCrypter.push(alphabet.indexOf(crypt[i]));
 	}
 	matriceCrypter = new Matrice(matriceCrypter);
-	var matriceInverse = new Matrice(matrice).inverserMatrice(alphabet.length); 
+	var matriceInverse = new Matrice(matrice);
+	if(matriceInverse.verifMatriceGen(alphabet.length) !== false) // inversible or not
+		matriceInverse = matriceInverse.inverserMatrice(alphabet.length); 
 	console.log(crypte_hill(texte, matriceCrypter.multiplicationMatrice(matriceInverse, alphabet.length),alphabet.length));
 }
 
@@ -140,7 +123,6 @@ function histo(tab){
 
                 "#204D74"        
                 ]);
-	
     var chart = new CanvasJS.Chart("chartContainer",
     {
 		colorSet: "greenShades",
@@ -149,7 +131,8 @@ function histo(tab){
 	exportFileName: "Analyse_Frequencielle",
       title:{
         text: "Analyse Fréquentielle",
-		fontSize: 20,		
+		fontSize: 20,
+		fontWeight: "bolder",		
       },
       animationEnabled: true,
       axisY: 	{
@@ -176,12 +159,7 @@ function histo(tab){
       //theme: "theme2",
       data: 	[
 
-      {     indexLabelWrap: true,
-		indexLabel: "{y}",
-        indexLabelPlacement: "outside",  
-        indexLabelOrientation: "horizontal",
-		indexLabelFontColor: "red",
-        type: "column",  
+      {    
 		mouseover: function(e){
 			var texte=document.getElementById('textecode').value;
 			var chain = "";
@@ -197,7 +175,7 @@ function histo(tab){
         /*showInLegend: true, 
         legendMarkerColor: "white",
         legendText: " ",*/
-        dataPoints: tab
+        dataPoints: tab2
       }   
      ]
     });
@@ -277,32 +255,18 @@ function histoPourcent(tab){
     chart.render();
   }
   
-function maxCharacterFrequence(text,taille,changeLetter){
-	
-	var array=frequence(text, taille);
-	//console.log("TABLEAU DE FREQUENCE :",array);
-	var occurence=[];
-	for(var i=0;i<array.length;i++)
-	{
-		if (typeof array[i].y != 'undefined')
-			occurence.push(array[i].y);
-	}
-	
-	//console.log(occurence);
-	
-	var max = Math.max.apply(Math, occurence);
-	var listeMax="";
-	
-	for(var i=0;i<array.length;i++)
-	{
-	
-		if(max==array[i].y)
-		{
-			listeMax+=array[i].label;
-		}
-	}
-	//console.log("Val de changeLetter :"+changeLetter,"ListeMax :"+listeMax);
-	return listeMax[changeLetter].toUpperCase();
+ function triInverse(array){
+ 	var j = 0;
+ 	var arrayInverse = [];
+ 	for(var i = array.length-1; i >=0; i--){
+ 		arrayInverse[j] = array[i];
+ 		j++;
+ 	}
+ 	return arrayInverse;
+ }
+function maxFreq(texte, taille, changeLetter){
+	var array = frequence(texte, taille);
+	return array[array.length - (1 + changeLetter)];
 }
 
 function decryptCesarAppel(key){
@@ -313,8 +277,7 @@ function decryptCesarAppel(key){
 function key_Cesar(text,alphabet,iteration,changeLetter){
 
 		var array=arrayFreqApparition(1);
-		
-		var caraMaxOcurrence = alphabet.indexOf(maxCharacterFrequence(text,1,changeLetter));
+		var caraMaxOcurrence = alphabet.indexOf(maxFreq(text,1,changeLetter));
 		var letterMostUse = alphabet.indexOf(array[iteration].toUpperCase());
 		//console.log(maxCharacterFrequence(text,1,changeLetter),array[iteration].toUpperCase());
 		var key =(caraMaxOcurrence-letterMostUse)%alphabet.length;
@@ -364,10 +327,11 @@ else{
 
 function showKeyLength(){
 	var cryptage = recupererRadio2();
-	if(cryptage==2 || cryptage==3)
-		$("#keySize").css("display","block");
+	
+	if(cryptage==2 || cryptage == 3)
+		$("#keySize").show();
 	else
-		$("#keySize").css("display","none");
+		$("#keySize").hide();
 }
 function indiceCoincidence(array){
 	var somme = 0;
@@ -387,7 +351,7 @@ function calculSommeLettre(array){
 }
 function calculFrequencePourcentage(array){
 	for(var i =0; i < array.length; i++)
-		array[i].y = (array[i].y / array.nombreElement * 100);
+		array[i].y = parseFloat((array[i].y / array.nombreElement * 100).toFixed(2)); 
 	return array;
 }
 $(document).ready(function()
@@ -402,7 +366,7 @@ $(document).ready(function()
 	$("#cryptanalyseDecrypt").mousedown(function()                //Foutre un reset en cas de changement du bouton radio/texte codé
 	{
 		var texte=document.getElementById('textecode').value;
-		var keylength = parseInt(document.getElementById("keySize").value);
+		var keylength = parseInt(document.getElementById('keySize').value);
 		var alphabet = document.getElementById('alphabet').value;
 		var cryptage = recupererRadio2();
 		

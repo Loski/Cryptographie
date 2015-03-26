@@ -170,7 +170,7 @@ $(document).ready(function()
 	});
 	
 	$('#textecode').on("keyup change", disable);	
-	$('#texteclair').on("keyup change", disable); //Changer Keyup 
+	$('#texteclair').on("keyup change", disable);
     $('.active .cle').keyup(disable);
     $('.cleAffine').keyup(disable);
 	$("#keyVig").keyup(disable);
