@@ -191,8 +191,8 @@ function histo(tab){
  	return arrayInverse;
  }
 function maxFreq(texte, taille, changeLetter){
-	var array=triInverse(frequence(texte, taille));
-	return maxFreq[0 + changeLetter];
+	var array = frequence(texte, taille);
+	return array[array.length - (1 + changeLetter)];
 }
 function maxCharacterFrequence(text,taille,changeLetter){
 	
