@@ -1,10 +1,5 @@
-function creerAlphabet(mod){
-	if(mod===26)
-		return "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
-	return creerAlphabetEtendu();
-}
-function creerAlphabetEtendu(){
-	return "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz’«» \\\n\t&(ÀàÂâÄ†ãÑñíÍßóÓÁá©ÆæÇçÉéÈèÊêËëÎîÏïÔôÖŒœÙùÛûÜüŸÿ-_\"\'1234567890°)~#{[|`^@]}$£€!:;,?./§%*<>".split("");
+function creerAlphabet(){
+	return document.getElementById('alphabet').value;
 }
 function nettoyage(txt){
 	txt = traitementTxt(txt);
@@ -37,26 +32,26 @@ function euclideEtendu(determinant, mod){
 }
 
 
-function crypte_hill(texte, matrice, mod){
-
+function crypte_hill(texte, matrice){
+	var alphabet = creerAlphabet();
 	for(var i = 0; i< matrice.taille; i++){
 		for(var j =0;j < matrice.taille;j++){
-			matrice.matrice[i][j] = matrice.matrice[i][j]%mod;
+			matrice.matrice[i][j] = matrice.matrice[i][j]%alphabet.length;
 			if(matrice.matrice[i][j] < 0)
-				matrice.matrice[i][j] = matrice.matrice[i][j] + mod;
+				matrice.matrice[i][j] = matrice.matrice[i][j] + alphabet.length;
 		}
 	}	
-	var alphabet = creerAlphabet(mod);
+	
 	while(texte.length%matrice.taille!==0)
 		texte+='A';
 	var message_non_code_num = couperTexte(texte, matrice.taille);
-	message_code = crypterTexte(message_non_code_num, matrice, mod).split(',');
+	message_code = crypterTexte(message_non_code_num, matrice, alphabet.length).split(',');
 	message_code.pop(); // supprime le dernier caract donc la ,
 	return retourneMot(message_code,alphabet);
 }
 
-function crypterTexte(tab, mat, mod){
-	var alphabet = creerAlphabet(mod);
+function crypterTexte(tab, mat){
+	var alphabet = creerAlphabet();
 	var message_code ="";
 	tab.forEach(function(element, index, array){ // On choppe le message codé en nombre
 		for(var i = 0; i < mat.taille ;i++){ //par ligne
@@ -64,7 +59,7 @@ function crypterTexte(tab, mat, mod){
 			for(var j = 0; j < mat.taille;j++){
 				 message_code_tmp += alphabet.indexOf(element.charAt(j))*mat.matrice[i][j];
 			}
-			message_code += message_code_tmp%mod + ',';
+			message_code += message_code_tmp%alphabet.length + ',';
 		}
 	});
 	return message_code;
@@ -97,7 +92,7 @@ function couperTexte(texte, taille){
 }
 function decrypte_hill(texte, matrice, determinant, mod){
 	matrice = matrice.inverserMatrice(mod);
-	return crypte_hill(texte, matrice, mod);
+	return crypte_hill(texte, matrice);
 }
 function hill(choice){
 	var texte = recupererTexte(choice);
@@ -115,7 +110,7 @@ function hill(choice){
 	if(determinant===false)
 		return;
 	if(choice == 1){
-		$('#textecode').val(crypte_hill(texte, matrice, mod));
+		$('#textecode').val(crypte_hill(texte, matrice));
 	}
 	else{
 		$('#texteclair').val(decrypte_hill(texte, matrice, determinant, mod));
@@ -124,7 +119,7 @@ function hill(choice){
 }
 
 function genererKey(){
-	var mod = creerAlphabet(recupererRadio()+26).length;
+	var mod = creerAlphabet().length;
 	var matrice = [];
 	var taille = Math.floor(Math.random() * 5+2);
 	do{
