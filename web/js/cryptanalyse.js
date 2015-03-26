@@ -175,7 +175,7 @@ function histo(tab){
         /*showInLegend: true, 
         legendMarkerColor: "white",
         legendText: " ",*/
-        dataPoints: tab2
+        dataPoints: tab
       }   
      ]
     });
