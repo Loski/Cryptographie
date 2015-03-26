@@ -135,7 +135,6 @@ function cryptanalyseHill(texte, taille, alphabet,changeLetter){
 }
 
 function histo(tab){
-	tab = calculFrequencePourcentage(tab);
 	CanvasJS.addColorSet("greenShades",
                 [//colorSet Array
 
@@ -153,12 +152,15 @@ function histo(tab){
 		fontSize: 20,		
       },
       animationEnabled: true,
-      axisY: {
+      axisY: 	{
         title: "Occurence",
 		titleFontColor: "black",
 		labelFontColor: "black",
-		labelFontSize: 20
-      },
+		labelFontSize: 20,
+		valueFormatString: "################################",
+		minimum:0
+		
+	},
 	  
 	  axisX: {
 		labelFontColor: "black",
@@ -172,7 +174,7 @@ function histo(tab){
         horizontalAlign: "center"
       },
       //theme: "theme2",
-      data: [
+      data: 	[
 
       {     indexLabelWrap: true,
 		indexLabel: "{y}",
@@ -197,12 +199,84 @@ function histo(tab){
         legendText: " ",*/
         dataPoints: tab
       }   
-      ]
+     ]
     });
 
     chart.render();
   }
+  
+function histoPourcent(tab){
+	tab=calculFrequencePourcentage(tab);
+	CanvasJS.addColorSet("greenShades",
+                [//colorSet Array
 
+                "#204D74"        
+                ]);
+	
+    var chart = new CanvasJS.Chart("chartContainer",
+    {
+		colorSet: "greenShades",
+	zoomEnabled: true,
+	exportEnabled: true,
+	exportFileName: "Analyse_Frequencielle",
+      title:{
+        text: "Analyse Fréquentielle (%)",
+		fontSize: 20,		
+      },
+      animationEnabled: true,
+      axisY: 	{
+        title: "Occurence",
+		titleFontColor: "black",
+		labelFontColor: "black",
+		labelFontSize: 20,
+		valueFormatString: "##",
+		maximum:100
+	},
+	  
+	  axisX: {
+		labelFontColor: "black",
+		labelFontSize: 20,
+		labelAutoFit:true,
+		interval: 1
+      },
+	  
+      legend: {
+        verticalAlign: "bottom",
+        horizontalAlign: "center"
+      },
+      //theme: "theme2",
+      data: 	[
+
+      {     indexLabelWrap: true,
+		indexLabel: "{y} %",
+		yValueFormatString: "##,##",
+        indexLabelPlacement: "outside",  
+        indexLabelOrientation: "horizontal",
+		indexLabelFontColor: "red",
+        type: "column",  
+		mouseover: function(e){
+			var texte=document.getElementById('textecode').value;
+			var chain = "";
+			for(var i=0;i<texte.length;i++)
+			{
+				if(texte[i]==e.dataPoint.label)
+					chain+='<span style="color:red">'+texte[i]+"</span>"
+				else
+					chain+=texte[i];
+			}
+			$("#editableDiv").html(chain);			
+		},
+        /*showInLegend: true, 
+        legendMarkerColor: "white",
+        legendText: " ",*/
+        dataPoints: tab
+      }   
+     ]
+    });
+
+    chart.render();
+  }
+  
 function maxCharacterFrequence(text,taille,changeLetter){
 	
 	var array=frequence(text, taille);
@@ -218,8 +292,6 @@ function maxCharacterFrequence(text,taille,changeLetter){
 	
 	var max = Math.max.apply(Math, occurence);
 	var listeMax="";
-	
-	histo(array);
 	
 	for(var i=0;i<array.length;i++)
 	{
@@ -292,7 +364,7 @@ else{
 
 function showKeyLength(){
 	var cryptage = recupererRadio2();
-	if(cryptage==2)
+	if(cryptage==2 || cryptage==3)
 		$("#keySize").css("display","block");
 	else
 		$("#keySize").css("display","none");
@@ -320,6 +392,11 @@ function calculFrequencePourcentage(array){
 }
 $(document).ready(function()
 { 
+	$("#changeHisto").mousedown(function()
+	{	var texte=document.getElementById('textecode').value;
+		histoPourcent(frequence(texte,1));
+	});
+
 	var iteration =0;
 	var changeLetter =0;
 	$("#cryptanalyseDecrypt").mousedown(function()                //Foutre un reset en cas de changement du bouton radio/texte codé
@@ -328,6 +405,9 @@ $(document).ready(function()
 		var keylength = parseInt(document.getElementById("keySize").value);
 		var alphabet = document.getElementById('alphabet').value;
 		var cryptage = recupererRadio2();
+		
+		if(iteration==0)
+			histo(frequence(texte,1),false);
 		if (cryptage ==1)
 		{
 			key_Vigenere(alphabet,texte,1,iteration%alphabet.length,changeLetter);
