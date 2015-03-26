@@ -277,13 +277,14 @@ function decryptCesarAppel(key){
 function key_Cesar(text,alphabet,iteration,changeLetter){
 
 		var array=arrayFreqApparition(1);
-		var caraMaxOcurrence = alphabet.indexOf(maxFreq(text,1,changeLetter));
+		var caraMaxOcurrence = alphabet.indexOf(maxFreq(text,1,changeLetter).label);
 		var letterMostUse = alphabet.indexOf(array[iteration].toUpperCase());
 		//console.log(maxCharacterFrequence(text,1,changeLetter),array[iteration].toUpperCase());
 		var key =(caraMaxOcurrence-letterMostUse)%alphabet.length;
 		if(key<0)
 			key+=alphabet.length;
 	
+		console.log(maxFreq(text,1,changeLetter).label,array[iteration].toUpperCase());
 		return key;
 }
 
