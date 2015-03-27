@@ -65,6 +65,7 @@ function  arrayFreqApparition(n){
 	switch(n){
 	//Rajout des espaces c'est parfois le caractère qui revient le plus
 		case 1:
+			return " easintrluodcmpvgfqhbxjyzkw ".split('');
 		case 2:
 			return "es,le,de,re,en,on,nt,er,te,et,el,an,se,la,ai,ne,ou,qu,me,it,ie,em,ed,ur,is,ec,ue,ti,ra,ns,in,ta".split(',');
 		case 3: 
@@ -76,7 +77,7 @@ function  arrayFreqApparition(n){
 }
 
 function arrayFreqObject(n){
-	return [ {y:14.71,lambda:'e'}, {y:7.95,lambda:'s'},{y:7.63,lambda:'a'},{y:7.53,lambda:'i'},{y:7.25,lambda:'t'},{y:7.10,lambda:'n'},{y:6.56,lambda:'r'},{y:6.31,lambda:'u'}];
+	return [ {y:14.71,lambda:'e'}, {y:7.95,lambda:'s'},{y:7.63,lambda:'a'},{y:7.53,lambda:'i'},{y:7.25,lambda:'t'},{y:7.10,lambda:'n'},{y:6.56,lambda:'r'},{y,lambda:'u'}];
 }
 
 function uniq_fast(a) {
@@ -389,19 +390,21 @@ $(document).ready(function()
 		var alphabet = document.getElementById('alphabet').value;
 		var cryptage = recupererRadio2();
 		
-		if(iteration==0)
-			histo(frequence(texte,keylength),false);
 		if (cryptage ==1)
 		{
+			if(iteration==0)
+				histo(frequence(texte,1),false);
 			key_Vigenere(alphabet,texte,1,iteration%alphabet.length,changeLetter);
 		}
 		else if(cryptage == 2){
+			if(iteration==0)
+				histo(frequence(texte,1),false);
 			key_Vigenere(alphabet,texte,keylength,iteration%alphabet.length,changeLetter);
 		}
 		else if(cryptage == 3){
-			var i =0;
-				i++;
-				cryptanalyseHill(texte, keylength, alphabet,changeLetter);
+			if(iteration==0)
+				histo(frequence(texte,keylength),false);
+			cryptanalyseHill(texte, keylength, alphabet,changeLetter);
 			
 		}
 		else if(cryptage == 4){
