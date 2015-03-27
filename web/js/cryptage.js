@@ -124,7 +124,7 @@ function genererKey(){
 	var taille = Math.floor(Math.random() * 5+2);
 	do{
 		for(var i = 0; i < taille * taille; i++){
-			matrice[i] = Math.floor(Math.random()*150);
+			matrice[i] = Math.floor(Math.random()*25);
 		}
 		matriceObject = new Matrice(matrice);
 	}while(false === matriceObject.verifMatriceGen(mod));

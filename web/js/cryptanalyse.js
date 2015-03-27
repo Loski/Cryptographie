@@ -65,7 +65,6 @@ function  arrayFreqApparition(n){
 	switch(n){
 	//Rajout des espaces c'est parfois le caractère qui revient le plus
 		case 1:
-			return "eas intrluodcmpvgfqhbxjyzkw ".split('');
 		case 2:
 			return "es,le,de,re,en,on,nt,er,te,et,el,an,se,la,ai,ne,ou,qu,me,it,ie,em,ed,ur,is,ec,ue,ti,ra,ns,in,ta".split(',');
 		case 3: 
@@ -76,6 +75,9 @@ function  arrayFreqApparition(n){
 	
 }
 
+function arrayFreqObject(n){
+	return [ {y:14.71,lambda:'e'}, {y:7.95,lambda:'s'},{y:7.63,lambda:'a'},{y:7.53,lambda:'i'},{y:7.25,lambda:'t'},{y:7.10,lambda:'n'},{y:6.56,lambda:'r'},{y:6.31,lambda:'u'}];
+}
 
 function uniq_fast(a) {
     var seen = {};
@@ -97,24 +99,38 @@ function uniq_fast(a) {
 function cryptanalyseHill(texte, taille, alphabet,changeLetter){
 	taille = parseInt(taille);
 	alphabet = alphabet.split('');
-	var txt = [];
+	var txttmp = [];
 	var crypt = [];
 	for(var i = 0; i<taille; i++){
-		txt[i] = maxFreq(texte,taille,changeLetter + i);
-		crypt[i] = arrayFreqApparition(taille)[i];
+		txttmp[i] = arrayFreqApparition(taille)[i];
 	}
-	
-	var matrice = [];
+	var matriceAInverser = [];
 	var matriceCrypter = [];
-	for(var i = 0; i < taille; i++){
-		matrice.push(alphabet.indexOf(txt[i]));
-		matriceCrypter.push(alphabet.indexOf(crypt[i]));
+	var f = frequence(texte, taille);
+	for(var i =0; i < 5; i ++){
+		crypt[0] =maxFreqArray(f, i);
+		for(var j =0; j<5;j++){
+			crypt[1] = maxFreqArray(f,j);
+			matriceMotLangue = txttmp.join('').toUpperCase().split('');
+			matriceAInverser = crypt.join('').split('');
+			for(k = 0; k < matriceAInverser.length; k++){
+				matriceAInverser[k] = alphabet.indexOf(matriceAInverser[k]);
+				matriceMotLangue[k] = alphabet.indexOf(matriceMotLangue[k]);
+			}
+			matriceCrypter = new Matrice(matriceMotLangue);
+			var matriceInverse = new Matrice(matriceAInverser);
+				matriceInverse = matriceInverse.inverserMatrice(alphabet.length);
+			/*else{
+				var tmp = matriceInverse.matrice[0];
+				matriceInverse.matrice[0] = matriceInverse.matrice[1];
+				matriceInverse.matrice[1] = tmp;
+				if(matriceInverse.verifMatriceGen(alphabet.length) === false)
+					cryptanalyseHill(texte, taille, alphabet.join(),changeLetter);
+			}*/
+				console.log(crypte_hill(texte, matriceCrypter.multiplicationMatrice(matriceInverse),alphabet.length));
+			
+		}
 	}
-	matriceCrypter = new Matrice(matriceCrypter);
-	var matriceInverse = new Matrice(matrice);
-	if(matriceInverse.verifMatriceGen(alphabet.length) !== false) // inversible or not
-		matriceInverse = matriceInverse.inverserMatrice(alphabet.length); 
-	console.log(crypte_hill(texte, matriceCrypter.multiplicationMatrice(matriceInverse, alphabet.length),alphabet.length));
 }
 
 function histo(tab){
@@ -268,7 +284,9 @@ function maxFreq(texte, taille, changeLetter){
 	var array = frequence(texte, taille);
 	return array[array.length - (1 + changeLetter)];
 }
-
+function maxFreqArray(array, i){
+	return array[array.length - (1+i)].label;
+}
 function decryptCesarAppel(key){
 	$('.active .cle').val(key);
 	$('#decrypterCesar').click();
@@ -372,7 +390,7 @@ $(document).ready(function()
 		var cryptage = recupererRadio2();
 		
 		if(iteration==0)
-			histo(frequence(texte,1),false);
+			histo(frequence(texte,keylength),false);
 		if (cryptage ==1)
 		{
 			key_Vigenere(alphabet,texte,1,iteration%alphabet.length,changeLetter);
@@ -381,7 +399,10 @@ $(document).ready(function()
 			key_Vigenere(alphabet,texte,keylength,iteration%alphabet.length,changeLetter);
 		}
 		else if(cryptage == 3){
-			cryptanalyseHill(texte, keylength, alphabet,changeLetter);
+			var i =0;
+				i++;
+				cryptanalyseHill(texte, keylength, alphabet,changeLetter);
+			
 		}
 		else if(cryptage == 4){
 			///afine
