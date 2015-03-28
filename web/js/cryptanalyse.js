@@ -20,7 +20,7 @@ function frequence(texte, taille){
 			}
 		});
 	}
-	//supprimme les multiples valeurs de arrayTxt
+	//supprime les multiples valeurs de arrayTxt
 	var arrayObject = [];
 	var min = 0;
 	for(i = 0; i < taille; i++)
@@ -76,7 +76,7 @@ function  arrayFreqApparition(n, alphabet){
 		case 4:
 			return "tion,ment,ique,emen,dela,elle".split(',');
 	}
-			return "e , e,d ,s ,t , d, t,en,l ,on,nt, s,ai, e".split(',');   //Bigramme alpha ettendu
+			return "e , e,d ,s ,t , d, t,en,l ,de,le,on,nt, s,ai".split(',');   //Bigramme alpha ettendu
 	
 	
 }
@@ -110,14 +110,14 @@ function cryptanalyseHill(texte, taille, alphabet,changeLetter){
 	var matriceAInverser = [];
 	var matriceCrypter = [];
 	var f = frequence(texte, taille);
-	var bool = (alphabet.length > 50) ? true:false;
-	var tailleFr = arrayFreqApparition(taille, bool).length;
+	var alphaAscii = (alphabet.length > 50) ? true:false;
+	var tailleFr = arrayFreqApparition(taille, alphaAscii).length;
 	var s ="";
 	for(var z = 0; z < tailleFr;z++){   //bigramme 1
-		txttmp[0] = arrayFreqApparition(taille, bool)[z];
+		txttmp[0] = arrayFreqApparition(taille, alphaAscii)[z];
 		for(var l = 0; l < tailleFr;l++){ //bigramme 2
 			if(l!=z){  
-				txttmp[1] = arrayFreqApparition(taille,bool)[l];
+				txttmp[1] = arrayFreqApparition(taille,alphaAscii)[l];
 				for(var i =0; i < 6; i ++){    //vecteur 1
 					crypt[0] =maxFreqArray(f, i);
 					for(var j =0; j<6;j++){	//vecteur 2
@@ -126,7 +126,7 @@ function cryptanalyseHill(texte, taille, alphabet,changeLetter){
 							matriceMotLangue = [];
 							matriceAInverser = [];
 							for(var m = 0; m < taille; m++){
-								if(bool){
+								if(!alphaAscii){
 								matriceMotLangue.push(txttmp[0][m].toUpperCase());
 								matriceMotLangue.push(txttmp[1][m].toUpperCase());
 								}
@@ -145,7 +145,8 @@ function cryptanalyseHill(texte, taille, alphabet,changeLetter){
 							var matriceInverse = new Matrice(matriceAInverser);
 							if(matriceInverse.verifMatriceGen(alphabet.length) !==false){  //matrice inversible sinon inutile
 								matriceInverse = matriceInverse.inverserMatrice(alphabet.length);
-								s += '<li class="list-group-item">' + crypte_hill(texte, matriceCrypter.multiplicationMatrice(matriceInverse),alphabet.length) + '</li>';
+								matrice = matriceCrypter.multiplicationMatrice(matriceInverse);
+								s += '<li class="list-group-item">' + crypte_hill(texte, matrice,alphabet.length) + '</li>';
 							}
 						}
 					}
