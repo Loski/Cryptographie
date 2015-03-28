@@ -62,6 +62,8 @@ function existe(array, data){
 
 // créer les arrays des lettres les plus probable
 function  arrayFreqApparition(n, alphabet){
+	if(typeof(alphabet) === 'undefined')
+		alphabet = false;
 	if(!alphabet)
 	switch(n){
 	//Rajout des espaces c'est parfois le caractère qui revient le plus
@@ -74,7 +76,7 @@ function  arrayFreqApparition(n, alphabet){
 		case 4:
 			return "tion,ment,ique,emen,dela,elle".split(',');
 	}
-			return "e ,s ,t , d, t,en, l,nt, s,ai, e".split(',');   //Bigramme alpha ettendu
+			return "e , e,d ,s ,t , d, t,en,l ,on,nt, s,ai, e".split(',');   //Bigramme alpha ettendu
 	
 	
 }
@@ -124,8 +126,14 @@ function cryptanalyseHill(texte, taille, alphabet,changeLetter){
 							matriceMotLangue = [];
 							matriceAInverser = [];
 							for(var m = 0; m < taille; m++){
+								if(bool){
 								matriceMotLangue.push(txttmp[0][m].toUpperCase());
 								matriceMotLangue.push(txttmp[1][m].toUpperCase());
+								}
+								else{
+									matriceMotLangue.push(txttmp[0][m]);
+									matriceMotLangue.push(txttmp[1][m]);
+								}
 								matriceAInverser.push(crypt[0][m]);
 								matriceAInverser.push(crypt[1][m]);
 							}

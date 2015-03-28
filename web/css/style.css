@@ -33,3 +33,8 @@ button, label{
 #resultat { 
   word-wrap: break-word;
 }
+
+#graph, #chartContainer{
+	z-index: 1;
+	position: relative;
+}
