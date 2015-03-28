@@ -28,3 +28,8 @@ button, label{
 #HillDiv select{
 	width:20%;
 }
+
+
+#resultat { 
+  word-wrap: break-word;
+}

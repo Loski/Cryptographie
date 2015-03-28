@@ -61,7 +61,8 @@ function existe(array, data){
 }
 
 // créer les arrays des lettres les plus probable
-function  arrayFreqApparition(n){
+function  arrayFreqApparition(n, alphabet){
+	if(!alphabet)
 	switch(n){
 	//Rajout des espaces c'est parfois le caractère qui revient le plus
 		case 1:
@@ -72,7 +73,9 @@ function  arrayFreqApparition(n){
 			return "ent,que,les,ede,des,ela,ion,ait,res".split(',');
 		case 4:
 			return "tion,ment,ique,emen,dela,elle".split(',');
-	} 
+	}
+			return "e ,s ,t , d, t,en, l,nt, s,ai, e".split(',');   //Bigramme alpha ettendu
+	
 	
 }
 
@@ -102,36 +105,47 @@ function cryptanalyseHill(texte, taille, alphabet,changeLetter){
 	alphabet = alphabet.split('');
 	var txttmp = [];
 	var crypt = [];
-	for(var i = 0; i<taille; i++){
-		txttmp[i] = arrayFreqApparition(taille)[i];
-	}
 	var matriceAInverser = [];
 	var matriceCrypter = [];
 	var f = frequence(texte, taille);
-	for(var i =0; i < 5; i ++){
-		crypt[0] =maxFreqArray(f, i);
-		for(var j =0; j<5;j++){
-			crypt[1] = maxFreqArray(f,j);
-			matriceMotLangue = txttmp.join('').toUpperCase().split('');
-			matriceAInverser = crypt.join('').split('');
-			for(k = 0; k < matriceAInverser.length; k++){
-				matriceAInverser[k] = alphabet.indexOf(matriceAInverser[k]);
-				matriceMotLangue[k] = alphabet.indexOf(matriceMotLangue[k]);
+	var bool = (alphabet.length > 50) ? true:false;
+	var tailleFr = arrayFreqApparition(taille, bool).length;
+	var s ="";
+	for(var z = 0; z < tailleFr;z++){   //bigramme 1
+		txttmp[0] = arrayFreqApparition(taille, bool)[z];
+		for(var l = 0; l < tailleFr;l++){ //bigramme 2
+			if(l!=z){  
+				txttmp[1] = arrayFreqApparition(taille,bool)[l];
+				for(var i =0; i < 6; i ++){    //vecteur 1
+					crypt[0] =maxFreqArray(f, i);
+					for(var j =0; j<6;j++){	//vecteur 2
+						if(j!=i){
+							crypt[1] = maxFreqArray(f,j);
+							matriceMotLangue = [];
+							matriceAInverser = [];
+							for(var m = 0; m < taille; m++){
+								matriceMotLangue.push(txttmp[0][m].toUpperCase());
+								matriceMotLangue.push(txttmp[1][m].toUpperCase());
+								matriceAInverser.push(crypt[0][m]);
+								matriceAInverser.push(crypt[1][m]);
+							}
+							for(k = 0; k < matriceAInverser.length; k++){
+								matriceAInverser[k] = alphabet.indexOf(matriceAInverser[k]);
+								matriceMotLangue[k] = alphabet.indexOf(matriceMotLangue[k]);
+							}
+							matriceCrypter = new Matrice(matriceMotLangue);
+							var matriceInverse = new Matrice(matriceAInverser);
+							if(matriceInverse.verifMatriceGen(alphabet.length) !==false){  //matrice inversible sinon inutile
+								matriceInverse = matriceInverse.inverserMatrice(alphabet.length);
+								s += '<li class="list-group-item">' + crypte_hill(texte, matriceCrypter.multiplicationMatrice(matriceInverse),alphabet.length) + '</li>';
+							}
+						}
+					}
+				}
 			}
-			matriceCrypter = new Matrice(matriceMotLangue);
-			var matriceInverse = new Matrice(matriceAInverser);
-				matriceInverse = matriceInverse.inverserMatrice(alphabet.length);
-			/*else{
-				var tmp = matriceInverse.matrice[0];
-				matriceInverse.matrice[0] = matriceInverse.matrice[1];
-				matriceInverse.matrice[1] = tmp;
-				if(matriceInverse.verifMatriceGen(alphabet.length) === false)
-					cryptanalyseHill(texte, taille, alphabet.join(),changeLetter);
-			}*/
-				console.log(crypte_hill(texte, matriceCrypter.multiplicationMatrice(matriceInverse),alphabet.length));
-			
 		}
 	}
+	$('#resultat').append(s);
 }
 
 function histo(tab){
@@ -404,7 +418,7 @@ $(document).ready(function()
 		else if(cryptage == 3){
 			if(iteration==0)
 				histo(frequence(texte,keylength),false);
-			cryptanalyseHill(texte, keylength, alphabet,changeLetter);
+				cryptanalyseHill(texte, keylength, alphabet,changeLetter);
 			
 		}
 		else if(cryptage == 4){

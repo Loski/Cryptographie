@@ -205,16 +205,19 @@
 							<label><input type="radio" onclick="showKeyLength()" name="optradio2" value="4">Affine</label>
 							<label><input type="radio" onclick="showKeyLength()" name="optradio2" value="5" >RSA</label>
 						</div>
-						<input style="display:none;" placeholder="Taille de la clé" class="form-control" id="keySize" type="number" name="keyLength"/>
-						<input placeholder="Clé" class="form-control cle" id="keyCryptanalyse" name="Cle"/> <!-- Ne pas mettre de type pour la réutiliser avec vigenere-->
-						<br/><input id="cryptanalyseDecrypt" type="submit" class="btn btn-primary" value="D&eacute;crypter"/>
-						<button id="reset">Reset</button>
+					<input style="display:none;" placeholder="Taille de la clé" class="form-control" id="keySize" type="number" name="keyLength"/>
+					<input placeholder="Clé" class="form-control cle" id="keyCryptanalyse" name="Cle"/> <!-- Ne pas mettre de type pour la réutiliser avec vigenere-->
+					<br/><input id="cryptanalyseDecrypt" type="submit" class="btn btn-primary" value="D&eacute;crypter"/>
+					<button id="reset">Reset</button>
 
-						<div id="editableDiv" contenteditable="true"></div>
-						<div id="graph">
-						<button id="changeHisto">Afficher en pourcentage</button>
-						<div id="chartContainer"></div>
-						</div>
+					<div id="editableDiv" contenteditable="true"></div>
+					<div id="graph"></div>
+					<button id="changeHisto">Afficher en pourcentage</button>
+					<div id="chartContainer"></div>
+					<ul id="resultat" class="list-group">
+						
+					</ul>
+					</div>
 					</div>
 				</div>
 			</div>
