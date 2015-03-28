@@ -38,6 +38,17 @@ button, label{
 	z-index: 1;
 	position: relative;
 }
+
+#chartContainer{
+	height:300px;
+}
+
+#editableDiv{
+	background-color:white;
+	font-weight:bold;
+	font-size:18px;
+}
+
 .buttonAnalyse
 {
     margin-bottom: 10px;

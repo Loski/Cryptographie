@@ -275,13 +275,9 @@ function histoPourcent(tab){
 		mouseover: function(e){
 			var texte=document.getElementById('textecode').value;
 			var chain = "";
-			for(var i=0;i<texte.length;i++)
-			{
-				if(texte[i]==e.dataPoint.label)
-					chain+='<span style="color:red">'+texte[i]+"</span>"
-				else
-					chain+=texte[i];
-			}
+			chain=substring(0,e.dataPoint.x);
+			chain+='<span style="color:red">'+texte[e.dataPoint.x]+"</span>";
+			chain+=substring(e.dataPoint.x,texte.length);
 			$("#editableDiv").html(chain);			
 		},
         /*showInLegend: true, 
@@ -398,7 +394,7 @@ function calculFrequencePourcentage(array){
 	return array;
 }
 $(document).ready(function()
-{ 
+{ 	
 	$("#changeHisto").mousedown(function()
 	{	var texte=document.getElementById('textecode').value;
 		histoPourcent(frequence(texte,1));
