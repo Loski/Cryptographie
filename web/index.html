@@ -207,13 +207,16 @@
 						</div>
 					<input style="display:none;" placeholder="Taille de la clé" class="form-control" id="keySize" type="number" name="keyLength"/>
 					<input placeholder="Clé" class="form-control cle" id="keyCryptanalyse" name="Cle"/> <!-- Ne pas mettre de type pour la réutiliser avec vigenere-->
-					<br/><input id="cryptanalyseDecrypt" type="submit" class="btn btn-primary" value="D&eacute;crypter"/>
-					<button id="reset">Reset</button>
+                    <div class="row buttonAnalyse">
+                        <br/><input id="cryptanalyseDecrypt" type="submit" class="btn btn-primary col-lg-offset-3 col-lg-2" value="D&eacute;crypter"/>
+                        <input id="reset" type="submit" class="btn btn-default col-lg-offset-2 col-lg-2" value="Reset"/>
+                    </div>
 					<div id="chartContainer"></div>
-					<div id="editableDiv" contenteditable="true"></div>
-					<div id="graph"></div>
-					<button id="changeHisto">Afficher en pourcentage</button>
-					
+					<div id="editableDiv" contenteditable="true" class="row"></div>
+					<div id="graph" class="row"></div>
+                    <div class="row col-lg-10">
+                       <input id="changeHisto" type="submit" class="btn btn-default col-lg-offset-4 col-lg-3" value="Afficher en pourcentage"/>
+                    </div>
 					<ul id="resultat" class="list-group">
 						
 					</ul>
@@ -222,7 +225,6 @@
 				</div>
 			</div>
 		</div>
-	</div>
 </body>
 </html> 
 

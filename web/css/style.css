@@ -38,3 +38,7 @@ button, label{
 	z-index: 1;
 	position: relative;
 }
+.buttonAnalyse
+{
+    margin-bottom: 10px;
+}
