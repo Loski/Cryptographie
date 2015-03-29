@@ -41,7 +41,6 @@ function crypte_hill(texte, matrice){
 				matrice.matrice[i][j] = matrice.matrice[i][j] + alphabet.length;
 		}
 	}	
-	console.log(matrice);
 	while(texte.length%matrice.taille!==0)
 		texte+='A';
 	var message_non_code_num = couperTexte(texte, matrice.taille);
@@ -92,7 +91,6 @@ function couperTexte(texte, taille){
 }
 function decrypte_hill(texte, matrice, determinant, mod){
 	matrice = matrice.inverserMatrice(mod);
-	console.log(matrice );
 	return crypte_hill(texte, matrice);
 }
 function hill(choice){
@@ -336,7 +334,6 @@ Matrice.prototype = {
 			for(var j = 0; j < matriceTranspo.taille; j++){
 				matriceTranspo.matrice[i][j] = this.matrice[j][i];
 			}
-		console.log(matriceTranspo);
 			return matriceTranspo;
 	},
 	soustraitreLigne: function(ligne, moins){

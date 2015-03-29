@@ -82,7 +82,7 @@ function  arrayFreqApparition(n, alphabet){
 }
 
 function arrayFreqObject(n){
-	return [ {y:14.71,lambda:'e'}, {y:7.95,lambda:'s'},{y:7.63,lambda:'a'},{y:7.53,lambda:'i'},{y:7.25,lambda:'t'},{y:7.10,lambda:'n'},{y:6.56,lambda:'r'},{y,lambda:'u'}];
+	return [ {y:14.71,lambda:'e'}, {y:7.95,lambda:'s'},{y:7.63,lambda:'a'},{y:7.53,lambda:'i'},{y:7.25,lambda:'t'},{y:7.10,lambda:'n'},{y:6.56,lambda:'r'},{y:5.32,lambda:'u'}];
 }
 
 function uniq_fast(a) {
@@ -392,6 +392,26 @@ function calculFrequencePourcentage(array){
 	for(var i =0; i < array.length; i++)
 		array[i].y = parseFloat((array[i].y / array.nombreElement * 100).toFixed(2)); 
 	return array;
+}
+
+function nombrePremierJusqua(n){
+	var nbPremier = [1,2,3];
+	for(var i = 5; i < n;i+=2){
+		if(isPrime(i))
+			nbPremier.push(i);
+	}
+	return nbPremier;
+}
+function factoriser(n){
+	var nbPremier = nombrePremierJusqua(n);
+	for(var i =0; i < nbPremier.length;i++){
+		for(var j =0; j < nbPremier.length;j++){
+			if(i!=j)
+				if(nbPremier[i]*nbPremier[j] === n)
+					return {p:nbPremier[i], q:nbPremier[j]};
+		}
+	}
+	return false;
 }
 $(document).ready(function()
 { 	
