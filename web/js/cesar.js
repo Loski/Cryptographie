@@ -41,129 +41,95 @@ $(document).ready(function()
   {
       var texteACrypter=document.getElementById('texteclair').value;
       var tab=[];
+      var cle=[];
       var texteCrypter="";
       var check=$('input[type=radio][name=optradio]:checked').attr('value');
-      if(!$('input[name=2a2]').is(':checked'))
-      {
+      var paquet=parseInt($('#codagePaquet').val());
+      var max;
+      var j=0;
           if(check==0)
             {
-             var cle=parseInt($('.active .cle').val())%26;
-             for(var i=0;i<texteACrypter.length;i++){
-              tab.push(texteACrypter.charCodeAt(i));
-              tab[i]=caractereSpeciaux(tab[i]);
-               if(tab[i]>64 && tab[i]<91)
-               {
-                 tab[i]=(tab[i]+cle)%91;
-                 if(tab[i]<65)
-                 {
-                   tab[i]=tab[i]+65;
-                 }
-               }
-               else if(tab[i]>96 && tab[i]<123)
-               {
-                 tab[i]=(tab[i]+cle)%123;
-                 if(tab[i]<97)
-                 {
-                   tab[i]=tab[i]+97;
-                 }
-               }
-               texteCrypter=texteCrypter+String.fromCharCode(tab[i]);
+            max=parseInt("26".repeat(paquet));
+            var cle1=(parseInt($('.active .cle').val())%max).toString();
+                    cle1="0".repeat(paquet*2-cle1.length)+cle1;
+            console.log(cle1);
+             for(var i=0;i<paquet*2;i=i+2)
+             {
+                 cle.push(parseInt(cle1[i]+cle1[i+1])%26)
              }
-
-            }
-          else if(check==1)
-          {
-              var cle=parseInt($('.active .cle').val())%256; 
-               for(var i=0;i<texteACrypter.length;i++){
-              tab.push(texteACrypter.charCodeAt(i));
-                    tab[i]=tab[i]+cle;
-                    tab[i]=tab[i]%256;
-               texteCrypter=texteCrypter+String.fromCharCode(tab[i]);
-             }
-          }
-      }
-      else if($('input[name=2a2]').is(':checked'))
-      {
-          if(check==0)
-            {
-            var cle1=(parseInt($('.active .cle').val())%2626).toString();
-                for(var i=cle1.length;i<4;i++)
-                {
-                    cle1="0"+cle1;
-                }
-            var cle2=parseInt(cle1[2]+cle1[3]);
-                cle1=parseInt(cle1[0]+cle1[1]);
-             for(var i=0;i<texteACrypter.length;i=i+2){
-              tab.push(texteACrypter.charCodeAt(i));
-              tab[i]=caractereSpeciaux(tab[i]);
-               if(tab[i]>64 && tab[i]<91)
-               {
-                 tab[i]=(tab[i]+cle1)%91;
-                 if(tab[i]<65)
+                 for(var i=0;i<texteACrypter.length;i++)
                  {
-                   tab[i]=tab[i]+65;
-                 }
-               }
-               else if(tab[i]>96 && tab[i]<123)
-               {
-                 tab[i]=(tab[i]+cle1)%123;
-                 if(tab[i]<97)
-                 {
-                   tab[i]=tab[i]+97;
-                 }
-               }
-               texteCrypter=texteCrypter+String.fromCharCode(tab[i]);
-               if(i+1<=texteACrypter.length)
-               {
-                  tab.push(texteACrypter.charCodeAt(i+1));
-                  tab[i+1]=caractereSpeciaux(tab[i+1]);
-                   if(tab[i+1]>64 && tab[i+1]<91)
+                     if(j==paquet){j=0};
+                  tab.push(texteACrypter.charCodeAt(i));
+                  tab[i]=caractereSpeciaux(tab[i]);
+                   if(tab[i]>64 && tab[i]<91)
                    {
-                     tab[i+1]=(tab[i+1]+cle2)%91;
-                     if(tab[i+1]<65)
+                     tab[i]=(tab[i]+cle[j])%91;
+                     if(tab[i]<65)
                      {
-                       tab[i+1]=tab[i+1]+65;
+                       tab[i]=tab[i]+65;
                      }
                    }
-                   else if(tab[i+1]>96 && tab[i+1]<123)
+                   else if(tab[i]>96 && tab[i]<123)
                    {
-                     tab[i+1]=(tab[i+1]+cle2)%123;
-                     if(tab[i+1]<97)
+                     tab[i]=(tab[i]+cle[j])%123;
+                     if(tab[i]<97)
                      {
-                       tab[i+1]=tab[i+1]+97;
+                       tab[i]=tab[i]+97;
                      }
                    }
-                   texteCrypter=texteCrypter+String.fromCharCode(tab[i+1]);
-                }
+                   texteCrypter=texteCrypter+String.fromCharCode(tab[i]);
+                   j++;
 
-            }
+                }
+        
         }
-          else if(check==1)
+          else if(check==2)
           {
-              var cle1=(parseInt($('.active .cle').val())%256256).toString();
-                for(var i=cle1.length;i<6;i++)
-                {
-                    cle1="0"+cle1;
-                }
-               var cle2=parseInt(cle1[3]+cle1[4]+cle1[5]);
-               cle1=parseInt(cle1[0]+cle1[1]+cle1[2]);
-              console.log(cle1);
-              console.log(cle2);
-               for(var i=0;i<texteACrypter.length;i=i+2){
+               max=parseInt("256".repeat(paquet));
+              var cle1=(parseInt($('.active .cle').val())%max).toString();
+              cle1="0".repeat(paquet*3-cle1.length)+cle1;
+              for(var i=0;i<paquet*3;i=i+3)
+             {
+                 cle.push(parseInt(cle1[i]+cle1[i+1]+cle1[i+2])%256)
+             }
+               for(var i=0;i<texteACrypter.length;i++)
+               {
+                   if(j==paquet){j=0};
                tab.push(texteACrypter.charCodeAt(i));
-               tab[i]=tab[i]+cle1;
+               tab[i]=tab[i]+cle[j];
                tab[i]=tab[i]%256;
                texteCrypter=texteCrypter+String.fromCharCode(tab[i]);
-               if(i+1<=texteACrypter.length)
-               {
-                    tab.push(texteACrypter.charCodeAt(i+1));
-                    tab[i+1]=tab[i+1]+cle2;
-                    tab[i+1]=tab[i+1]%256;
-               }
-                   texteCrypter=texteCrypter+String.fromCharCode(tab[i+1]);
+                j++;
              }
           }
-      }
+            else if(check==1)
+            {
+                var alphabet=document.getElementById('alphabet').value;
+                max=parseInt(alphabet.length.toString().repeat(paquet));
+                var cle1=(parseInt($('.active .cle').val())%max).toString();
+                cle1="0".repeat(paquet*alphabet.length.toString().length-cle1.length)+cle1;
+                for(var i=0;i<paquet*alphabet.length.toString().length;i=i+alphabet.length.toString().length)
+                {
+                    var cletemp="";
+                     for(var k=0;k<alphabet.length.toString().length;k++)
+                     {
+                         cletemp=cletemp+cle1[i+k];
+                     }
+                     cle.push(parseInt(cletemp)%alphabet.length)
+                }
+                console.log(cle);
+                 for(var i=0;i<texteACrypter.length;i++)
+               {
+                      if(j==paquet){j=0};
+                   tab.push(alphabet.indexOf(texteACrypter[i]));
+                   tab[i]=tab[i]+cle[j];
+                   tab[i]=tab[i]%alphabet.length;
+                   texteCrypter=texteCrypter+alphabet[tab[i]];
+                    j++;
+               }
+          }
+      
       $('#textecode').val(texteCrypter);
   });
   
@@ -173,103 +139,27 @@ $(document).ready(function()
         var texteClaire="";
         var tab=[];
         var check=$('input[type=radio][name=optradio]:checked').attr('value');
-       if($('input[name=2a2]').is(':checked'))
-       {
+        var max;
+        var cle=[];
+        var j=0;
+       var paquet=parseInt($('#codagePaquet').val());
               if(check==0)
               {
-                var cle1=(parseInt($('.active .cle').val())%2626).toString();
-                for(var i=cle1.length;i<4;i++)
-                {
-                    cle1="0"+cle1;
-                }
-                var cle2=parseInt(cle1[2]+cle1[3]);
-                cle1=parseInt(cle1[0]+cle1[1]);
-                  console.log(cle1);
-                  console.log(cle2);
-                     for(var i=0;i<texteADeCrypter.length;i=i+2){
-                         console.log(i);
-                       tab.push(texteADeCrypter.charCodeAt(i));
-                         console.log(tab[i]);
-                       if(tab[i]>64 && tab[i]<91)
-                       {
-                         tab[i]=tab[i]-cle1;
-                         if(tab[i]<65)
-                         {
-                           tab[i]=tab[i]-65+91;
+                max=parseInt("26".repeat(paquet));
+                var cle1=(parseInt($('.active .cle').val())%max).toString();
+                cle1="0".repeat(paquet*2-cle1.length)+cle1;
+                 for(var i=0;i<paquet*2;i=i+2)
+             {
+                 cle.push(parseInt(cle1[i]+cle1[i+1])%26)
+             }
 
-                         }
-                       }
-                       else if(tab[i]>96 && tab[i]<123)
-                       {
-                         tab[i]=tab[i]-cle1;
-                         if(tab[i]<97)
-                         {
-                           tab[i]=tab[i]-97+123;
-                         }
-                       }
-                       texteClaire=texteClaire+String.fromCharCode(tab[i]);
-                          if(i+1<=texteADeCrypter.length)
-                          {
-                           tab.push(texteADeCrypter.charCodeAt(i+1));
-                           if(tab[i+1]>64 && tab[i+1]<91)
-                           {
-                             tab[i+1]=tab[i+1]-cle2;
-                             if(tab[i+1]<65)
-                             {
-                               tab[i+1]=tab[i+1]-65+91;
-
-                             }
-                           }
-                           else if(tab[i+1]>96 && tab[i+1]<123)
-                           {
-                             tab[i+1]=tab[i+1]-cle2;
-                             if(tab[i+1]<97)
-                             {
-                               tab[i+1]=tab[i+1]-97+123;
-                             }
-                           }
-                              texteClaire=texteClaire+String.fromCharCode(tab[i+1]);
-                        }
-                     }
-              }
-              else if(check==1)
-              {
-                var cle1=(parseInt($('.active .cle').val())%256256).toString();
-                for(var i=cle1.length;i<6;i++)
-                {
-                    cle1="0"+cle1;
-                }
-               var cle2=parseInt(cle1[3]+cle1[4]+cle1[5]);
-               cle1=parseInt(cle1[0]+cle1[1]+cle1[2]);
-                  for(var i=0;i<texteADeCrypter.length;i=i+2){
-                       tab.push(texteADeCrypter.charCodeAt(i));
-                       tab[i]=tab[i]+256;
-                       tab[i]=tab[i]-cle1;
-                       tab[i]=tab[i]%256;
-                       texteClaire=texteClaire+String.fromCharCode(tab[i]);
-                       if(i+1<=texteADeCrypter.length)
-                       {
-                       tab.push(texteADeCrypter.charCodeAt(i+1));
-                       tab[i+1]=tab[i+1]+256;
-                       tab[i+1]=tab[i+1]-cle2;
-                       tab[i+1]=tab[i+1]%256;
-                       texteClaire=texteClaire+String.fromCharCode(tab[i+1]);
-                       }
-                    }  
-                }
-              $('#texteclair').val(texteClaire);
-       }
-       else if(!$('input[name=2a2]').is(':checked'))
-       {
-           
-           if(check==0)
-              {
-                     var cle=parseInt($('.active .cle').val())%26;
                      for(var i=0;i<texteADeCrypter.length;i++){
                        tab.push(texteADeCrypter.charCodeAt(i));
+                         console.log(tab[i]);
+                         if(j==paquet){j=0};
                        if(tab[i]>64 && tab[i]<91)
                        {
-                         tab[i]=tab[i]-cle;
+                         tab[i]=tab[i]-cle[j];
                          if(tab[i]<65)
                          {
                            tab[i]=tab[i]-65+91;
@@ -278,29 +168,65 @@ $(document).ready(function()
                        }
                        else if(tab[i]>96 && tab[i]<123)
                        {
-                         tab[i]=tab[i]-cle;
+                         tab[i]=tab[i]-cle[j];
                          if(tab[i]<97)
                          {
                            tab[i]=tab[i]-97+123;
                          }
                        }
                        texteClaire=texteClaire+String.fromCharCode(tab[i]);
+                         j++;
                      }
-                  
               }
-              else if(check==1)
+              else if(check==2)
               {
-                  var cle=parseInt($('.active .cle').val())%256;
+                max=parseInt("256".repeat(paquet));
+              var cle1=(parseInt($('.active .cle').val())%max).toString();
+              cle1="0".repeat(paquet*3-cle1.length)+cle1;
+              for(var i=0;i<paquet*3;i=i+3)
+             {
+                 cle.push(parseInt(cle1[i]+cle1[i+1]+cle1[i+2])%256)
+             }
                   for(var i=0;i<texteADeCrypter.length;i++){
                        tab.push(texteADeCrypter.charCodeAt(i));
+                      if(j==paquet){j=0};
                        tab[i]=tab[i]+256;
-                       tab[i]=tab[i]-cle;
+                       tab[i]=tab[i]-cle[j];
                        tab[i]=tab[i]%256;
                        texteClaire=texteClaire+String.fromCharCode(tab[i]);
-                       }
-              }
-       }
-      $('#texteclair').val(texteClaire);
+                        j++;
+                       
+                    }  
+                }
+            else if(check==1)
+            {
+                var alphabet=document.getElementById('alphabet').value;
+                max=parseInt(alphabet.length.toString().repeat(paquet));
+                var cle1=(parseInt($('.active .cle').val())%max).toString();
+                cle1="0".repeat(paquet*alphabet.length.toString().length-cle1.length)+cle1;
+                for(var i=0;i<paquet*alphabet.length.toString().length;i=i+alphabet.length.toString().length)
+                {
+                    var cletemp="";
+                     for(var k=0;k<alphabet.length.toString().length;k++)
+                     {
+                         cletemp=cletemp+cle1[i+k];
+                     }
+                     cle.push(parseInt(cletemp)%alphabet.length)
+                }
+                for(var i=0;i<texteADeCrypter.length;i++)
+                {
+                      tab.push(alphabet.indexOf(texteACrypter[i]));
+                      if(j==paquet){j=0};
+                       tab[i]=tab[i]+alphabet.length;
+                       tab[i]=tab[i]-cle[j];
+                       tab[i]=tab[i]%alphabet.length;
+                       texteClaire=texteClaire+alphabet[tab[i]];
+                        j++;
+                       
+                }  
+            }
+              $('#texteclair').val(texteClaire);
+       
   });   
     
 
