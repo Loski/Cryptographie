@@ -30,7 +30,7 @@ button, label{
 }
 
 
-#resultat { 
+#editableDiv,#resultat { 
   word-wrap: break-word;
 }
 
