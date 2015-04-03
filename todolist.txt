@@ -1,0 +1,26 @@
+- Réparer rsa pour que ça marche avec un nombre > à 20 chiffres :((((
+- Péter RSA version binaire
+- Tuer Walid
+- Réparer crypta Hill pour alphabet [A-Z]
+- Changer la présentation de Hill en crypta.
+- Refaire affine
+
+Maybe ~~~~~~
+- Cryptanalise affine?
+- Ajout des langues?
+
+
+- Ecrire ~~~~. 
+
+
+Partie Maxime : Hill
+Partie David : césar + affine + walid
+Partie Loic : Vivi + crypta césar(mdr)
+Partie Walid : Walid.
+
+
+RSA on verra plus tard.  \{(o.o)}/
+
+
+On fait un google doc ? ou chacun de notre côté en mode #yolo?
+
