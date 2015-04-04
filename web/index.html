@@ -44,8 +44,7 @@
 					<fieldset>
 						<legend>Cryptage</legend>
 						<form method="POST">
-							<textarea id="texteclair" class="form-control" rows="3" placeholder="Entrer une phrase ou charger un fichier"></textarea>
-                            <br/>
+							<textarea id="texteclair" class="form-control" rows="3" placeholder="Entrer une phrase ou charger un fichier"></textarea><br/>
 
 							<button type="button" class="btn btn-primary col-lg-3" onclick="modal(0)" data-toggle="modal" data-target="#modal">
 								<span class = "glyphicon glyphicon-plus-sign"></span>
@@ -172,20 +171,20 @@
 					</div>
 					<div class="onglet" id="RSADiv">
 						<div class="col-lg-6">
-							<input  class="form-control cle" placeholder="p" type="number" id="RSA_p"  data-container="body" data-toggle="popover" data-placement="bottom" data-trigger="hover" data-content="p n'est pas un nombre premier" />
+							<textarea class="form-control cle" placeholder="p" type="number" id="RSA_p"  data-container="body" data-toggle="popover" data-placement="bottom" data-trigger="hover" data-content="p n'est pas un nombre premier"></textarea>
 						</div>
 						<div class="col-lg-6">
-							<input  class="form-control cle" placeholder="q" type="number" id="RSA_q" data-container="body" data-toggle="popover" data-placement="bottom" data-content="q n'est pas un nombre premier" data-trigger="hover" />
+							<textarea class="form-control cle" placeholder="q" type="number" id="RSA_q" data-container="body" data-toggle="popover" data-placement="bottom" data-content="q n'est pas un nombre premier" data-trigger="hover"></textarea>
 						</div>
 						<div class ="row">
 							<div class="col-lg-4">
-								<input  class="form-control cle" placeholder="n" type="number" id="RSA_n"/>
+								<textarea class="form-control cle" placeholder="n" type="number" id="RSA_n"></textarea>
 							</div>
 							<div class="col-lg-4">
-								<input  class="form-control cle" placeholder="e" type="number" id="RSA_e"/>
+								<textarea  class="form-control cle" placeholder="e" type="number" id="RSA_e"></textarea>
 							</div>
 							<div class="col-lg-4">
-									<input  class="form-control cle" placeholder="d" type="number" id="RSA_d"/>
+									<textarea  class="form-control cle" placeholder="d" type="number" id="RSA_d"></textarea>
 							</div>
 						</div>
 						<button class="btn btn-primary" id="KeyGenRSA" >Générer</button><br/>

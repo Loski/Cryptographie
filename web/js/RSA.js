@@ -22,6 +22,18 @@ function pgcd(a,b){
 	}
 	return a;
 }
+function pgcdBI(a,b){
+	a = new bigInt(a);
+	b = new bigInt(b);
+	while (a.notEquals(b))
+	{
+		if (a.gt(b))
+			a = a.minus(b); 
+		else 
+			b = b.minus(a);
+	}
+	return a;
+}
 function RSA_cryptePublic(texte, n, e){
 	n = bigInt(n);
 	e = bigInt(e);
@@ -62,20 +74,18 @@ function RSA_crypt(texte,p,q){
 	if(!premier)
 		return;
 
-	var ind_euler = bigInt((p-1)*(q-1));
+	var ind_euler = new bigInt((p.minus(1)).multiply(q.minus(1)));
     
-	var e = bigInt(Math.floor(Math.random()*(ind_euler-2)+2));
-	var i = 0;
-	while(pgcd(e,ind_euler)!==1 && e < ind_euler){
-		e = bigInt(Math.floor(Math.random()*(ind_euler-e)+e));
-		console.log(i);
-		i++;
+	var e = new bigInt(bigInt.randBetween("2", ind_euler));
+	while(pgcdBI(e,ind_euler).notEquals(1) && e.lt(ind_euler)){
+		e = bigInt(bigInt.randBetween(e, ind_euler));
 	}
-	var n = bigInt(q).multiply(p);
-	var d = bigInt(euclideEtendu(e,ind_euler)%ind_euler);
-	$('#textecode').val(chiffrement(decoupeParTaille(decoupage(texte),4), e, n).join(' '));  // Par 4 temp 
+	var n = new bigInt(q.multiply(p));
+	console.log(n.toString());
+	var d = new bigInt(euclideEtenduBI(e,ind_euler)).mod(ind_euler);
+	$('#textecode').val(chiffrement(decoupeParTaille(decoupage(texte),8), e, n).join(' '));  // Par 4 temp 
 	$('.decrypter-button').attr("disabled", false);
-	$('#RSA_n').val(n);
+	$('#RSA_n').val(n.toString());
 	$('#RSA_e').val(e);
 	$('#RSA_d').val(d);
 	$('#RSADiv').append("La clé publique est : ("+n+","+e+")");
@@ -113,6 +123,25 @@ function chiffrement(tab, e, n){
 		tab[i] = tab[i].modPow(e,n);
 	}
 	return tab;
+}
+function euclideEtenduBI(determinant, mod){
+	var r = new bigInt(determinant); var r2 = new bigInt(mod); var u = new bigInt(1); var v = new bigInt(); var u2 = new bigInt(); var v2 = new bigInt();
+	while(r2.gt(0)){
+		var q = new bigInt(r.divide(r2));
+		var rs = new bigInt(r);
+		var us = new bigInt(u);
+		var vs = new bigInt(v);
+		r = r2;
+		u = u2;
+		v = v2;
+		r2 = rs.minus(q.multiply(r2));
+		u2 = us.minus(q.multiply(u2));
+		v2 = vs.minus(q.multiply(v2));
+	}
+	if(r.notEquals(1))
+		return false;
+	else
+		return new bigInt(mod.add(u));
 }
 
 function RSA_decryptage(texte,taillebloc){
@@ -176,7 +205,7 @@ $(document).ready(function()
 			var texte=document.getElementById('textecode').value;
 			var n = document.getElementById("RSA_n").value;
 			var d = document.getElementById("RSA_d").value;
-            RSA_decryptage(texte,4);
+            RSA_decryptage(texte,8);
 		});
 		
 	$('#KeyGenRSA').mousedown(function()
@@ -184,19 +213,51 @@ $(document).ready(function()
 			document.getElementById("RSA_e").value="";
 			document.getElementById("RSA_n").value="";
 			document.getElementById("RSA_d").value="";
-			var max  = bigInt("1e8");
-			var nb = bigInt.randBetween("1000",max);
-			while(!isPrime(nb))
-				nb = bigInt.randBetween("1000",max);
-			document.getElementById('RSA_p').value=nb;
-			
-			var nb2 = bigInt.randBetween("1000",max);
-			while(!(isPrime(nb2)) || nb2.equals(nb))
-				 nb2 = bigInt.randBetween("1000",max);
-			document.getElementById('RSA_q').value=nb2;
+			document.getElementById('RSA_p').value=genereNbPremier();
+			document.getElementById('RSA_q').value=genereNbPremier();
 			disable();
 		});
 });
 
 
+function genereNbPremier(){
+	var max  = bigInt("1e16");
+	var nb = bigInt.randBetween("1000",max);
+	if(nb.isEven())
+		nb = nb.add(1);
+	while(!MillerRobin(nb,30))
+		nb = nb.add(2);
+	return nb.toString();
+}
+function MillerRobin(n, k) {
+	if (n.equals(2) || n.equals(3))
+		return true;
+	if (n.mod(2).equals(0) || n.lt(2))
+		return false;
 
+	var s = new bigInt(0), d = new bigInt(n.prev());
+	while (d.mod(2).equals(0)) {
+		d = d.divide(2);
+		s = s.add(1);
+	}
+ 
+	WitnessLoop: do {
+
+		var tmp = new bigInt(bigInt.randBetween("2", (n.minus(3)).toString(10)));
+		var x = new bigInt(tmp).modPow(d,n);
+		if (x.equals(1) || x.equals(n-1))
+			continue;
+ 
+		for (var i = s - 1; i--;) {
+			x = x.multiply(x).mod(n);
+			if (x.equals(1))
+				return false;
+			if (x.equals(n.prev()))
+				continue WitnessLoop;
+		}
+ 
+		return false;
+	} while (--k);
+ 
+	return true;
+}
