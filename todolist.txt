@@ -15,7 +15,7 @@ Maybe ~~~~~~
 
 Partie Maxime : Hill
 Partie David : césar + affine + walid
-Partie Loic : Vivi + crypta césar(mdr)
+Partie Loïc : Vivi + crypta césar(mdr)
 Partie Walid : Walid.
 
 
@@ -23,4 +23,5 @@ RSA on verra plus tard.  \{(o.o)}/
 
 
 On fait un google doc ? ou chacun de notre côté en mode #yolo?
+DOC !!!!!!!!!!!!!!!!!!!!!
 
