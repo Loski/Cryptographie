@@ -37,14 +37,14 @@ function pgcdBI(a,b){
 function RSA_cryptePublic(texte, n, e){
 	n = bigInt(n);
 	e = bigInt(e);
-	$('#textecode').val(chiffrement(decoupeParTaille(decoupage(texte),4), e, n).join(' '));
+	$('#textecode').val(chiffrement(decoupeParTaille(decoupage(texte),30), e, n).join(' '));
 
 }
 function RSA_crypt(texte,p,q){
 	q = bigInt(q);
 	p = bigInt(p);
 	var premier = true;
-	if(!isPrime(p))
+	if(!p.isPrime())
 	{
 		$('#RSA_p').popover(); //A mettre dans la vérif de clé (genre le même truc que Hill)
 		premier = false;
@@ -55,7 +55,7 @@ function RSA_crypt(texte,p,q){
 		$('#RSA_p').popover('destroy');
 	}
 	
-	if(!isPrime(q))
+	if(!q.isPrime())
 	{
 		$('#RSA_q').popover(); //A mettre dans la vérif de clé (genre le même truc que Hill)
 		premier = false;
@@ -83,7 +83,7 @@ function RSA_crypt(texte,p,q){
 	var n = new bigInt(q.multiply(p));
 	console.log(n.toString());
 	var d = new bigInt(euclideEtenduBI(e,ind_euler)).mod(ind_euler);
-	$('#textecode').val(chiffrement(decoupeParTaille(decoupage(texte),8), e, n).join(' '));  // Par 4 temp 
+	$('#textecode').val(chiffrement(decoupeParTaille(decoupage(texte),30), e, n).join(' '));  // Par 4 temp 
 	$('.decrypter-button').attr("disabled", false);
 	$('#RSA_n').val(n.toString());
 	$('#RSA_e').val(e);
@@ -191,6 +191,7 @@ $(document).ready(function()
 			var n = document.getElementById("RSA_n").value;
 			if(n.trim() ===""){
 				var p=document.getElementById("RSA_p").value;
+				console.log(p);
 				var q=document.getElementById("RSA_q").value;
 				RSA_crypt(texte,p,q);
 			}
@@ -205,7 +206,7 @@ $(document).ready(function()
 			var texte=document.getElementById('textecode').value;
 			var n = document.getElementById("RSA_n").value;
 			var d = document.getElementById("RSA_d").value;
-            RSA_decryptage(texte,8);
+            RSA_decryptage(texte,30);
 		});
 		
 	$('#KeyGenRSA').mousedown(function()
@@ -221,7 +222,7 @@ $(document).ready(function()
 
 
 function genereNbPremier(){
-	var max  = bigInt("1e16");
+	var max  = bigInt("1e150");
 	var nb = bigInt.randBetween("1000",max);
 	if(nb.isEven())
 		nb = nb.add(1);
@@ -241,11 +242,11 @@ function MillerRobin(n, k) {
 		s = s.add(1);
 	}
  
-	WitnessLoop: do {
+	loop_verification: do {
 
 		var tmp = new bigInt(bigInt.randBetween("2", (n.minus(3)).toString(10)));
 		var x = new bigInt(tmp).modPow(d,n);
-		if (x.equals(1) || x.equals(n-1))
+		if (x.equals(1) || x.equals(n.minus(1)))
 			continue;
  
 		for (var i = s - 1; i--;) {
@@ -253,7 +254,7 @@ function MillerRobin(n, k) {
 			if (x.equals(1))
 				return false;
 			if (x.equals(n.prev()))
-				continue WitnessLoop;
+				continue loop_verification;
 		}
  
 		return false;

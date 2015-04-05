@@ -227,12 +227,15 @@ Matrice.prototype = {
 	gauss: function() {
 		var M = new Matrice(this), els;
 		var n = this.matrice.length, k = n, i, np, kp = this.matrice[0].length, p;
-		do { i = k - n;
+		do { 
+			i = k - n;
 			if (M.matrice[i][i] === 0) {
 				for (j = i + 1; j < k; j++) {
 					if (M.matrice[j][i] !== 0) {
-						els = []; np = kp;
-						do { p = kp - np;
+						els = []; 
+						np = kp;
+						do {
+							p = kp - np;
 							els.push(M.matrice[i][p] + M.matrice[j][p]);
 						} while (--np);
 						M.matrice[i] = els;
@@ -245,23 +248,17 @@ Matrice.prototype = {
 					var multiplier = M.matrice[j][i] / M.matrice[i][i];
 					els = []; np = kp;
 					do { p = kp - np;
-            // Elements with column numbers up to an including the number
-            // of the row that we're subtracting can safely be set straight to
-            // zero, since that's the point of this routine and it avoids having
-            // to loop over and correct rounding errors later
+
 	            els.push(p <= i ? 0 : M.matrice[j][p] - M.matrice[i][p] * multiplier);
 	        } while (--np);
 	        M.matrice[j] = els;
 	    }
 	}
 	} while (--n);
-	    /*for( i = 0; i < M.taille; i ++ ){
-	    	M.diviserLigne(i, M.matrice[i][i]);
-	    }*/
+	console.log(M);
 	    return M;
 	},
 	cofacteur:function(){
-		var determinant = this.calculdeterminant();
 		array = [];
 		for(var i = 0; i < this.taille; i++)
 			for(var j = 0; j < this.taille;j++){
@@ -269,8 +266,8 @@ Matrice.prototype = {
 				if((i+j)%2 !==0)
 					detCo*=-1;
 				array.push(detCo);
-			}
-			return new Matrice(array);
+		}
+		return new Matrice(array);
 	},
 	supprimerLigneColonne:function(mat, ligne, colonne){
 		var array_nouvelle_matrice = [];
@@ -374,6 +371,7 @@ Matrice.prototype = {
 		}
 		else{
 			determinant = euclideEtendu(determinant, mod);
+			console.log(determinant);
 			if(determinant === false){
 				return false;
 			}
