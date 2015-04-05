@@ -158,73 +158,77 @@ function cryptanalyseHill(texte, taille, alphabet,changeLetter){
 }
 
 function histo(tab){
-	CanvasJS.addColorSet("greenShades",
+	if(tab!==null){
+		var min = tab.length-15;
+		if(tab.length < 15)
+			min = 0;
+		tab = tab.slice(min, tab.length);
+	}
+		CanvasJS.addColorSet("greenShades",
                 [//colorSet Array
 
                 "#204D74"        
                 ]);
-    var chart = new CanvasJS.Chart("chartContainer",
-    {
-		colorSet: "greenShades",
-	zoomEnabled: true,
-	exportEnabled: true,
-	exportFileName: "Analyse_Frequencielle",
-      title:{
-        text: "Analyse Fréquentielle",
-		fontSize: 20,
-		fontWeight: "bolder",		
-      },
-      animationEnabled: true,
-      axisY: 	{
-        title: "Occurence",
-		titleFontColor: "black",
-		labelFontColor: "black",
-		labelFontSize: 20,
-		valueFormatString: "################################",
-		minimum:0
-		
-	},
-	  
-	  axisX: {
-		labelFontColor: "black",
-		labelFontSize: 20,
-		labelAutoFit:true,
-		interval: 1
-      },
-	  
-      legend: {
-        verticalAlign: "bottom",
-        horizontalAlign: "center"
-      },
-      //theme: "theme2",
-      data: 	[
+		var chart = new CanvasJS.Chart("chartContainer",
+		{
+			colorSet: "greenShades",
+			zoomEnabled: true,
+			exportEnabled: true,
+			exportFileName: "Analyse_Frequencielle",
+			title:{
+				text: "Analyse Fréquentielle",
+				fontSize: 20,
+				fontWeight: "bolder",		
+			},
+			animationEnabled: true,
+			axisY: 	{
+				title: "Occurence",
+				titleFontColor: "black",
+				labelFontColor: "black",
+				labelFontSize: 20,
+				valueFormatString: "################################",
+				minimum:0
 
-      {    
-		mouseover: function(e){
-			var texte=document.getElementById('textecode').value;
-			var chain = "";
-			for(var i=0;i<texte.length;i++)
-			{
-				if(texte[i]==e.dataPoint.label)
-					chain+='<span style="color:red">'+texte[i]+"</span>"
-				else
-					chain+=texte[i];
-			}
-			$("#editableDiv").html(chain);			
-		},
-        /*showInLegend: true, 
-        legendMarkerColor: "white",
-        legendText: " ",*/
-        dataPoints: tab
-      }   
-     ]
-    });
+			},
 
-    chart.render();
-  }
-  
+			axisX: {
+				labelFontColor: "black",
+				labelFontSize: 20,
+				labelAutoFit:true,
+				interval: 1
+			},
+
+			legend: {
+				verticalAlign: "bottom",
+				horizontalAlign: "center"
+			},
+			data: 	[
+
+			{    
+				mouseover: function(e){
+					var texte=document.getElementById('textecode').value;
+					var chain = "";
+					for(var i=0;i<texte.length;i++)
+					{
+						if(texte[i]==e.dataPoint.label)
+							chain+='<span style="color:red">'+texte[i]+"</span>"
+						else
+							chain+=texte[i];
+					}
+					$("#editableDiv").html(chain);			
+				},
+				dataPoints: tab
+			}   
+			]
+		});
+	chart.render();
+}
+
 function histoPourcent(tab){
 	tab=calculFrequencePourcentage(tab);
+	var min = tab.length-15;
+	if(tab.length < 15)
+		min = 0;
 	CanvasJS.addColorSet("greenShades",
                 [//colorSet Array
 
@@ -283,7 +287,7 @@ function histoPourcent(tab){
         /*showInLegend: true, 
         legendMarkerColor: "white",
         legendText: " ",*/
-        dataPoints: tab
+        dataPoints: tab.slice(min, tab.length)
       }   
      ]
     });
@@ -317,7 +321,7 @@ function key_Cesar(text,alphabet,iteration,changeLetter){
 		var array=arrayFreqApparition(1);
 		var caraMaxOcurrence = alphabet.indexOf(maxFreq(text,1,changeLetter).label);
 		var letterMostUse = alphabet.indexOf(array[iteration].toUpperCase());
-		var key =(letterMostUse-caraMaxOcurrence)%alphabet.length;
+		var key =(caraMaxOcurrence-letterMostUse)%alphabet.length;
 		if(key<0)
 			key+=alphabet.length;
 	
@@ -413,9 +417,16 @@ function factoriser(n){
 }
 $(document).ready(function()
 { 	
+	var histoF = false;
 	$("#changeHisto").mousedown(function()
 	{	var texte=document.getElementById('textecode').value;
-		histoPourcent(frequence(texte,1));
+		if(histoF){
+			histo(frequence(texte,keylength),false);
+		}
+		else{
+			histoPourcent(frequence(texte,1));
+		}
+		histoF = !histoF;
 	});
 
 	var iteration =0;
@@ -461,6 +472,7 @@ $(document).ready(function()
 	$('#reset').mousedown(function(event) {
 		iteration = 0;
 		changeLetter = 0;
+		histo(null);
 	});
 });
 

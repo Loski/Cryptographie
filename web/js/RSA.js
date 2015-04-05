@@ -226,11 +226,11 @@ $(document).ready(function()
 
 
 function genereNbPremier(){
-	var max  = bigInt("1e300");
+	var max  = bigInt("1e200");
 	var nb = bigInt.randBetween("1000",max);
 	if(nb.isEven())
 		nb = nb.add(1);
-	while(!MillerRobin(nb,30))
+	while(!MillerRobin(nb,20))
 		nb = nb.add(2);
 	return nb.toString();
 }

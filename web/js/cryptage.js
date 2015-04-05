@@ -97,18 +97,14 @@ function hill(choice){
 	var texte = recupererTexte(choice);
 	var matrice = recupererMatrice();
 	var mod = recupererRadio();
-	var alphabet;
-	if(mod === 0){
-		mod = 26;
-		texte = nettoyage(texte.toUpperCase());
-	}
-	else {
-		mod = creerAlphabet(0).length;
-	}
+	var alphabet;	
+	mod = creerAlphabet().length;
 	var determinant = matrice.verifMatrice(mod);
 	if(determinant===false)
 		return;
 	if(choice == 1){
+		if(mod === 26)
+			texte = nettoyage(texte.toUpperCase());
 		$('#textecode').val(crypte_hill(texte, matrice));
 	}
 	else{
