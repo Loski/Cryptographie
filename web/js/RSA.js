@@ -47,7 +47,7 @@ function RSA_crypt(texte,p,q){
 	q = bigInt(q);
 	p = bigInt(p);
 	var premier = true;
-	if(!p.isPrime())
+	if(!MillerRobin(p,30))
 	{
 		$('#RSA_p').popover(); //A mettre dans la vérif de clé (genre le même truc que Hill)
 		premier = false;
@@ -58,7 +58,7 @@ function RSA_crypt(texte,p,q){
 		$('#RSA_p').popover('destroy');
 	}
 	
-	if(!q.isPrime())
+	if(!MillerRobin(q,30))
 	{
 		$('#RSA_q').popover(); //A mettre dans la vérif de clé (genre le même truc que Hill)
 		premier = false;
@@ -86,6 +86,9 @@ function RSA_crypt(texte,p,q){
 	var n = new bigInt(q.multiply(p));
 	console.log(n.toString());
 	var d = new bigInt(euclideEtenduBI(e,ind_euler)).mod(ind_euler);
+	var nbBlo = nbBloc(n);
+	while(texte.length <nbBlo/3)
+		texte+=" ";
 	$('#textecode').val(chiffrement(decoupeParTaille(decoupage(texte),nbBloc(n)), e, n).join(' '));  // Par 4 temp 
 	$('.decrypter-button').attr("disabled", false);
 	$('#RSA_n').val(n.toString());
