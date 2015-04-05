@@ -83,11 +83,11 @@
 function vigenere_decrypt(texte,cle,alphabet,paquet){
 	var decrypt="";
 	var modulo = alphabet.length;
-	
+	var iteration=0;
+	var OK=0;
 	//déCodage par paquets
 	if(paquet>1)
 	{
-		var iteration=0;
 		for(var i=0,j=0;i<texte.length;i+=2)
 		{
 			console.log(iteration,cle.charAt(j),texte[i],iteration%paquet==0);
@@ -123,7 +123,7 @@ function vigenere_decrypt(texte,cle,alphabet,paquet){
 	
 	for(var i=0,j=0;i<texte.length;i++)
 	{
-		if(i%paquet==0 && i!=0)
+		if(iteration!=0 && OK)
 				j++;
 	
 		if(j==cle.length) //on reboucle sur le début de la clé
@@ -141,14 +141,17 @@ function vigenere_decrypt(texte,cle,alphabet,paquet){
 				somme+=modulo;
 			var val = alphabet.charAt(somme);
 			decrypt+=val.toLowerCase();
-			
+			OK=true;
 		}
 		
 		else
 		{
 			indice=alphabet.indexOf(cara);
 			if(indice==-1)
+			{
+				OK=false;
 				decrypt+=cara;
+			}
 			else
 			{
 				var somme=(indice-alphabet.indexOf(cle.charAt(j)))%modulo; //position dans l'alphabet
@@ -156,6 +159,8 @@ function vigenere_decrypt(texte,cle,alphabet,paquet){
 					somme+=modulo;
 				var val = alphabet.charAt(somme);
 				decrypt+=val;
+				iteration++;
+				OK=true;
 			}
 		}
 	}
