@@ -377,7 +377,6 @@ function indiceCoincidence(array){
 	for(var i = 0; i < array.length; i++){
 		somme += (array[i].y*(array[i].y-1))/(n*(n-1));
 	}
-	console.log(somme);
 	return somme;
 }
 function calculSommeLettre(array){

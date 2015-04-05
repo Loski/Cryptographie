@@ -161,7 +161,7 @@ function afficherMatrice(matrice){
 }
 function retourneMot(mot_chiffre, alphabet){
 	var mot_chiffre_text = "";
-	for(var i = 0; i < mot_chiffre.length;i++) // - 1 pour virer la chaine vide créer par le split avec la dernière fucking virgule
+	for(var i = 0; i < mot_chiffre.length;i++)
 		mot_chiffre_text += alphabet[Math.abs(parseInt(mot_chiffre[i]))];
 	return mot_chiffre_text;
 }

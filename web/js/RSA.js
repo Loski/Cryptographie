@@ -34,10 +34,13 @@ function pgcdBI(a,b){
 	}
 	return a;
 }
+function nbBloc(n){
+	return n.toString().length -1;
+}
 function RSA_cryptePublic(texte, n, e){
 	n = bigInt(n);
 	e = bigInt(e);
-	$('#textecode').val(chiffrement(decoupeParTaille(decoupage(texte),30), e, n).join(' '));
+	$('#textecode').val(chiffrement(decoupeParTaille(decoupage(texte),nbBloc(n)), e, n).join(' '));
 
 }
 function RSA_crypt(texte,p,q){
@@ -83,7 +86,7 @@ function RSA_crypt(texte,p,q){
 	var n = new bigInt(q.multiply(p));
 	console.log(n.toString());
 	var d = new bigInt(euclideEtenduBI(e,ind_euler)).mod(ind_euler);
-	$('#textecode').val(chiffrement(decoupeParTaille(decoupage(texte),30), e, n).join(' '));  // Par 4 temp 
+	$('#textecode').val(chiffrement(decoupeParTaille(decoupage(texte),nbBloc(n)), e, n).join(' '));  // Par 4 temp 
 	$('.decrypter-button').attr("disabled", false);
 	$('#RSA_n').val(n.toString());
 	$('#RSA_e').val(e);
@@ -144,10 +147,8 @@ function euclideEtenduBI(determinant, mod){
 		return new bigInt(mod.add(u));
 }
 
-function RSA_decryptage(texte,taillebloc){
+function RSA_decryptage(texte, n, d,taillebloc){
     var s=texte.split(" ");
-    var n=bigInt($('#RSA_n').val());
-    var d=bigInt($('#RSA_d').val());
     var walid="";
     for(var i=0;i<s.length-1;i++)
     {
@@ -206,7 +207,7 @@ $(document).ready(function()
 			var texte=document.getElementById('textecode').value;
 			var n = document.getElementById("RSA_n").value;
 			var d = document.getElementById("RSA_d").value;
-            RSA_decryptage(texte,30);
+            RSA_decryptage(texte,n,d,nbBloc(n));
 		});
 		
 	$('#KeyGenRSA').mousedown(function()
