@@ -354,12 +354,22 @@ else{
 	}
 	var key="";
 	console.log(row);
-	
+	if(document.getElementById('keyCryptanalyse').value=='')
+	{
 	for(var i=0,j=0;j<keyLength;i+=text.length/keyLength,j++)
 	{
-		key+=vig_row_analyse(row.substring(i,i+text.length/keyLength),alphabet,iteration,changeLetter);
+			key+=vig_row_analyse(row.substring(i,parseInt(i+text.length/keyLength)),alphabet,iteration,changeLetter);
 	}
-	
+	}
+	else
+	{
+		key=document.getElementById('keyCryptanalyse').value;
+		var pos=(keyLength-(iteration-1)%keyLength);
+		console.log(pos,key.slice(0,pos-1),key.slice(pos),parseInt((pos-1) * text.length/keyLength),parseInt((pos-1) * text.length/keyLength+text.length/keyLength));
+		if(pos-1<0)
+			pos=2;
+		key=key.slice(0,pos-1) +vig_row_analyse(row.substring( parseInt((pos-1) * text.length/keyLength) ,parseInt((pos-1) * text.length/keyLength+text.length/keyLength)),alphabet,parseInt(iteration/keyLength),changeLetter) + key.slice(pos);
+	}
 	document.getElementById('keyVig').value=key;
 	document.getElementById('keyCryptanalyse').value=key;
 	vigenere_decrypt(text,key,alphabet,1);
