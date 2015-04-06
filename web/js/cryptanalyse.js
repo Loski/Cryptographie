@@ -464,7 +464,11 @@ $(document).ready(function()
 		}
 		else if(cryptage == 5){
 			var p = factoriser($('#cryRSA').val());
-			var q = new bigInt($('#cryRSA').val).divis
+			var q = new bigInt($('#cryRSA').val()).divide(p);
+			var pAffichage = "<p class='bg-success'>"+p.toString()+"</p>";
+			var qAffichage = "<p class='bg-success'>"+q.toString()+"</p>";
+			$('#cryRSA').after(pAffichage);
+			$('#cryRSA').after(qAffichage);
 		}
 		else{
 			//nodef
