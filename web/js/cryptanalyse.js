@@ -414,17 +414,7 @@ function nombrePremierJusqua(n){
 	}
 	return nbPremier;
 }
-function factoriser(n){
-	var nbPremier = nombrePremierJusqua(n);
-	for(var i =0; i < nbPremier.length;i++){
-		for(var j =0; j < nbPremier.length;j++){
-			if(i!=j)
-				if(nbPremier[i]*nbPremier[j] === n)
-					return {p:nbPremier[i], q:nbPremier[j]};
-		}
-	}
-	return false;
-}
+
 $(document).ready(function()
 { 	
 	var histoF = false;
@@ -432,9 +422,11 @@ $(document).ready(function()
 	{	var texte=document.getElementById('textecode').value;
 		if(histoF){
 			histo(frequence(texte,keylength),false);
+			$("#changeHisto").val("Afficher en pourcentage");
 		}
 		else{
-			histoPourcent(frequence(texte,1));
+			histoPourcent(frequence(texte,keylength));
+			$("#changeHisto").val("Afficher en fréquence");
 		}
 		histoF = !histoF;
 	});
@@ -444,19 +436,21 @@ $(document).ready(function()
 	$("#cryptanalyseDecrypt").mousedown(function()                //Foutre un reset en cas de changement du bouton radio/texte codé
 	{
 		var texte=document.getElementById('textecode').value;
-		var keylength = parseInt(document.getElementById('keySize').value);
+		keylength = parseInt(document.getElementById('keySize').value); // personne ne met de var devant je la veut en global
 		var alphabet = document.getElementById('alphabet').value;
 		var cryptage = recupererRadio2();
 		
 		if (cryptage ==1)
 		{
+			keylength = 1;
 			if(iteration==0)
-				histo(frequence(texte,1),false);
-			key_Vigenere(alphabet,texte,1,iteration%alphabet.length,changeLetter);
+				histo(frequence(texte,keylength),false);
+			key_Vigenere(alphabet,texte,keylength,iteration%alphabet.length,changeLetter);
 		}
 		else if(cryptage == 2){
+			keylength = 1;
 			if(iteration==0)
-				histo(frequence(texte,1),false);
+				histo(frequence(texte,keylength),false);
 			key_Vigenere(alphabet,texte,keylength,iteration%alphabet.length,changeLetter);
 		}
 		else if(cryptage == 3){
@@ -469,7 +463,8 @@ $(document).ready(function()
 			///afine
 		}
 		else if(cryptage == 5){
-			//rsa
+			var p = factoriser($('#cryRSA').val());
+			var q = new bigInt($('#cryRSA').val).divis
 		}
 		else{
 			//nodef
@@ -485,4 +480,27 @@ $(document).ready(function()
 		histo(null);
 	});
 });
+
+
+function factoriser(n){
+	n = new bigInt(n);
+	var y = new bigInt(2);
+	var x = new bigInt(2);
+	var d = new bigInt(1);
+ 
+	while (d.equals(1) || d.equals(n)) {
+		x = g(x,n);
+		y = g(y,n);
+		y = g(y,n);
+		d = bigInt.gcd(new bigInt(x.minus(y).abs()),n);
+
+	}
+
+	return d;
+}
+
+
+function g(x,n){
+	return x.multiply(x).add(1).mod(n);
+}
 
