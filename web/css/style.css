@@ -30,7 +30,7 @@ button, label{
 }
 
 
-#editableDiv,#resultat { 
+#editableDiv,#resultat,#RSADiv { 
   word-wrap: break-word;
 }
 
