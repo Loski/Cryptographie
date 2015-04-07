@@ -462,7 +462,6 @@ $(document).ready(function()
 			key_Vigenere(alphabet,texte,keylength,iteration%alphabet.length,changeLetter);
 		}
 		else if(cryptage == 2){
-			keylength = 1;
 			if(iteration==0)
 				histo(frequence(texte,keylength),false);
 			key_Vigenere(alphabet,texte,keylength,iteration%alphabet.length,changeLetter);
