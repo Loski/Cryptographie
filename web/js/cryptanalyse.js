@@ -306,7 +306,7 @@ function histoPourcent(tab){
  }
 function maxFreq(texte, taille, changeLetter){
 	var array = frequence(texte, taille);
-	return array[array.length - (1 + changeLetter)];
+	return array[array.length - (1 + changeLetter)].label;
 }
 function maxFreqArray(array, i){
 	return array[array.length - (1+i)].label;
@@ -318,14 +318,19 @@ function decryptCesarAppel(key){
 
 function key_Cesar(text,alphabet,iteration,changeLetter){
 
-		var array=arrayFreqApparition(1);
-		var caraMaxOcurrence = alphabet.indexOf(maxFreq(text,1,changeLetter).label);
-		var letterMostUse = alphabet.indexOf(array[iteration].toUpperCase());
+		var array=frequence(text, 1);
+		var arrayAppar = arrayFreqApparition(1);
+		//console.log(array);
+		var caraMaxOcurrence = alphabet.indexOf(maxFreq(text,1,changeLetter));
+		if(caraMaxOcurrence==-1)
+			caraMaxOcurrence = alphabet.indexOf(maxFreq(text,1,changeLetter+1));
+		var letterMostUse = alphabet.indexOf(arrayAppar[iteration].toUpperCase());
 		var key =(caraMaxOcurrence-letterMostUse)%alphabet.length;
+		console.log(caraMaxOcurrence,letterMostUse,"Key ces :",key);
 		if(key<0)
 			key+=alphabet.length;
 	
-		console.log(maxFreq(text,1,changeLetter).label,array[iteration].toUpperCase());
+		console.log(maxFreq(text,1,changeLetter),arrayAppar[iteration].toUpperCase());
 		return key;
 }
 
@@ -343,6 +348,8 @@ function key_Vigenere(alphabet,text,keyLength,iteration,changeLetter)
 		
 	}
 else{
+
+	text=text.replace(/\s/gi,'');
 	var row = "";
 	
 	for(var j=0;j<keyLength;j++)
@@ -463,7 +470,7 @@ $(document).ready(function()
 		}
 		else if(cryptage == 2){
 			if(iteration==0)
-				histo(frequence(texte,keylength),false);
+				histo(frequence(texte,1),false);
 			key_Vigenere(alphabet,texte,keylength,iteration%alphabet.length,changeLetter);
 		}
 		else if(cryptage == 3){
