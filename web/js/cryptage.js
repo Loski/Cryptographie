@@ -191,6 +191,16 @@ Matrice.prototype = {
 			return Math.round(matricetmp.multiDiago());
 		}
 	},
+	toString:function(){
+		var s ="<br/>";
+		for(var i = 0; i < this.taille;i++){
+			for(var j = 0; j < this.taille;j++){
+				s+=this.matrice[i][j] + "    ";
+			}
+			s+="<br/>";
+		}
+		return s;
+	},
 	verifCarre: function(){
 		return this.matrice.length === this.matrice[0].length;
 	},
@@ -251,7 +261,6 @@ Matrice.prototype = {
 	    }
 	}
 	} while (--n);
-	console.log(M);
 	    return M;
 	},
 	cofacteur:function(){
@@ -367,7 +376,6 @@ Matrice.prototype = {
 		}
 		else{
 			determinant = euclideEtendu(determinant, mod);
-			console.log(determinant);
 			if(determinant === false){
 				return false;
 			}

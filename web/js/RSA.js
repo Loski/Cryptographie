@@ -94,8 +94,8 @@ function RSA_crypt(texte,p,q){
 	$('#RSA_n').val(n.toString());
 	$('#RSA_e').val(e);
 	$('#RSA_d').val(d);
-	$('#RSADiv').append("La clé publique est : ("+n+","+e+")");
-	$('#RSADiv').append("<br />La clé privée est : ("+n+","+d+")");
+	$('#RSADiv').append("<p>La clé publique est : ("+n.toString()+",   "+e.toString()+")</p>");
+	$('#RSADiv').append("<br /><p>La clé privée est : ("+n.toString()+",    "+d.toString()+")</p>");
 }
 function decoupage(texte){
 	var str = "";
@@ -226,7 +226,7 @@ $(document).ready(function()
 
 
 function genereNbPremier(){
-	var max  = bigInt("1e200");
+	var max  = bigInt("1e30");
 	var nb = bigInt.randBetween("1000",max);
 	if(nb.isEven())
 		nb = nb.add(1);
@@ -266,3 +266,4 @@ function MillerRobin(n, k) {
  
 	return true;
 }
+
