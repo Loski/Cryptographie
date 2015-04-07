@@ -230,7 +230,7 @@ $(document).ready(function()
 
 
 function genereNbPremier(){
-	var max  = bigInt("1e30");
+	var max  = bigInt("1e200");
 	var nb = bigInt.randBetween("1000",max);
 	if(nb.isEven())
 		nb = nb.add(1);

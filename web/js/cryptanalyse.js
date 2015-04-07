@@ -70,13 +70,13 @@ function  arrayFreqApparition(n, alphabet){
 		case 1:
 			return " easintrluodcmpvgfqhbxjyzkw ".split('');
 		case 2:
-			return "es,le,de,re,en,on,nt,er,te,et,el,an,se,la,ai,ne,ou,qu,me,it,ie,em,ed,ur,is,ec,ue,ti,ra,ns,in,ta".split(',');
+			return "es,le,de,re,en,on,nt,er,te,of,th,et,el,an,se,la,ai,ne,ou,qu,me,it,ie,em,ed,ur,is,ec,ue,ti,ra,ns,in,ta".split(',');
 		case 3: 
 			return "ent,que,les,ede,des,ela,ion,ait,res".split(',');
 		case 4:
 			return "tion,ment,ique,emen,dela,elle".split(',');
 	}
-			return "e , e,d ,s ,t , d, t,en,l ,de,le,on,nt, s,ai".split(',');   //Bigramme alpha ettendu
+			return "e , e,d ,s ,t ,of,th, d, t,en,l ,de,le,on,nt, s,ai".split(',');   //Bigramme alpha ettendu
 	
 	
 }
@@ -146,7 +146,7 @@ function cryptanalyseHill(texte, taille, alphabet,changeLetter){
 							if(matriceInverse.verifMatriceGen(alphabet.length) !==false){  //matrice inversible sinon inutile
 								matriceInverse = matriceInverse.inverserMatrice(alphabet.length);
 								matrice = matriceCrypter.multiplicationMatrice(matriceInverse);
-								s += '<li class="list-group-item">' + crypte_hill(texte, matrice,alphabet.length) + '</li>';
+								s += '<li class="list-group-item">' + crypte_hill(texte, matrice,alphabet.length) + matrice.toString() + '</li>';
 							}
 						}
 					}
@@ -417,6 +417,20 @@ function nombrePremierJusqua(n){
 
 $(document).ready(function()
 { 	
+	$('#CryptanalyseDiv label input[type=radio]').click(function(e){
+	if(e.target.value == 5){
+		$('#cryRSA').show();
+		$('#chartContainer').hide();
+		$('#changeHisto').hide();
+		$('#keyCryptanalyse').hide();
+	}
+	else{
+		$('#cryRSA').hide();
+		$('#chartContainer').show();
+		$('#changeHisto').show();
+		$('#keyCryptanalyse').show();
+	}
+});
 	var histoF = false;
 	$("#changeHisto").mousedown(function()
 	{	var texte=document.getElementById('textecode').value;
@@ -463,15 +477,16 @@ $(document).ready(function()
 			///afine
 		}
 		else if(cryptage == 5){
-			var p = factoriser($('#cryRSA').val());
-			var q = new bigInt($('#cryRSA').val()).divide(p);
+			var p = factoriser($('#n_pu').val());
+			var q = new bigInt($('#n_pu').val()).divide(p);
 			var pAffichage = "<p class='bg-success'>"+p.toString()+"</p>";
 			var qAffichage = "<p class='bg-success'>"+q.toString()+"</p>";
 			$('#cryRSA').after(pAffichage);
 			$('#cryRSA').after(qAffichage);
+			retrouverCle(new bigInt($('#e_pu').val()), p, q);
 		}
 		else{
-			//nodef
+			$('#CryptanalyseDiv').after('<p>L\'indice de coincidence est : ' +indiceCoincidence(frequence(texte, 1))+ '</p>');
 		}
 		
 		iteration++;
@@ -499,7 +514,6 @@ function factoriser(n){
 		d = bigInt.gcd(new bigInt(x.minus(y).abs()),n);
 
 	}
-
 	return d;
 }
 
@@ -508,3 +522,9 @@ function g(x,n){
 	return x.multiply(x).add(1).mod(n);
 }
 
+
+function retrouverCle(e, p, q){
+	var ind_euler = (p.minus(1).multiply(q.minus(1)));
+	var d = new bigInt(euclideEtenduBI(e,ind_euler)).mod(ind_euler);
+	$('#cryRSA').after("<br /><p>La clé privée est : ("+p.multiply(q).toString()+",    "+d.toString()+")</p>");
+}
