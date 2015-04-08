@@ -1,6 +1,26 @@
+A={'1':1,'3':9,'5':21,'7':15,'9':3,'11':19,'15':7,'17':23,'19':11,'21':5,'23':17,'25':25};
 $(document).ready(function()
 {
-    function caractereSpeciaux(ce)
+    
+    
+    $('#crypterAffine').click(function()
+    {
+
+     var cA=parseInt($('#CA').val());
+     var cB=parseInt($('#CB').val())%26;
+    cryptAffine(cA,cB);
+    });
+    
+    $('#decrypterAffine').click(function()
+    {
+     var cA=$('#CA').val();
+     var cB=parseInt($('#CB').val())%26;
+     decryptAffine(cA,cB);
+    });
+   
+});
+
+function caractereSpeciaux(ce)
         {
       if(ce==232 || ce==233 || ce==234 ||ce==255)
         ce=101;
@@ -35,13 +55,10 @@ $(document).ready(function()
 
       return ce;
         }
-    
-    $('#crypterAffine').click(function()
-    {
 
-     var cA=parseInt($('#CA').val());
-     var cB=parseInt($('#CB').val())%26;
-    var texteACrypter=document.getElementById('texteclair').value;
+function cryptAffine(cA,cB)
+    {
+        var texteACrypter=document.getElementById('texteclair').value;
      var texteCrypter="";
      var tab=[];
      for(var i=0;i<texteACrypter.length;i++){
@@ -60,14 +77,10 @@ $(document).ready(function()
        texteCrypter=texteCrypter+String.fromCharCode(tab[i]);
      }
      $('#textecode').val(texteCrypter);
-    });
-    
-    $('#decrypterAffine').click(function()
+    }
+    function decryptAffine(cA,cB)
     {
-     var texteADeCrypter=document.getElementById('textecode').value;
-     var cA=$('#CA').val();
-     var cB=parseInt($('#CB').val())%26;
-     var A={'1':1,'3':9,'5':21,'7':15,'9':3,'11':19,'15':7,'17':23,'19':11,'21':5,'23':17,'25':25};
+        var texteADeCrypter=document.getElementById('textecode').value;
      var texteClaire="";
      var tab=[];
      for(var i=0;i<texteADeCrypter.length;i++){
@@ -89,5 +102,5 @@ $(document).ready(function()
        texteClaire=texteClaire+String.fromCharCode(tab[i]);
      }
      $('#texteclair').val(texteClaire);
-    });
-});
+        return texteClaire;
+    }

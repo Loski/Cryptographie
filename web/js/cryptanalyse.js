@@ -480,7 +480,10 @@ $(document).ready(function()
 			
 		}
 		else if(cryptage == 4){
-			///afine
+            var freq=frequence(texte,1);
+			if(iteration==0)
+                histo(freq,false);
+            analyseAffine(texte,freq,iteration);
 		}
 		else if(cryptage == 5){
 			var p = factoriser($('#n_pu').val());
@@ -515,7 +518,7 @@ function factoriser(n){
  
 	while (d.equals(1) || d.equals(n)) {
 		x = g(x,n);
-		y = g(y,n);
+		y = g(creerAlphabety,n);
 		y = g(y,n);
 		d = bigInt.gcd(new bigInt(x.minus(y).abs()),n);
 
@@ -533,4 +536,33 @@ function retrouverCle(e, p, q){
 	var ind_euler = (p.minus(1).multiply(q.minus(1)));
 	var d = new bigInt(euclideEtenduBI(e,ind_euler)).mod(ind_euler);
 	$('#cryRSA').after("<br /><p>La clé privée est : ("+p.multiply(q).toString()+",    "+d.toString()+")</p>");
+}
+
+function analyseAffine(texte,freq,iteration)
+{
+ var A=[1,9,21,15,3,19,7,23,11,5,17,25];
+   var tabCoef=[];
+   var tabTexte=[];
+   var equation={a:4,y:(freq[freq.length-1].label.charCodeAt(0)-97)};
+    
+    for(var i=2;i<freq.length+1;i++)
+    {
+        var x=((freq[freq.length-i].label.charCodeAt(0)-97-equation.y)+26)%26;
+        var a=(18-equation.a+26)%26;
+        var j=0;
+        while(j<A.length && (a*A[j]%26)!=x)
+        {
+            j++;
+        }
+        if(j!=A.length)
+           {
+           a=A[j];
+           b=equation.y-((a*4)%26);
+           tabCoef.push({a:a,b:b});
+           }
+        j=0;
+    }
+        if(iteration<tabCoef.length)
+            tabTexte.push(decryptAffine(tabCoef[iteration].a,tabCoef[iteration].b));
+
 }

@@ -36,7 +36,6 @@ $(document).ready(function()
   return ce;
     }
     
-    
   $('#crypterCesar').click(function()
   {
       var texteACrypter=document.getElementById('texteclair').value;
