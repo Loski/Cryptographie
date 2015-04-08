@@ -152,26 +152,22 @@ function euclideEtenduBI(determinant, mod){
 
 function RSA_decryptage(texte, n, d,taillebloc){
     var s=texte.split(" ");
-    var walid=""
-    console.log(n);
-    console.log(d);
+    var walid="";
     for(var i=0;i<s.length-1;i++)
     {
         s[i]=bigInt(s[i]);
         s[i]=s[i].modPow(d,n);
         s[i]=s[i].toString();
-        console.log(s[i]);
+        
         if(s[i].length<taillebloc)
             {
                 s[i]="0".repeat(taillebloc-s[i].length)+s[i];
             }
-        console.log(s[i]);
         walid=walid+s[i];
     }
     s[s.length-1]=bigInt(s[s.length-1]);
         s[s.length-1]=s[s.length-1].modPow(d,n);
         s[s.length-1]=s[s.length-1].toString();
-    console.log(s[s.length-1]);
     walid=walid+s[s.length-1];
     var tab=[];
     for(i=0;i<walid.length;i=i+3)

@@ -518,7 +518,7 @@ function factoriser(n){
  
 	while (d.equals(1) || d.equals(n)) {
 		x = g(x,n);
-		y = g(creerAlphabety,n);
+		y = g(y,n);
 		y = g(y,n);
 		d = bigInt.gcd(new bigInt(x.minus(y).abs()),n);
 
